@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  MemapApp
+
+  Created by Vu Dinh Phong on 28/02/2026.
+  
+*/
+
+NSLocationWhenInUseUsageDescription = "Memap cần xác định vị trí của bạn để lưu thông tin mỗi khi bạn chụp ảnh.";
+NSLocationAlwaysAndWhenInUseUsageDescription = "Memap luôn luôn cần xác định vị trí của bạn để lưu thông tin mỗi khi bạn chụp ảnh.";

@@ -1,0 +1,11 @@
+/* 
+  Memap.strings
+  MemapPresentation
+
+  Created by Vu Dinh Phong on 06/03/2026.
+  
+*/
+
+"ADD_PLACE" = "Thêm địa điểm";
+"REMOVE_PLACE" = "Xoá địa điểm";
+"UNKNOWN_PLACE" = "Địa điểm không xác định";

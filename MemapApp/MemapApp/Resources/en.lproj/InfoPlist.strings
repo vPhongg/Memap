@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  MemapApp
+
+  Created by Vu Dinh Phong on 28/02/2026.
+  
+*/
+
+NSLocationWhenInUseUsageDescription = "Memap needs your current location so that it can track and save information anytime you take a quick shot.";
+NSLocationAlwaysAndWhenInUseUsageDescription = "Memap needs your current location to run in background so that it can track and save information anytime you take a quick shot.";

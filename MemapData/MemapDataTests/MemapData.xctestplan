@@ -1,0 +1,34 @@
+{
+  "configurations" : [
+    {
+      "id" : "80C72E61-C817-4D12-9315-8567C9CFB5A9",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:MemapData.xcodeproj",
+          "identifier" : "33C1B43E2F4ECD4D002F8AEF",
+          "name" : "MemapData"
+        }
+      ]
+    },
+    "performanceAntipatternCheckerEnabled" : true,
+    "testExecutionOrdering" : "random"
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:MemapData.xcodeproj",
+        "identifier" : "33C1B9FE2F501424002F8AEF",
+        "name" : "MemapDataTests"
+      }
+    }
+  ],
+  "version" : 1
+}

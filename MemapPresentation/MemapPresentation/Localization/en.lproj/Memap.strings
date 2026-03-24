@@ -1,0 +1,11 @@
+/* 
+  Memap.strings
+  MemapPresentation
+
+  Created by Vu Dinh Phong on 06/03/2026.
+  
+*/
+
+"ADD_PLACE" = "Add Place";
+"REMOVE_PLACE" = "Remove Place";
+"UNKNOWN_PLACE" = "Unknown Place";

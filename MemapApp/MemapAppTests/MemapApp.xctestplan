@@ -1,0 +1,30 @@
+{
+  "configurations" : [
+    {
+      "id" : "0BEC8A18-245A-4C72-A706-36BAC1B79890",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:MemapApp.xcodeproj",
+      "identifier" : "335111E82F3F23E80045946D",
+      "name" : "MemapApp"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:MemapApp.xcodeproj",
+        "identifier" : "335112012F3F23EA0045946D",
+        "name" : "MemapAppTests"
+      }
+    }
+  ],
+  "version" : 1
+}

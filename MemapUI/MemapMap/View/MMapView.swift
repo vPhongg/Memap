@@ -1,0 +1,68 @@
+//
+//  MMapView.swift
+//  MemapMap
+//
+//  Created by Vu Dinh Phong on 23/03/2026.
+//
+
+import UIKit
+import SwiftUI
+import MapKit
+
+public struct MMapView: UIViewRepresentable {
+    
+    private var mapItems: [MMapItem]
+    private var onSelectItem: (MMapItem) -> Void
+    @Binding private var isPresentingPlaceInfoDetailView: Bool
+    
+    public init(
+        mapItems: [MMapItem],
+        isPresentingPlaceInfoDetailView: Binding<Bool>,
+        onSelectItem: @escaping (MMapItem) -> Void
+        
+    ) {
+        self.mapItems = mapItems
+        self._isPresentingPlaceInfoDetailView = isPresentingPlaceInfoDetailView
+        self.onSelectItem = onSelectItem
+    }
+    
+    public func makeUIView(context: Context) -> MKMapView {
+        let map = MKMapView()
+        context.coordinator.mapView = map
+        map.delegate = context.coordinator
+        map.showsUserLocation = true
+        map.pointOfInterestFilter = .includingAll
+        map.selectableMapFeatures = [.physicalFeatures, .pointsOfInterest, .territories]
+        map.setUserTrackingMode(.follow, animated: true)
+        registerAnnotationViewClasses(for: map)
+        return map
+    }
+    
+    public func updateUIView(_ mapView: MKMapView, context: Context) {
+        mapView.removeAnnotations(mapView.annotations)
+        mapView.addAnnotations(mapItems.toMMapAnnotations())
+    }
+    
+    public func makeCoordinator() -> MMapCoordinator {
+        let coordinator = MMapCoordinator()
+        coordinator.delegate = MMapViewCoordinatorAdapter()
+        return coordinator
+    }
+    
+    private func registerAnnotationViewClasses(for mapView: MKMapView) {
+        mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: NSStringFromClass(CustomAnnotationView.self))
+    }
+    
+}
+
+final class MMapViewCoordinatorAdapter: MMapCoordinatorDelegate {
+    func didSelectCustomAnnotation(_ annotation: any MKAnnotation) {
+        print("didSelectCustomAnnotation")
+    }
+    
+    func didSelectMapKitPOI(_ annotation: any MKAnnotation) {
+        print("didSelectMapKitPOI")
+    }
+    
+    
+}
