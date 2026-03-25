@@ -1,3 +1,5 @@
 *.xcuserstate
 MemapUI/.DS_Store
 MemapApp/.DS_Store
+MemapUI/MemapUI.xcodeproj/xcuserdata/vphong.xcuserdatad/xcschemes/xcschememanagement.plist
+MemapData/MemapData.xcodeproj/xcuserdata/vphong.xcuserdatad/xcschemes/xcschememanagement.plist
