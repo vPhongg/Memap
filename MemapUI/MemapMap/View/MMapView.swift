@@ -12,7 +12,7 @@ import MapKit
 public struct MMapView: UIViewRepresentable {
     
     private var mapItems: [MMapItem]
-    private var onSelectItem: (MMapItem) -> Void
+    var onSelectItem: (MMapItem) -> Void
     @Binding private var isPresentingPlaceInfoDetailView: Bool
     
     public init(
@@ -45,7 +45,11 @@ public struct MMapView: UIViewRepresentable {
     
     public func makeCoordinator() -> MMapCoordinator {
         let coordinator = MMapCoordinator()
-        coordinator.delegate = MMapViewCoordinatorAdapter()
+        let adapter = MMapViewCoordinatorAdapter()
+        adapter.onSelectMapKitPOI = { annotation in
+            isPresentingPlaceInfoDetailView = true
+        }
+        coordinator.delegate = adapter
         return coordinator
     }
     
@@ -56,13 +60,16 @@ public struct MMapView: UIViewRepresentable {
 }
 
 final class MMapViewCoordinatorAdapter: MMapCoordinatorDelegate {
+    
+    var onSelectCustomAnnotation: ((MKAnnotation) -> Void)?
+    var onSelectMapKitPOI: ((MKAnnotation) -> Void)?
+    
     func didSelectCustomAnnotation(_ annotation: any MKAnnotation) {
-        print("didSelectCustomAnnotation")
+        onSelectCustomAnnotation?(annotation)
     }
     
     func didSelectMapKitPOI(_ annotation: any MKAnnotation) {
-        print("didSelectMapKitPOI")
+        onSelectMapKitPOI?(annotation)
     }
-    
     
 }
