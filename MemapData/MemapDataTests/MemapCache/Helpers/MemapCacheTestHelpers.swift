@@ -8,7 +8,7 @@
 
 import Foundation
 import MemapData
-
+ 
 func uniquePlace() -> PlaceInfo {
     PlaceInfo(
         id: UUID(),
