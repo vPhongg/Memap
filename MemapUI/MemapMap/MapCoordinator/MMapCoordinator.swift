@@ -10,6 +10,7 @@ import MapKit
 protocol MMapCoordinatorDelegate: AnyObject {
     func didSelectCustomAnnotation(_ annotation: MKAnnotation)
     func didSelectMapKitPOI(_ annotation: MKAnnotation)
+    func didDeselectAnnotation(_ annotation: MKAnnotation)
 }
 
 public class MMapCoordinator: NSObject {
@@ -48,6 +49,10 @@ extension MMapCoordinator: MKMapViewDelegate {
         if annotation is MKMapFeatureAnnotation {
             delegate?.didSelectMapKitPOI(annotation)
         }
+    }
+    
+    public func mapView(_ mapView: MKMapView, didDeselect annotation: any MKAnnotation) {
+        delegate?.didDeselectAnnotation(annotation)
     }
 }
 

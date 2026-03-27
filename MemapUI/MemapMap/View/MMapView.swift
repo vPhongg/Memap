@@ -49,6 +49,9 @@ public struct MMapView: UIViewRepresentable {
         adapter.onSelectMapKitPOI = { annotation in
             isPresentingPlaceInfoDetailView = true
         }
+        adapter.deselectAnnotation = { _ in
+            isPresentingPlaceInfoDetailView = false
+        }
         coordinator.delegate = adapter
         return coordinator
     }
@@ -63,6 +66,7 @@ final class MMapViewCoordinatorAdapter: MMapCoordinatorDelegate {
     
     var onSelectCustomAnnotation: ((MKAnnotation) -> Void)?
     var onSelectMapKitPOI: ((MKAnnotation) -> Void)?
+    var deselectAnnotation: ((MKAnnotation) -> Void)?
     
     func didSelectCustomAnnotation(_ annotation: any MKAnnotation) {
         onSelectCustomAnnotation?(annotation)
@@ -70,6 +74,10 @@ final class MMapViewCoordinatorAdapter: MMapCoordinatorDelegate {
     
     func didSelectMapKitPOI(_ annotation: any MKAnnotation) {
         onSelectMapKitPOI?(annotation)
+    }
+    
+    func didDeselectAnnotation(_ annotation: any MKAnnotation) {
+        deselectAnnotation?(annotation)
     }
     
 }
