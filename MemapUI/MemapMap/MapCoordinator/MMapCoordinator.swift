@@ -12,10 +12,12 @@ protocol MMapCoordinatorDelegate: AnyObject {
     func didSelectMapKitPOI(_ annotation: MKAnnotation)
 }
 
-public class MMapCoordinator: NSObject, MKMapViewDelegate, CLLocationManagerDelegate {
+public class MMapCoordinator: NSObject {
     weak var mapView: MKMapView?
     var delegate: MMapCoordinatorDelegate?
     var locationManager = CLLocationManager()
+    
+    var hasZoomed = false
     
     override init() {
         super.init()
@@ -24,7 +26,11 @@ public class MMapCoordinator: NSObject, MKMapViewDelegate, CLLocationManagerDele
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
     }
-    
+}
+
+// MARK: - MKMapViewDelegate
+
+extension MMapCoordinator: MKMapViewDelegate {
     public func mapView(_ mapView: MKMapView, viewFor annotation: any MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation || annotation is MKMapFeatureAnnotation {
             return nil
@@ -43,8 +49,11 @@ public class MMapCoordinator: NSObject, MKMapViewDelegate, CLLocationManagerDele
             delegate?.didSelectMapKitPOI(annotation)
         }
     }
-    
-    var hasZoomed = false
+}
+
+// MARK: - CLLocationManagerDelegate
+
+extension MMapCoordinator: CLLocationManagerDelegate {
     public func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         guard !hasZoomed else { return }
         hasZoomed = true
