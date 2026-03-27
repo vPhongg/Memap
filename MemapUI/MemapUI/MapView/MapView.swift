@@ -17,21 +17,21 @@ struct MapView: View {
     var onSelectItem: (PlaceInfoViewModel) -> Void
     
     var body: some View {
-        //        MMap(
-        //            items: viewModel.places.toModels().toMMapItems(),
-        //            isPresentingPlaceInfoDetailView: $isPresentingPlaceInfoDetailView,
-        //            onSelectItem: { item in
-        //                onSelectItem(item.toPresentationModel())
-        //            }
-        //        )
-        
-        MMapView(
-            mapItems: viewModel.places.toModels().toMMapItems(),
+        MMap(
+            items: viewModel.places.toModels().toMMapItems(),
             isPresentingPlaceInfoDetailView: $isPresentingPlaceInfoDetailView,
             onSelectItem: { item in
                 onSelectItem(item.toPresentationModel())
             }
         )
+        
+//        MMapView(
+//            mapItems: viewModel.places.toModels().toMMapItems(),
+//            isPresentingPlaceInfoDetailView: $isPresentingPlaceInfoDetailView,
+//            onSelectItem: { item in
+//                onSelectItem(item.toPresentationModel())
+//            }
+//        )
         .ignoresSafeArea()
         .overlay {
             if viewModel.isLoading {
