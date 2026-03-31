@@ -12,8 +12,8 @@ import CoreData
 class ManagedPlaceInfo: NSManagedObject {
     @NSManaged var id: UUID
     @NSManaged var name: String?
-    @NSManaged var latitude: NSNumber?
-    @NSManaged var longitude: NSNumber?
+    @NSManaged var latitude: NSNumber
+    @NSManaged var longitude: NSNumber
     @NSManaged var createdTimestamp: Date
     @NSManaged var savedTimestamp: Date
     @NSManaged var imagePath: String?
@@ -30,8 +30,8 @@ extension ManagedPlaceInfo {
         return LocalPlaceInfo(
             id: id,
             name: name,
-            latitude: latitude?.doubleValue,
-            longitude: longitude?.doubleValue,
+            latitude: latitude.doubleValue,
+            longitude: longitude.doubleValue,
             createdTimestamp: createdTimestamp,
             imagePath: imagePath
         )
@@ -58,8 +58,8 @@ extension ManagedPlaceInfo {
         let managedPlace = ManagedPlaceInfo(context: context)
         managedPlace.id = place.id
         managedPlace.name = place.name
-        managedPlace.latitude = place.latitude.asNSNumber
-        managedPlace.longitude = place.longitude.asNSNumber
+        managedPlace.latitude = place.latitude.toNSNumber
+        managedPlace.longitude = place.longitude.toNSNumber
         managedPlace.createdTimestamp = place.createdTimestamp
         managedPlace.savedTimestamp = Date()
         managedPlace.imagePath = place.imagePath
@@ -73,9 +73,9 @@ extension ManagedPlaceInfo {
     }
 }
 
-extension Optional where Wrapped == Double {
-    var asNSNumber: NSNumber? {
-        self.map { NSNumber(value: $0) }
+extension Double {
+    var toNSNumber: NSNumber {
+        NSNumber(value: self)
     }
 }
 

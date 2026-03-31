@@ -11,8 +11,8 @@ import Foundation
 public struct PlaceInfo: Equatable {
     public let id: UUID
     public let name: String?
-    public let latitude: Double?
-    public let longitude: Double?
+    public let latitude: Double
+    public let longitude: Double
     public let createdTimestamp: Date
     public let imagePath: String?
     public let isAdded: Bool
@@ -20,8 +20,8 @@ public struct PlaceInfo: Equatable {
     public init(
         id: UUID,
         name: String?,
-        latitude: Double?,
-        longitude: Double?,
+        latitude: Double,
+        longitude: Double,
         createdTimestamp: Date,
         imagePath: String?,
         isAdded: Bool
