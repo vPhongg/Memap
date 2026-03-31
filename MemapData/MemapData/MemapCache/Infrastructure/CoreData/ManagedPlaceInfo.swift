@@ -14,7 +14,6 @@ class ManagedPlaceInfo: NSManagedObject {
     @NSManaged var name: String?
     @NSManaged var latitude: NSNumber
     @NSManaged var longitude: NSNumber
-    @NSManaged var createdTimestamp: Date
     @NSManaged var savedTimestamp: Date
     @NSManaged var imagePath: String?
 }
@@ -32,7 +31,6 @@ extension ManagedPlaceInfo {
             name: name,
             latitude: latitude.doubleValue,
             longitude: longitude.doubleValue,
-            createdTimestamp: createdTimestamp,
             imagePath: imagePath
         )
     }
@@ -60,7 +58,6 @@ extension ManagedPlaceInfo {
         managedPlace.name = place.name
         managedPlace.latitude = place.latitude.toNSNumber
         managedPlace.longitude = place.longitude.toNSNumber
-        managedPlace.createdTimestamp = place.createdTimestamp
         managedPlace.savedTimestamp = Date()
         managedPlace.imagePath = place.imagePath
         

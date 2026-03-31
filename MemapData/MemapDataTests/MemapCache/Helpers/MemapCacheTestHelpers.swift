@@ -15,7 +15,6 @@ func uniquePlace() -> PlaceInfo {
         name: nil,
         latitude: 1,
         longitude: 2,
-        createdTimestamp: Date(),
         imagePath: nil,
         isAdded: true
     )

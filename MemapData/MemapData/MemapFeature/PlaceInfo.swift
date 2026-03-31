@@ -13,7 +13,6 @@ public struct PlaceInfo: Equatable {
     public let name: String?
     public let latitude: Double
     public let longitude: Double
-    public let createdTimestamp: Date
     public let imagePath: String?
     public let isAdded: Bool
     
@@ -22,7 +21,6 @@ public struct PlaceInfo: Equatable {
         name: String?,
         latitude: Double,
         longitude: Double,
-        createdTimestamp: Date,
         imagePath: String?,
         isAdded: Bool
     ) {
@@ -30,7 +28,6 @@ public struct PlaceInfo: Equatable {
         self.name = name
         self.latitude = latitude
         self.longitude = longitude
-        self.createdTimestamp = createdTimestamp
         self.imagePath = imagePath
         self.isAdded = isAdded
     }
@@ -43,7 +40,6 @@ public extension PlaceInfo {
             name: name,
             latitude: latitude,
             longitude: longitude,
-            createdTimestamp: createdTimestamp,
             imagePath: imagePath
         )
     }
