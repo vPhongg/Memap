@@ -16,6 +16,7 @@ class ManagedPlaceInfo: NSManagedObject {
     @NSManaged var longitude: NSNumber
     @NSManaged var savedTimestamp: Date
     @NSManaged var imagesPath: String?
+    @NSManaged var videosPath: String?
 }
 
 extension ManagedPlaceInfo {
@@ -31,7 +32,8 @@ extension ManagedPlaceInfo {
             name: name,
             latitude: latitude.doubleValue,
             longitude: longitude.doubleValue,
-            imagesPath: imagesPath
+            imagesPath: imagesPath,
+            videosPath: videosPath
         )
     }
 }
