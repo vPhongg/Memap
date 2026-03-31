@@ -15,6 +15,7 @@ public struct PlaceInfo: Equatable {
     public let longitude: Double
     public let imagesPath: String?
     public let videosPath: String?
+    public let note: String?
     public let isAdded: Bool
     
     public init(
@@ -24,6 +25,7 @@ public struct PlaceInfo: Equatable {
         longitude: Double,
         imagesPath: String?,
         videosPath: String?,
+        note: String?,
         isAdded: Bool
     ) {
         self.id = id
@@ -32,6 +34,7 @@ public struct PlaceInfo: Equatable {
         self.longitude = longitude
         self.imagesPath = imagesPath
         self.videosPath = videosPath
+        self.note = note
         self.isAdded = isAdded
     }
 }
@@ -44,7 +47,8 @@ public extension PlaceInfo {
             latitude: latitude,
             longitude: longitude,
             imagesPath: imagesPath,
-            videosPath: videosPath
+            videosPath: videosPath,
+            note: note
         )
     }
 }

@@ -6,6 +6,7 @@
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
         <attribute name="savedTimestamp" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="videosPath" optional="YES" attributeType="String"/>
     </entity>
