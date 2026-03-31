@@ -33,6 +33,7 @@ extension ManagedPlaceInfo {
             name: name,
             latitude: latitude.doubleValue,
             longitude: longitude.doubleValue,
+            savedTimestamp: savedTimestamp,
             imagesPath: imagesPath,
             videosPath: videosPath,
             note: note
@@ -62,7 +63,7 @@ extension ManagedPlaceInfo {
         managedPlace.name = place.name
         managedPlace.latitude = place.latitude.toNSNumber
         managedPlace.longitude = place.longitude.toNSNumber
-        managedPlace.savedTimestamp = Date()
+        managedPlace.savedTimestamp = place.savedTimestamp
         managedPlace.imagesPath = place.imagesPath
         
         do {

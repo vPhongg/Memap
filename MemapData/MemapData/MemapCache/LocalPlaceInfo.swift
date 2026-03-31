@@ -12,6 +12,7 @@ public struct LocalPlaceInfo: Equatable {
     public let name: String?
     public let latitude: Double
     public let longitude: Double
+    public let savedTimestamp: Date
     public let imagesPath: String?
     public let videosPath: String?
     public let note: String?
@@ -21,6 +22,7 @@ public struct LocalPlaceInfo: Equatable {
         name: String?,
         latitude: Double,
         longitude: Double,
+        savedTimestamp: Date,
         imagesPath: String?,
         videosPath: String?,
         note: String?,
@@ -31,6 +33,7 @@ public struct LocalPlaceInfo: Equatable {
         self.longitude = longitude
         self.imagesPath = imagesPath
         self.videosPath = videosPath
+        self.savedTimestamp = savedTimestamp
         self.note = note
     }
 }
@@ -42,6 +45,7 @@ public extension LocalPlaceInfo {
             name: name,
             latitude: latitude,
             longitude: longitude,
+            savedTimestamp: savedTimestamp,
             imagesPath: imagesPath,
             videosPath: videosPath,
             note: note,
