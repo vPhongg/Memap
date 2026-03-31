@@ -12,20 +12,20 @@ public struct LocalPlaceInfo: Equatable {
     public let name: String?
     public let latitude: Double
     public let longitude: Double
-    public let imagePath: String?
+    public let imagesPath: String?
     
     public init(
         id: UUID,
         name: String?,
         latitude: Double,
         longitude: Double,
-        imagePath: String?
+        imagesPath: String?
     ) {
         self.id = id
         self.name = name
         self.latitude = latitude
         self.longitude = longitude
-        self.imagePath = imagePath
+        self.imagesPath = imagesPath
     }
 }
 
@@ -36,7 +36,7 @@ public extension LocalPlaceInfo {
             name: name,
             latitude: latitude,
             longitude: longitude,
-            imagePath: imagePath,
+            imagesPath: imagesPath,
             isAdded: true // Fix true because `LocalPlaceInfo` represent items from `Persistence Storage`, which means it surely saved to `Persistence Storage` previously.
         )
     }
