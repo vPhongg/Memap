@@ -1,5 +1,5 @@
 //
-//  LocalMemapLoaderDeletePlaceUseCaseTests.swift
+//  DeleteOnePlaceFromPersistentStorageUseCaseTests.swift
 //  MemapDataTests
 //
 //  Created by Vu Dinh Phong on 10/03/2026.
@@ -18,8 +18,7 @@ final class DeleteOnePlaceFromPersistentStorageUseCaseTests: XCTestCase {
     
     func test_delete_succeededDeletion() async throws {
         let place = uniquePlace()
-        let fixedCurrentDate = Date()
-        let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
+        let (sut, store) = makeSUT()
         
         try await sut.delete(place)
         
@@ -41,9 +40,9 @@ final class DeleteOnePlaceFromPersistentStorageUseCaseTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT(currentDate: @escaping () -> Date = Date.init, file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalMemapLoader, store: MemapStoreSpy) {
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalMemapLoader, store: MemapStoreSpy) {
         let store = MemapStoreSpy()
-        let sut = LocalMemapLoader(store: store, currentDate: currentDate)
+        let sut = LocalMemapLoader(store: store)
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, store)

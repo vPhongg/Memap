@@ -1,5 +1,5 @@
 //
-//  LocalMemapLoaderSavePlaceUseCaseTests.swift
+//  SaveOnePlaceToPersistentStorageUseCaseTests.swift
 //  MemapDataTests
 //
 //  Created by Vu Dinh Phong on 27/02/2026.
@@ -18,8 +18,7 @@ final class SaveOnePlaceToPersistentStorageUseCaseTests: XCTestCase {
     
     func test_save_succeededSaveInsertion() async throws {
         let place = uniquePlace()
-        let fixedCurrentDate = Date()
-        let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
+        let (sut, store) = makeSUT()
         try await sut.save(place)
         
         XCTAssertEqual(store.receivedMessages, [.insert(place.toLocal())])
@@ -41,9 +40,9 @@ final class SaveOnePlaceToPersistentStorageUseCaseTests: XCTestCase {
     
     // MARK: Helpers
     
-    private func makeSUT(currentDate: @escaping () -> Date = Date.init, file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalMemapLoader, store: MemapStoreSpy) {
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalMemapLoader, store: MemapStoreSpy) {
         let store = MemapStoreSpy()
-        let sut = LocalMemapLoader(store: store, currentDate: currentDate)
+        let sut = LocalMemapLoader(store: store)
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, store)

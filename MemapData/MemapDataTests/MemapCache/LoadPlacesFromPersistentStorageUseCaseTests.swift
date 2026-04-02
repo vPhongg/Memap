@@ -1,5 +1,5 @@
 //
-//  LocalMemapLoaderLoadPlacesFromCacheUseCaseTests.swift
+//  LoadPlacesFromPersistentStorageUseCaseTests.swift
 //  MemapDataTests
 //
 //  Created by Vu Dinh Phong on 26/02/2026.
@@ -36,24 +36,13 @@ final class LoadPlacesFromPersistentStorageUseCaseTests: XCTestCase {
         }
     }
     
-    func test_load_deliversNoPlacesOnEmptyCache() async throws {
+    func test_load_deliversNoPlacesOnEmptyData() async throws {
         let (sut, store) = makeSUT()
         store.retrieveResult = .success([])
         
         let result = try await sut.load()
         
         XCTAssertEqual(result, [])
-    }
-    
-    func test_load_deliversCachedPlacesOnNonExpiredCache() async throws {
-        let places = uniquePlaces()
-        let fixedCurrentDate = Date()
-        let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
-        store.retrieveResult = .success(places.locals)
-        
-        let result = try await sut.load()
-        
-        XCTAssertEqual(result, places.models)
     }
     
     func test_load_hasNoSideEffectsOnRetrievalError() async throws {
@@ -69,7 +58,7 @@ final class LoadPlacesFromPersistentStorageUseCaseTests: XCTestCase {
         }
     }
     
-    func test_load_hasNoSideEffectsOnEmptyCache() async throws {
+    func test_load_hasNoSideEffectsOnEmptyData() async throws {
         let (sut, store) = makeSUT()
         store.retrieveResult = .success([])
         
@@ -79,45 +68,12 @@ final class LoadPlacesFromPersistentStorageUseCaseTests: XCTestCase {
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
     
-    func test_load_hasNoSideEffectsOnNonExpiredCache() async throws {
-        let places = uniquePlaces()
-        let fixedCurrentDate = Date()
-        let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
-        store.retrieveResult = .success(places.locals)
-        
-        let _ = try await sut.load()
-        
-        XCTAssertEqual(store.receivedMessages, [.retrieve])
-    }
-    
-    func test_load_hasNoSideEffectsOnExpirationCache() async throws {
-        let places = uniquePlaces()
-        let fixedCurrentDate = Date()
-        let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
-        store.retrieveResult = .success(places.locals)
-        
-        let _ = try await sut.load()
-        
-        XCTAssertEqual(store.receivedMessages, [.retrieve])
-    }
-    
-    func test_load_hasNoSideEffectsOnExpiredCache() async throws {
-        let places = uniquePlaces()
-        let fixedCurrentDate = Date()
-        let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
-        store.retrieveResult = .success(places.locals)
-        
-        let _ = try await sut.load()
-        
-        XCTAssertEqual(store.receivedMessages, [.retrieve])
-    }
-    
     
     // MARK: Helpers
     
-    private func makeSUT(currentDate: @escaping () -> Date = Date.init, file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalMemapLoader, store: MemapStoreSpy) {
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalMemapLoader, store: MemapStoreSpy) {
         let store = MemapStoreSpy()
-        let sut = LocalMemapLoader(store: store, currentDate: currentDate)
+        let sut = LocalMemapLoader(store: store)
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, store)

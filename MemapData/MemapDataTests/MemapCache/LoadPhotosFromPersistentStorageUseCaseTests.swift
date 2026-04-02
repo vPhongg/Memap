@@ -1,5 +1,5 @@
 //
-//  LoadImagesFromFileSystemUseCaseTests.swift
+//  LoadPhotosFromPersistentStorageUseCaseTests.swift
 //  MemapDataTests
 //
 //  Created by Vu Dinh Phong on 02/04/2026.

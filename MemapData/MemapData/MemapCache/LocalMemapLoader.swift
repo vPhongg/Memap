@@ -10,11 +10,9 @@ import Foundation
 
 public final class LocalMemapLoader {
     private let store: MemapStore
-    private let currentDate: () -> Date
     
-    public init(store: MemapStore, currentDate: @escaping () -> Date) {
+    public init(store: MemapStore) {
         self.store = store
-        self.currentDate = currentDate
     }
 }
 
