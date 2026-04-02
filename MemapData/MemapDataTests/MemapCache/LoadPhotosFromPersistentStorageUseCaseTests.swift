@@ -16,22 +16,33 @@ class PhotosStoreSpy {
     
     private(set) var receivedMessages: [ReceivedMessage] = []
     
-    var retrievalCompletions = [RetrievalCompletion]()
+    private var retrievalCompletions = [RetrievalCompletion]()
     
     func retrieve(from path: String, completion: @escaping RetrievalCompletion) {
         retrievalCompletions.append(completion)
         receivedMessages.append(.retrieve)
     }
+    
+    func completeRetrieval(with error: Error, at index: Int = 0) {
+        retrievalCompletions[index](.failure(error))
+    }
+    
+    func completeRetrieval(with urls: [URL], at index: Int = 0) {
+        retrievalCompletions[index](.success(urls))
+    }
 }
 
 class PhotosPersistentLoader {
+    typealias RetrievalResult = (Result<[URL], Error>)
+    typealias RetrievalCompletion = (RetrievalResult) -> Void
+    
     let store: PhotosStoreSpy
     
     init(store: PhotosStoreSpy) {
         self.store = store
     }
     
-    func load(from path: String, completion: @escaping (Result<[URL], Error>) -> Void) {
+    func load(from path: String, completion: @escaping RetrievalCompletion) {
         store.retrieve(from: path) { result in
             switch result {
             case .success(let urls):
@@ -63,42 +74,51 @@ final class LoadPhotosFromPersistentStorageUseCaseTests: XCTestCase {
     func test_load_failedOnRetrievalError() {
         let (sut, store) = makeSUT()
         
-        let expectation = expectation(description: "Waiting for completion to be invoke")
+        expect(sut, toCompleteWith: .failure(anyNSError()), when: {
+            store.completeRetrieval(with: anyNSError())
+        })
         
-        sut.load(from: anyPhotosPath()) { result in
-            
-            if case .failure(let error) = result {
-                XCTAssertEqual(error as NSError, anyNSError())
-            }
-            
-            expectation.fulfill()
-        }
-        
-        store.retrievalCompletions[0](.failure(anyNSError()))
-        
-        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_load_deliversNoPhotosOnEmptyFolder() {
         let (sut, store) = makeSUT()
         
+        expect(sut, toCompleteWith: .success([]), when: {
+            store.completeRetrieval(with: [])
+        })
+    }
+    
+    // MARK: - Helpers
+    
+    private func expect(
+        _ sut: PhotosPersistentLoader,
+        toCompleteWith expectedResult: PhotosPersistentLoader.RetrievalResult,
+        when action: () -> Void,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
         let expectation = expectation(description: "Waiting for completion to be invoke")
         
-        sut.load(from: anyPhotosPath()) { result in
+        sut.load(from: anyPhotosPath()) { receivedResult in
             
-            if case .success(let urls) = result {
-                XCTAssertEqual(urls, [])
+            switch (receivedResult, expectedResult) {
+            case(.success(let receivedURLs), .success(let expectedURLs)):
+                XCTAssertEqual(receivedURLs, expectedURLs, file: file, line: line)
+                
+            case(.failure(let receivedError), .failure(let expectedError)):
+                XCTAssertEqual(receivedError as NSError, expectedError as NSError, file: file, line: line)
+                
+            default:
+                XCTFail("Expected \(expectedResult), but got \(receivedResult) instead")
             }
             
             expectation.fulfill()
         }
         
-        store.retrievalCompletions[0](.success([]))
+        action()
         
         wait(for: [expectation], timeout: 1.0)
     }
-    
-    // MARK: - Helpers
     
     private func anyPhotosPath() -> String {
         return "any/photos/path"
