@@ -7,9 +7,14 @@
 
 import XCTest
 
-class PhotosStoreSpy {
-    typealias RetrievalCompletion = (Result<[URL], Error>) -> Void
+protocol PhotosStore {
+    typealias RetrievalResult = Result<[URL], Error>
+    typealias RetrievalCompletion = (RetrievalResult) -> Void
     
+    func retrieve(from path: String, completion: @escaping RetrievalCompletion)
+}
+
+class PhotosStoreSpy: PhotosStore {
     enum ReceivedMessage: Equatable {
         case retrieve
     }
