@@ -8,7 +8,7 @@
 import XCTest
 
 class PhotosStoreSpy {
-    typealias RetrievalCompletion = (Error) -> Void
+    typealias RetrievalCompletion = (Result<[URL], Error>) -> Void
     
     enum ReceivedMessage: Equatable {
         case retrieve
@@ -18,7 +18,7 @@ class PhotosStoreSpy {
     
     var retrievalCompletions = [RetrievalCompletion]()
     
-    func retrieve(from photosPath: String, completion: @escaping RetrievalCompletion) {
+    func retrieve(from path: String, completion: @escaping RetrievalCompletion) {
         retrievalCompletions.append(completion)
         receivedMessages.append(.retrieve)
     }
@@ -31,8 +31,16 @@ class PhotosPersistentLoader {
         self.store = store
     }
     
-    func load(from photosPath: String, completion: @escaping (Error) -> Void) {
-        store.retrieve(from: photosPath, completion: completion)
+    func load(from path: String, completion: @escaping (Result<[URL], Error>) -> Void) {
+        store.retrieve(from: path) { result in
+            switch result {
+            case .success(let urls):
+                completion(.success(urls))
+                
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }
 
@@ -57,18 +65,37 @@ final class LoadPhotosFromPersistentStorageUseCaseTests: XCTestCase {
         
         let expectation = expectation(description: "Waiting for completion to be invoke")
         
-        sut.load(from: anyPhotosPath()) { error in
+        sut.load(from: anyPhotosPath()) { result in
             
-            XCTAssertEqual(error as NSError, anyNSError())
+            if case .failure(let error) = result {
+                XCTAssertEqual(error as NSError, anyNSError())
+            }
             
             expectation.fulfill()
         }
         
-        store.retrievalCompletions[0](anyNSError())
+        store.retrievalCompletions[0](.failure(anyNSError()))
         
         wait(for: [expectation], timeout: 1.0)
+    }
+    
+    func test_load_deliversNoPhotosOnEmptyFolder() {
+        let (sut, store) = makeSUT()
         
-        XCTAssertEqual(store.receivedMessages, [.retrieve])
+        let expectation = expectation(description: "Waiting for completion to be invoke")
+        
+        sut.load(from: anyPhotosPath()) { result in
+            
+            if case .success(let urls) = result {
+                XCTAssertEqual(urls, [])
+            }
+            
+            expectation.fulfill()
+        }
+        
+        store.retrievalCompletions[0](.success([]))
+        
+        wait(for: [expectation], timeout: 1.0)
     }
     
     // MARK: - Helpers
