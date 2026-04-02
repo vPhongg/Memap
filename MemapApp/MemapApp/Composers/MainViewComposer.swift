@@ -15,7 +15,7 @@ import MemapUI
 final class MainViewComposer {
     private init() {}
     
-    static func composed(loader: MemapLoader, cache: MemapCache, deletor: MemapDelete) -> UIHostingController<MainView> {
+    static func composed(loader: MemapLoader, cache: MemapPersistence, deletor: MemapDelete) -> UIHostingController<MainView> {
         let mapViewModel = DefaultMapViewModel(memapLoader: loader)
         let anyMapViewModel = AnyMapViewModel(mapViewModel)
         
