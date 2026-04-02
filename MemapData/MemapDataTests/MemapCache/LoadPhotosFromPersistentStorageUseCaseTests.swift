@@ -41,6 +41,15 @@ final class LoadPhotosFromPersistentStorageUseCaseTests: XCTestCase {
         })
     }
     
+    func test_load_deliversPhotosOnNonEmptyFolder() {
+        let (sut, store) = makeSUT()
+        let urls = [anyFileURL(), anyFileURL(), anyFileURL(), anyFileURL()]
+        
+        expect(sut, toCompleteWith: .success(urls), when: {
+            store.completeRetrieval(with: urls)
+        })
+    }
+    
     // MARK: - Helpers
     
     private func expect(
@@ -75,6 +84,10 @@ final class LoadPhotosFromPersistentStorageUseCaseTests: XCTestCase {
     
     private func anyPhotosPath() -> String {
         return "any/photos/path"
+    }
+    
+    private func anyFileURL() -> URL {
+        URL(fileURLWithPath: "anyFileURL")
     }
     
     private func makeSUT(
