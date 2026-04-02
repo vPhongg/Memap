@@ -8,7 +8,7 @@
 import XCTest
 import MemapData
 
-final class LocalMemapLoaderDeletePlaceUseCaseTests: XCTestCase {
+final class DeleteOnePlaceFromPersistentStorageUseCaseTests: XCTestCase {
     
     func test_init_doesNotMessageStoreUponCreation() {
         let (_, store) = makeSUT()
