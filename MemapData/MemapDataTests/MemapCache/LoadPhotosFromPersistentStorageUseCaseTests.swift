@@ -7,29 +7,6 @@
 
 import XCTest
 
-class PhotosStoreSpy: PhotosStore {
-    enum ReceivedMessage: Equatable {
-        case retrieve
-    }
-    
-    private(set) var receivedMessages: [ReceivedMessage] = []
-    
-    private var retrievalCompletions = [RetrievalCompletion]()
-    
-    func retrieve(from path: String, completion: @escaping RetrievalCompletion) {
-        retrievalCompletions.append(completion)
-        receivedMessages.append(.retrieve)
-    }
-    
-    func completeRetrieval(with error: Error, at index: Int = 0) {
-        retrievalCompletions[index](.failure(error))
-    }
-    
-    func completeRetrieval(with urls: [URL], at index: Int = 0) {
-        retrievalCompletions[index](.success(urls))
-    }
-}
-
 class PhotosPersistentLoader {
     typealias RetrievalResult = (Result<[URL], Error>)
     typealias RetrievalCompletion = (RetrievalResult) -> Void
