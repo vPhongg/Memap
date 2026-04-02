@@ -6,29 +6,7 @@
 //
 
 import XCTest
-
-class PhotosPersistentLoader {
-    typealias RetrievalResult = (Result<[URL], Error>)
-    typealias RetrievalCompletion = (RetrievalResult) -> Void
-    
-    let store: PhotosStoreSpy
-    
-    init(store: PhotosStoreSpy) {
-        self.store = store
-    }
-    
-    func load(from path: String, completion: @escaping RetrievalCompletion) {
-        store.retrieve(from: path) { result in
-            switch result {
-            case .success(let urls):
-                completion(.success(urls))
-                
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-}
+import MemapData
 
 final class LoadPhotosFromPersistentStorageUseCaseTests: XCTestCase {
     
