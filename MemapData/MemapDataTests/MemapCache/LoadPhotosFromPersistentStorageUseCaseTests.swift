@@ -7,7 +7,7 @@
 
 import XCTest
 
-class FileSystemStoreSpy {
+class PhotosStoreSpy {
     enum ReceivedMessage: Equatable {
         case retrieve
     }
@@ -15,20 +15,20 @@ class FileSystemStoreSpy {
     private(set) var receivedMessages: [ReceivedMessage] = []
 }
 
-class FileSystemLoader {
-    let store: FileSystemStoreSpy
+class PhotosPersistentLoader {
+    let store: PhotosStoreSpy
     
-    init(store: FileSystemStoreSpy) {
+    init(store: PhotosStoreSpy) {
         self.store = store
     }
 }
 
-final class LoadImagesFromFileSystemUseCaseTests: XCTestCase {
+final class LoadPhotosFromPersistentStorageUseCaseTests: XCTestCase {
     
     func test_init_deliversNoMessageUponCreation() {
         
-        let store = FileSystemStoreSpy()
-        let _ = FileSystemLoader(store: store)
+        let store = PhotosStoreSpy()
+        let _ = PhotosPersistentLoader(store: store)
         
         XCTAssertEqual(store.receivedMessages, [])
     }
