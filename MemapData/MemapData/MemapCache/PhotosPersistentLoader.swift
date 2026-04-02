@@ -7,10 +7,7 @@
 
 import Foundation
 
-public class PhotosPersistentLoader {
-    public typealias RetrievalResult = (Result<[URL], Error>)
-    public typealias RetrievalCompletion = (RetrievalResult) -> Void
-    
+public class PhotosPersistentLoader: PhotosLoader {
     let store: PhotosStore
     
     public init(store: PhotosStore) {
