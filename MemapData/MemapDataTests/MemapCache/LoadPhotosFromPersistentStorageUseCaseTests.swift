@@ -96,7 +96,8 @@ final class LoadPhotosFromPersistentStorageUseCaseTests: XCTestCase {
     ) -> (sut: PhotosPersistentLoader, store: PhotosStoreSpy) {
         let store = PhotosStoreSpy()
         let sut = PhotosPersistentLoader(store: store)
-        
+        trackForMemoryLeaks(sut, file: file, line: line)
+        trackForMemoryLeaks(store, file: file, line: line)
         return (sut, store)
     }
     
