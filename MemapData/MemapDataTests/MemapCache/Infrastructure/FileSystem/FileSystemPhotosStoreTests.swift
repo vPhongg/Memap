@@ -32,6 +32,14 @@ class FileSystemPhotosStore {
 
 final class FileSystemPhotosStoreTests: XCTestCase {
     
+    override func setUp() {
+        emptyPhotosDirectory()
+    }
+    
+    override func tearDown() {
+        emptyPhotosDirectory()
+    }
+    
     // MARK: - Retrievals
     
     func test_retrieve_deliversEmptyOnEmptyFolder() {
@@ -94,5 +102,13 @@ final class FileSystemPhotosStoreTests: XCTestCase {
     
     private func documentDirectory() -> URL {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    }
+    
+    private func emptyPhotosDirectory() {
+        deletePhotos()
+    }
+    
+    private func deletePhotos() {
+        try? FileManager.default.removeItem(at: testSpecificPlacePhotosStoreURL())
     }
 }
