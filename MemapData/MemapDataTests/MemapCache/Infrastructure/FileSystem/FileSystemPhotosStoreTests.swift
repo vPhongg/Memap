@@ -15,8 +15,15 @@ struct Photo {
 class FileSystemPhotosStore {
     let fileManager = FileManager.default
     
-    func retrieve(from url: URL, completion: @escaping ([URL]) -> Void) {
-        completion([])
+    typealias Result = Swift.Result<[URL], Error>
+    
+    func retrieve(from url: URL, completion: @escaping (Result) -> Void) {
+        do {
+            let contents = try fileManager.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
+            completion(.success(contents))
+        } catch {
+            completion(.failure(error))
+        }
     }
     
     func insert(_ photos: [Photo], toDirectory url: URL) throws {
@@ -27,7 +34,6 @@ class FileSystemPhotosStore {
             try photo.jpegData.write(to: fileURL)
         }
     }
-    
 }
 
 final class FileSystemPhotosStoreTests: XCTestCase {
@@ -47,19 +53,34 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         let storeURL = testSpecificPlacePhotosStoreURL()
         
         let expectation = expectation(description: "Waiting for completion to be invoked")
-        sut.retrieve(from: storeURL) { urls in
-            
-            XCTAssertEqual(urls, [])
-            
+        sut.retrieve(from: storeURL) { result in
+            if case .success(let receivedURLs) = result {
+                XCTAssertEqual(receivedURLs, [])
+            }
             expectation.fulfill()
         }
+        wait(for: [expectation], timeout: 1.0)
+    }
+    
+    func test_retrieve_deliversPhotosOnNonEmptyFolder() throws {
+        let sut = makeSUT()
+        let storeURL = testSpecificPlacePhotosStoreURL()
+        let photos = [anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto()]
+        try sut.insert(photos, toDirectory: storeURL)
         
+        let expectation = expectation(description: "Waiting for completion to be invoked")
+        sut.retrieve(from: storeURL) { result in
+            if case .success(let receivedURLs) = result {
+                XCTAssertEqual(receivedURLs.count, 4)
+            }
+            expectation.fulfill()
+        }
         wait(for: [expectation], timeout: 1.0)
     }
     
     // MARK: - Insertions
     
-    func test_insert_deliverNoErrory() {
+    func test_insert_deliverNoError() {
         let sut = makeSUT()
         let directoryURL = testSpecificPlacePhotosStoreURL()
         
