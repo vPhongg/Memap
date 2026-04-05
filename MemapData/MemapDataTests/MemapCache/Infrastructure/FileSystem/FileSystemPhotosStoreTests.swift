@@ -17,6 +17,8 @@ class FileSystemPhotosStore {
     
     typealias Result = Swift.Result<[URL], Error>
     
+    typealias DeletionCompletion = (Swift.Result<Void, Error>) -> Void
+    
     func retrieve(from url: URL, completion: @escaping (Result) -> Void) {
         do {
             let contents = try fileManager.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
@@ -32,6 +34,17 @@ class FileSystemPhotosStore {
         for photo in photos {
             let fileURL = url.appendingPathComponent(photo.name)
             try photo.jpegData.write(to: fileURL)
+        }
+    }
+    
+    func delete(_ filePaths: [URL], completion: @escaping DeletionCompletion) {
+        for filePath in filePaths {
+            do {
+                try fileManager.removeItem(at: filePath)
+                completion(.success(()))
+            } catch {
+                completion(.failure(error))
+            }
         }
     }
 }
@@ -50,10 +63,10 @@ final class FileSystemPhotosStoreTests: XCTestCase {
     
     func test_retrieve_deliversEmptyOnEmptyFolder() {
         let sut = makeSUT()
-        let storeURL = testSpecificPlacePhotosStoreURL()
+        let directoryURL = testSpecificPlacePhotosDirectoryURL()
         
         let expectation = expectation(description: "Waiting for completion to be invoked")
-        sut.retrieve(from: storeURL) { result in
+        sut.retrieve(from: directoryURL) { result in
             if case .success(let receivedURLs) = result {
                 XCTAssertEqual(receivedURLs, [])
             }
@@ -64,12 +77,12 @@ final class FileSystemPhotosStoreTests: XCTestCase {
     
     func test_retrieve_deliversPhotosOnNonEmptyFolder() throws {
         let sut = makeSUT()
-        let storeURL = testSpecificPlacePhotosStoreURL()
+        let directoryURL = testSpecificPlacePhotosDirectoryURL()
         let photos = [anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto()]
-        try sut.insert(photos, toDirectory: storeURL)
+        try sut.insert(photos, toDirectory: directoryURL)
         
         let expectation = expectation(description: "Waiting for completion to be invoked")
-        sut.retrieve(from: storeURL) { result in
+        sut.retrieve(from: directoryURL) { result in
             if case .success(let receivedURLs) = result {
                 XCTAssertEqual(receivedURLs.count, 4)
             }
@@ -82,14 +95,14 @@ final class FileSystemPhotosStoreTests: XCTestCase {
     
     func test_insert_deliverNoError() {
         let sut = makeSUT()
-        let directoryURL = testSpecificPlacePhotosStoreURL()
+        let directoryURL = testSpecificPlacePhotosDirectoryURL()
         
         XCTAssertNoThrow(try sut.insert([anyPhoto()], toDirectory: directoryURL))
     }
     
     func test_insert_deliverNoErrorOnMultiplePhotos() {
         let sut = makeSUT()
-        let directoryURL = testSpecificPlacePhotosStoreURL()
+        let directoryURL = testSpecificPlacePhotosDirectoryURL()
         let photos = [anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto()]
         
         XCTAssertNoThrow(try sut.insert(photos, toDirectory: directoryURL))
@@ -97,6 +110,27 @@ final class FileSystemPhotosStoreTests: XCTestCase {
     
     
     // MARK: - Deletions
+    
+    func test_delete_deliverNoErrorOnSingleDeletion() throws {
+        let sut = makeSUT()
+        let photo = anyPhoto()
+        let directoryURL = testSpecificPlacePhotosDirectoryURL()
+        try sut.insert([photo], toDirectory: directoryURL)
+        
+        let filePathToDetele = directoryURL.appendingPathComponent(photo.name)
+        
+        let expectation = expectation(description: "Waiting for completion to be invoked")
+        sut.delete([filePathToDetele]) { result in
+            switch result {
+            case .success():
+                break
+            case .failure( let error):
+                XCTFail("Expected success but got error: \(error) instead")
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
+    }
         
     // MARK: - Helpers
     
@@ -114,7 +148,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         return sut
     }
     
-    private func testSpecificPlacePhotosStoreURL() -> URL {
+    private func testSpecificPlacePhotosDirectoryURL() -> URL {
         return documentDirectory()
             .appendingPathComponent("Memap")
             .appendingPathComponent("photos")
@@ -130,6 +164,6 @@ final class FileSystemPhotosStoreTests: XCTestCase {
     }
     
     private func deletePhotos() {
-        try? FileManager.default.removeItem(at: testSpecificPlacePhotosStoreURL())
+        try? FileManager.default.removeItem(at: testSpecificPlacePhotosDirectoryURL())
     }
 }
