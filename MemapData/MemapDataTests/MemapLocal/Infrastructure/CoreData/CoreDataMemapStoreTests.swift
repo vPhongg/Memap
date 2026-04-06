@@ -203,7 +203,7 @@ final class CoreDataMemapStoreTests: XCTestCase {
     
     // - MARK: Helpers
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> MemapStore {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> PlaceStore {
         let sut = try! CoreDataMemapStore(storeURL: inMemoryStoreURL)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut

@@ -9,7 +9,7 @@
 import Foundation
 import MemapData
 
-final class MemapStoreSpy: MemapStore {
+final class MemapStoreSpy: PlaceStore {
     
     enum ReceivedMessage: Equatable {
         case insert(_ item: LocalPlaceInfo)

@@ -1,13 +1,13 @@
 //
-//  MemapData.swift
-//  MemapData
+//  PlaceStore.swift
+//  PlaceStore
 //
 //  Created by Vu Dinh Phong on 26/02/2026.
 //
 
 import Foundation
 
-public protocol MemapStore {
+public protocol PlaceStore {
     
     /// The result can be invoked in any threads
     /// Clients are responsible to dispatch to appropriate threads, if need

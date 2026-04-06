@@ -9,9 +9,9 @@
 import Foundation
 
 public final class LocalMemapLoader {
-    private let store: MemapStore
+    private let store: PlaceStore
     
-    public init(store: MemapStore) {
+    public init(store: PlaceStore) {
         self.store = store
     }
 }

@@ -8,7 +8,7 @@
 
 import CoreData
 
-extension CoreDataMemapStore: MemapStore {
+extension CoreDataMemapStore: PlaceStore {
     
     public func insert(_ place: LocalPlaceInfo) async throws {
         try ManagedPlaceInfo.insert(place, in: context)
