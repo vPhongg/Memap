@@ -15,12 +15,13 @@ struct Photo {
 class FileSystemPhotosStore {
     let fileManager = FileManager.default
     
-    typealias Result = Swift.Result<[URL], Error>
+    typealias RetrievalResult = Swift.Result<[URL], Error>
+    typealias RetrievalCompletion = (RetrievalResult) -> Void
     
     typealias DeletionResult = Swift.Result<Void, Error>
     typealias DeletionCompletion = (DeletionResult) -> Void
     
-    func retrieve(from url: URL, completion: @escaping (Result) -> Void) {
+    func retrieve(from url: URL, completion: @escaping RetrievalCompletion) {
         do {
             let contents = try fileManager.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
             completion(.success(contents))
