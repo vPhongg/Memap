@@ -17,7 +17,8 @@ class FileSystemPhotosStore {
     
     typealias Result = Swift.Result<[URL], Error>
     
-    typealias DeletionCompletion = (Swift.Result<Void, Error>) -> Void
+    typealias DeletionResult = Swift.Result<Void, Error>
+    typealias DeletionCompletion = (DeletionResult) -> Void
     
     func retrieve(from url: URL, completion: @escaping (Result) -> Void) {
         do {
@@ -37,14 +38,27 @@ class FileSystemPhotosStore {
         }
     }
     
-    func delete(_ filePaths: [URL], completion: @escaping DeletionCompletion) {
-        for filePath in filePaths {
+    func delete(_ fileURLs: [URL], completion: @escaping DeletionCompletion) {
+        for fileURL in fileURLs {
             do {
-                try fileManager.removeItem(at: filePath)
+                try fileManager.removeItem(at: fileURL)
                 completion(.success(()))
             } catch {
                 completion(.failure(error))
             }
+        }
+    }
+    
+    func deleteDirectory(at url: URL, completion: @escaping DeletionCompletion) {
+        guard fileManager.fileExists(atPath: url.path) else {
+            return completion(.success(()))
+        }
+        
+        do {
+            try fileManager.removeItem(at: url)
+            completion(.success(()))
+        } catch {
+            completion(.failure(error))
         }
     }
 }
@@ -130,6 +144,24 @@ final class FileSystemPhotosStoreTests: XCTestCase {
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 1.0)
+    }
+    
+    func test_delete_deliverNoErrorOnDirectoryDeletion() {
+        let sut = makeSUT()
+        let url = testSpecificPlacePhotosDirectoryURL()
+        
+        let expectation = expectation(description: "Waiting for completion to be invoked")
+        sut.deleteDirectory(at: url) { result in
+            switch result {
+            case .success():
+                break
+            case .failure( let error):
+                XCTFail("Expected success but got error: \(error) instead")
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
+
     }
         
     // MARK: - Helpers
