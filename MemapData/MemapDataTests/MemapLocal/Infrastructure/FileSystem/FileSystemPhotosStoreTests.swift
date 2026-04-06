@@ -12,10 +12,12 @@ final class FileSystemPhotosStoreTests: XCTestCase {
     
     override func setUp() {
         emptyPhotosDirectory()
+        emptyAnyDestDirectoryURL()
     }
     
     override func tearDown() {
         emptyPhotosDirectory()
+        emptyAnyDestDirectoryURL()
     }
     
     // MARK: - Retrievals
@@ -74,7 +76,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         let sut = makeSUT()
         let directoryURL = testSpecificPlacePhotosDirectoryURL()
         let photos = [anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto()]
-                
+        
         let insertExpectation = expectation(description: "Waiting for completion to be invoked")
         sut.insert(photos, toDirectory: directoryURL) { result in
             switch result {
@@ -149,7 +151,42 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         }
         wait(for: [expectation], timeout: 1.0)
     }
+    
+    // MARK: - Moving Files
+    
+    func test_move_deliverNoErrorMovePhotoToDestination() {
+        let sut = makeSUT()
+        let photo = anyPhoto()
+        let photoURL = testSpecificPlacePhotosDirectoryURL().appendingPathComponent(photo.name)
+        let photos = [anyPhoto(), anyPhoto(), photo, anyPhoto(), anyPhoto()]
+        let url = testSpecificPlacePhotosDirectoryURL()
+        let dstDirectory = testAnyDestDirectoryURL()
         
+        insert(photos, to: sut, at: url)
+        
+        let moveExpectation = expectation(description: "Waiting for completion to be invoked")
+        sut.move(at: photoURL, to: dstDirectory) { result in
+            switch result {
+            case .success():
+                break
+            case .failure( let error):
+                XCTFail("Expected success but got error: \(error) instead")
+            }
+            moveExpectation.fulfill()
+        }
+        wait(for: [moveExpectation], timeout: 1.0)
+        
+        let retrieveExpectation = expectation(description: "Waiting for completion to be invoked")
+        sut.retrieve(from: dstDirectory) { result in
+            if case .success(let receivedURLs) = result {
+                let expectedDestURL = dstDirectory.appendingPathComponent(photo.name)
+                XCTAssertTrue(receivedURLs.contains(expectedDestURL))
+            }
+            retrieveExpectation.fulfill()
+        }
+        wait(for: [retrieveExpectation], timeout: 1.0)
+    }
+    
     // MARK: - Helpers
     
     private func insert(_ photos: [Photo], to sut: FileSystemPhotoStore, at directoryURL: URL) {
@@ -178,12 +215,22 @@ final class FileSystemPhotosStoreTests: XCTestCase {
             .appendingPathComponent("a_place_id")
     }
     
+    private func testAnyDestDirectoryURL() -> URL {
+        return documentDirectory()
+            .appendingPathComponent("Memap")
+            .appendingPathComponent("destDirectory")
+    }
+    
     private func documentDirectory() -> URL {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     }
     
     private func emptyPhotosDirectory() {
         deletePhotos()
+    }
+    
+    private func emptyAnyDestDirectoryURL() {
+        try? FileManager.default.removeItem(at: testAnyDestDirectoryURL())
     }
     
     private func deletePhotos() {

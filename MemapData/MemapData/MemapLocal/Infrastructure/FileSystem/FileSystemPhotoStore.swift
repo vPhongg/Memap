@@ -79,11 +79,37 @@ extension FileSystemPhotoStore {
             completion(.failure(error))
         }
     }
-    
 }
 
 // MARK: - Moving files
 
 extension FileSystemPhotoStore {
+    public typealias MovingResult = Swift.Result<Void, Error>
+    public typealias MovingCompletion = (MovingResult) -> Void
+    
+    public func move(
+        at srcURL: URL,
+        to dstURL: URL,
+        completion: @escaping MovingCompletion
+    ) {
+        do {
+            try fileManager.createDirectory(at: dstURL, withIntermediateDirectories: true)
+
+            let destination = dstURL.appendingPathComponent(srcURL.lastPathComponent)
+            try fileManager.moveItem(at: srcURL, to: destination)
+            completion(.success(()))
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
+    private func getPhotoFullTrashURL(baseTrashURL: URL, srcURL: URL) -> URL {
+        return baseTrashURL.appending(path: getPhotoURL(from: srcURL))
+        
+        func getPhotoURL(from fullURL: URL) -> String {
+            let components = fullURL.pathComponents
+            return components.suffix(2).joined(separator: "/")
+        }
+    }
     
 }
