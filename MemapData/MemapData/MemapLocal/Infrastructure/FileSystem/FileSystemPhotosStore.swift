@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class FileSystemPhotosStore: PhotosStore {
+public class FileSystemPhotosStore: PhotoStore {
     let fileManager = FileManager.default
     
     public typealias RetrievalResult = Swift.Result<[URL], Error>

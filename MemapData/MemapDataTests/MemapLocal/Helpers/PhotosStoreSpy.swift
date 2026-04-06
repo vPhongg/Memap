@@ -8,7 +8,7 @@
 import Foundation
 import MemapData
 
-class PhotosStoreSpy: PhotosStore {
+class PhotosStoreSpy: PhotoStore {
 
     enum ReceivedMessage: Equatable {
         case retrieve

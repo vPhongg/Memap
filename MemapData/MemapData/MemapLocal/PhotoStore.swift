@@ -1,5 +1,5 @@
 //
-//  PhotosStore.swift
+//  PhotoStore.swift
 //  MemapData
 //
 //  Created by Vu Dinh Phong on 02/04/2026.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol PhotosStore {
+public protocol PhotoStore {
     
     typealias RetrievalResult = Swift.Result<[URL], Error>
     typealias RetrievalCompletion = (RetrievalResult) -> Void

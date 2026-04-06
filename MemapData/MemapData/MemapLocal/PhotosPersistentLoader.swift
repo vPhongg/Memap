@@ -8,9 +8,9 @@
 import Foundation
 
 public class PhotosPersistentLoader: PhotosLoader {
-    let store: PhotosStore
+    let store: PhotoStore
     
-    public init(store: PhotosStore) {
+    public init(store: PhotoStore) {
         self.store = store
     }
     
