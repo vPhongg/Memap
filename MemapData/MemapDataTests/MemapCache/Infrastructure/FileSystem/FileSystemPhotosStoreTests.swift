@@ -102,9 +102,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         let directoryURL = testSpecificPlacePhotosDirectoryURL()
         let photos = [anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto()]
         
-        let insertExpectation = expectation(description: "Waiting for completion to be invoked")
-        sut.insert(photos, toDirectory: directoryURL) { _ in insertExpectation.fulfill() }
-        wait(for: [insertExpectation], timeout: 1.0)
+        insert(photos, to: sut, at: directoryURL)
         
         let expectation = expectation(description: "Waiting for completion to be invoked")
         sut.retrieve(from: directoryURL) { result in
@@ -161,9 +159,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         let photo = anyPhoto()
         let directoryURL = testSpecificPlacePhotosDirectoryURL()
         
-        let insertExpectation = expectation(description: "Waiting for completion to be invoked")
-        sut.insert([photo], toDirectory: directoryURL) { _ in insertExpectation.fulfill() }
-        wait(for: [insertExpectation], timeout: 1.0)
+        insert([photo], to: sut, at: directoryURL)
         
         let filePathToDetele = directoryURL.appendingPathComponent(photo.name)
         
@@ -202,9 +198,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         let url = testSpecificPlacePhotosDirectoryURL()
         let photos = [anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto()]
         
-        let insertExpectation = expectation(description: "Waiting for completion to be invoked")
-        sut.insert(photos, toDirectory: url) { _ in insertExpectation.fulfill() }
-        wait(for: [insertExpectation], timeout: 1.0)
+        insert(photos, to: sut, at: url)
         
         let expectation = expectation(description: "Waiting for completion to be invoked")
         sut.deleteDirectory(at: url) { result in
@@ -220,6 +214,12 @@ final class FileSystemPhotosStoreTests: XCTestCase {
     }
         
     // MARK: - Helpers
+    
+    private func insert(_ photos: [Photo], to sut: FileSystemPhotosStore, at directoryURL: URL) {
+        let insertExpectation = expectation(description: "Waiting for completion to be invoked")
+        sut.insert(photos, toDirectory: directoryURL) { _ in insertExpectation.fulfill() }
+        wait(for: [insertExpectation], timeout: 1.0)
+    }
     
     private func anyPhoto() -> Photo {
         let photoName = UUID().uuidString + ".jpg"
