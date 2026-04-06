@@ -22,7 +22,7 @@ extension LocalPlaceLoader: PlaceLoader {
     }
 }
 
-extension LocalPlaceLoader: MemapPersistence {
+extension LocalPlaceLoader: PlaceSaver {
     public func save(_ place: PlaceInfo) async throws {
         try await store.insert(place.toLocal())
     }
