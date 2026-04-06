@@ -9,6 +9,7 @@ import Foundation
 import MemapData
 
 class PhotosStoreSpy: PhotosStore {
+
     enum ReceivedMessage: Equatable {
         case retrieve
     }
@@ -17,7 +18,7 @@ class PhotosStoreSpy: PhotosStore {
     
     private var retrievalCompletions = [RetrievalCompletion]()
     
-    func retrieve(from path: String, completion: @escaping RetrievalCompletion) {
+    func retrieve(from path: URL, completion: @escaping RetrievalCompletion) {
         retrievalCompletions.append(completion)
         receivedMessages.append(.retrieve)
     }
@@ -28,5 +29,17 @@ class PhotosStoreSpy: PhotosStore {
     
     func completeRetrieval(with urls: [URL], at index: Int = 0) {
         retrievalCompletions[index](.success(urls))
+    }
+    
+    func insert(_ photos: [MemapData.Photo], toDirectory url: URL, completion: @escaping InsertionCompletion) {
+        //
+    }
+    
+    func delete(_ fileURLs: [URL], completion: @escaping DeletionCompletion) {
+        //
+    }
+    
+    func deleteDirectory(at url: URL, completion: @escaping DeletionCompletion) {
+        //
     }
 }

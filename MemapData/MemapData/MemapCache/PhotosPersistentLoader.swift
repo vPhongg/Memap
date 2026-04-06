@@ -14,7 +14,7 @@ public class PhotosPersistentLoader: PhotosLoader {
         self.store = store
     }
     
-    public func load(from path: String, completion: @escaping RetrievalCompletion) {
+    public func load(from path: URL, completion: @escaping RetrievalCompletion) {
         store.retrieve(from: path) { result in
             switch result {
             case .success(let urls):
