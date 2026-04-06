@@ -146,7 +146,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
     
-    func test_delete_deliverNoErrorOnDirectoryDeletion() {
+    func test_delete_deliverNoErrorIfDirectoryNotExist() {
         let sut = makeSUT()
         let url = testSpecificPlacePhotosDirectoryURL()
         
@@ -161,7 +161,6 @@ final class FileSystemPhotosStoreTests: XCTestCase {
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 1.0)
-
     }
         
     // MARK: - Helpers
