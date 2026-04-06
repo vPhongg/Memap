@@ -6,70 +6,7 @@
 //
 
 import XCTest
-
-struct Photo {
-    let name: String
-    let jpegData: Data
-}
-
-class FileSystemPhotosStore {
-    let fileManager = FileManager.default
-    
-    typealias RetrievalResult = Swift.Result<[URL], Error>
-    typealias RetrievalCompletion = (RetrievalResult) -> Void
-    
-    typealias InsertionResult = Swift.Result<Void, Error>
-    typealias InsertionCompletion = (InsertionResult) -> Void
-    
-    typealias DeletionResult = Swift.Result<Void, Error>
-    typealias DeletionCompletion = (DeletionResult) -> Void
-    
-    func retrieve(from url: URL, completion: @escaping RetrievalCompletion) {
-        do {
-            let contents = try fileManager.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
-            completion(.success(contents))
-        } catch {
-            completion(.failure(error))
-        }
-    }
-    
-    func insert(_ photos: [Photo], toDirectory url: URL, completion: @escaping InsertionCompletion) {
-        do {
-            try fileManager.createDirectory(at: url, withIntermediateDirectories: true)
-            for photo in photos {
-                let fileURL = url.appendingPathComponent(photo.name)
-                try photo.jpegData.write(to: fileURL)
-            }
-            completion(.success(()))
-        } catch {
-            completion(.failure(error))
-        }
-    }
-    
-    func delete(_ fileURLs: [URL], completion: @escaping DeletionCompletion) {
-        for fileURL in fileURLs {
-            do {
-                try fileManager.removeItem(at: fileURL)
-                completion(.success(()))
-            } catch {
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    func deleteDirectory(at url: URL, completion: @escaping DeletionCompletion) {
-        guard fileManager.fileExists(atPath: url.path) else {
-            return completion(.success(()))
-        }
-        
-        do {
-            try fileManager.removeItem(at: url)
-            completion(.success(()))
-        } catch {
-            completion(.failure(error))
-        }
-    }
-}
+import MemapData
 
 final class FileSystemPhotosStoreTests: XCTestCase {
     
