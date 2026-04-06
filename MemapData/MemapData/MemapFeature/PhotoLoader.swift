@@ -1,5 +1,5 @@
 //
-//  PhotosLoader.swift
+//  PhotoLoader.swift
 //  MemapData
 //
 //  Created by Vu Dinh Phong on 02/04/2026.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol PhotosLoader {
+public protocol PhotoLoader {
     typealias RetrievalResult = (Result<[URL], Error>)
     typealias RetrievalCompletion = (RetrievalResult) -> Void
     

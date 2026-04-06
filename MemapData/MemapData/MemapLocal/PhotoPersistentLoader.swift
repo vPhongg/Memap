@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class PhotoPersistentLoader: PhotosLoader {
+public class PhotoPersistentLoader: PhotoLoader {
     let store: PhotoStore
     
     public init(store: PhotoStore) {
