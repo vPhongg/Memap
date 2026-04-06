@@ -12,7 +12,7 @@ import MemapData
 public class PlaceInfoDetailViewModel {
     
     let cache: MemapPersistence
-    let deletor: MemapDelete
+    let deletor: PlaceDeletor
     
     public var model: PlaceInfoViewModel = PlaceInfoViewModel(id: UUID(), name: .empty, latitude: 0, longitude: 0, createdTimestamp: Date(), imagePath: nil, isAdded: false)
     
@@ -24,7 +24,7 @@ public class PlaceInfoDetailViewModel {
         return Constant.removePlace.localized
     }
     
-    public init(cache: MemapPersistence, deletor: MemapDelete) {
+    public init(cache: MemapPersistence, deletor: PlaceDeletor) {
         self.cache = cache
         self.deletor = deletor
     }

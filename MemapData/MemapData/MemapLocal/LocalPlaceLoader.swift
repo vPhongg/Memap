@@ -28,7 +28,7 @@ extension LocalPlaceLoader: MemapPersistence {
     }
 }
 
-extension LocalPlaceLoader: MemapDelete {
+extension LocalPlaceLoader: PlaceDeletor {
     public func delete(_ place: PlaceInfo) async throws {
         try await store.delete(place.toLocal())
     }
