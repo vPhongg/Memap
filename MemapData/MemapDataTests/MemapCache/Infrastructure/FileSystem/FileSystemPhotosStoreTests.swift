@@ -196,6 +196,28 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         }
         wait(for: [expectation], timeout: 1.0)
     }
+    
+    func test_delete_deliverNoErrorIfDirectoryExist() {
+        let sut = makeSUT()
+        let url = testSpecificPlacePhotosDirectoryURL()
+        let photos = [anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto()]
+        
+        let insertExpectation = expectation(description: "Waiting for completion to be invoked")
+        sut.insert(photos, toDirectory: url) { _ in insertExpectation.fulfill() }
+        wait(for: [insertExpectation], timeout: 1.0)
+        
+        let expectation = expectation(description: "Waiting for completion to be invoked")
+        sut.deleteDirectory(at: url) { result in
+            switch result {
+            case .success():
+                break
+            case .failure( let error):
+                XCTFail("Expected success but got error: \(error) instead")
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
+    }
         
     // MARK: - Helpers
     
