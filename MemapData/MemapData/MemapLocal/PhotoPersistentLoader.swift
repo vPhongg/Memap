@@ -1,5 +1,5 @@
 //
-//  PhotosPersistentLoader.swift
+//  PhotoPersistentLoader.swift
 //  MemapData
 //
 //  Created by Vu Dinh Phong on 02/04/2026.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class PhotosPersistentLoader: PhotosLoader {
+public class PhotoPersistentLoader: PhotosLoader {
     let store: PhotoStore
     
     public init(store: PhotoStore) {
