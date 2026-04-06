@@ -1,5 +1,5 @@
 //
-//  FileSystemPhotosStore.swift
+//  FileSystemPhotoStore.swift
 //  MemapData
 //
 //  Created by Vu Dinh Phong on 06/04/2026.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class FileSystemPhotosStore: PhotoStore {
+public class FileSystemPhotoStore: PhotoStore {
     let fileManager = FileManager.default
     
     public typealias RetrievalResult = Swift.Result<[URL], Error>

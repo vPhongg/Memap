@@ -152,7 +152,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         
     // MARK: - Helpers
     
-    private func insert(_ photos: [Photo], to sut: FileSystemPhotosStore, at directoryURL: URL) {
+    private func insert(_ photos: [Photo], to sut: FileSystemPhotoStore, at directoryURL: URL) {
         let insertExpectation = expectation(description: "Waiting for completion to be invoked")
         sut.insert(photos, toDirectory: directoryURL) { _ in insertExpectation.fulfill() }
         wait(for: [insertExpectation], timeout: 1.0)
@@ -165,8 +165,8 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         return Photo(name: photoName, jpegData: fakeJpegData)
     }
     
-    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> FileSystemPhotosStore {
-        let sut = FileSystemPhotosStore()
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> FileSystemPhotoStore {
+        let sut = FileSystemPhotoStore()
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }
