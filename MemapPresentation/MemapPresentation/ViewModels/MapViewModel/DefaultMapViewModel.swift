@@ -14,10 +14,10 @@ final public class DefaultMapViewModel: MapViewModel {
     public var isLoading: Bool = false
     public var places: [PlaceInfo] = []
         
-    private let memapLoader: MemapLoader
+    private let memapLoader: PlaceLoader
     
     public init (
-        memapLoader: MemapLoader,
+        memapLoader: PlaceLoader,
     ) {
         self.memapLoader = memapLoader
     }

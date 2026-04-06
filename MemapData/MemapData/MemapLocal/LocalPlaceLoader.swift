@@ -16,7 +16,7 @@ public final class LocalPlaceLoader {
     }
 }
 
-extension LocalPlaceLoader: MemapLoader {
+extension LocalPlaceLoader: PlaceLoader {
     public func load() async throws -> [PlaceInfo] {
         return try await store.retrieve().toModels()
     }
