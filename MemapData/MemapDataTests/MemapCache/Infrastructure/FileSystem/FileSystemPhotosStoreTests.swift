@@ -168,10 +168,9 @@ final class FileSystemPhotosStoreTests: XCTestCase {
     
     private func anyPhoto() -> Photo {
         let photoName = UUID().uuidString + ".jpg"
-        let image = UIImage(systemName: "square.and.arrow.up")!
-        let jpegData = image.jpegData(compressionQuality: 0.8)!
+        let fakeJpegData = Data([1, 2, 4])
         
-        return Photo(name: photoName, jpegData: jpegData)
+        return Photo(name: photoName, jpegData: fakeJpegData)
     }
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> FileSystemPhotosStore {
