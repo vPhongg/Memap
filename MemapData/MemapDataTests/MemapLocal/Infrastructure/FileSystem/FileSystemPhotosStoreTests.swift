@@ -211,6 +211,42 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         wait(for: [moveExpectation], timeout: 1.0)
     }
     
+    func test_move_deliverNoErrorMoveOneFileByOneToTrash() {
+        let sut = makeSUT()
+        let photo1 = anyPhoto()
+        let photo2 = anyPhoto()
+        let photo1URL = testSpecificPlaceResourcesDirectoryURL().appendingPathComponent(photo1.name)
+        let photo2URL = testSpecificPlaceResourcesDirectoryURL().appendingPathComponent(photo2.name)
+        let photos = [photo2, anyPhoto(), anyPhoto(), photo1, anyPhoto()]
+        let url = testSpecificPlaceResourcesDirectoryURL()
+        
+        insert(photos, to: sut, at: url)
+        
+        let expectation1 = expectation(description: "Waiting for completion to be invoked")
+        sut.moveToTrash(at: photo1URL) { result in
+            switch result {
+            case .success():
+                break
+            case .failure( let error):
+                XCTFail("Expected success but got error: \(error) instead")
+            }
+            expectation1.fulfill()
+        }
+        wait(for: [expectation1], timeout: 1.0)
+        
+        let expectation2 = expectation(description: "Waiting for completion to be invoked")
+        sut.moveToTrash(at: photo2URL) { result in
+            switch result {
+            case .success():
+                break
+            case .failure( let error):
+                XCTFail("Expected success but got error: \(error) instead")
+            }
+            expectation2.fulfill()
+        }
+        wait(for: [expectation2], timeout: 1.0)
+    }
+    
     // MARK: - Helpers
     
     private func insert(_ photos: [Photo], to sut: FileSystemPhotoStore, at directoryURL: URL) {
