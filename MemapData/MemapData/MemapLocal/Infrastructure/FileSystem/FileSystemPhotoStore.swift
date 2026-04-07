@@ -8,9 +8,25 @@
 import Foundation
 
 public class FileSystemPhotoStore: PhotoStore {
+    enum PhotoStoreError: Swift.Error {
+        case documentDirectoryNotFound
+    }
+    
     let fileManager = FileManager.default
     
     public init() {}
+    
+    private func basedTrashURL() throws -> URL {
+        return try documentDirectory().appending(path: "Memap").appending(path: ".trash")
+    }
+    
+    private func documentDirectory() throws -> URL {
+        if let docDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first {
+            return docDir
+        } else {
+            throw PhotoStoreError.documentDirectoryNotFound
+        }
+    }
 }
 
 // MARK: - Retrievals
@@ -105,25 +121,37 @@ extension FileSystemPhotoStore {
     
     public func moveToTrash(at srcURL: URL, completion: @escaping MovingCompletion) {
         do {
-            
             let result = getSplitedURL(from: srcURL)
-            let urlToCreate = result.basedURL
-                .appendingPathComponent(".trash")
-                .appendingPathComponent(result.secondLastComponent)
-            try fileManager.createDirectory(at: urlToCreate, withIntermediateDirectories: true)
-            let destination = urlToCreate.appendingPathComponent(result.lastComponent)
-            try fileManager.moveItem(at: srcURL, to: destination)
+            let trashURL = try basedTrashURL()
+            if srcURL.isDirectory {
+                try fileManager.createDirectory(at: trashURL, withIntermediateDirectories: true)
+                let destination = trashURL.appendingPathComponent(result.lastComponent)
+                try fileManager.moveItem(at: srcURL, to: destination)
+            } else {
+                let trashURLToCreate = trashURL.appending(path: result.secondLastComponent)
+                try fileManager.createDirectory(at: trashURLToCreate, withIntermediateDirectories: true)
+                let destination = trashURLToCreate.appendingPathComponent(result.lastComponent)
+                try fileManager.moveItem(at: srcURL, to: destination)
+            }
+            
             completion(.success(()))
         } catch {
             completion(.failure(error))
         }
         
-        func getSplitedURL(from url: URL) -> (basedURL: URL, secondLastComponent: String, lastComponent: String) {
-            let basedURL = url.deletingLastPathComponent().deletingLastPathComponent()
+        func getSplitedURL(from url: URL) -> (secondLastComponent: String, lastComponent: String) {
             let specificComponent = url.pathComponents.suffix(2)
             let secondLastComponent = specificComponent.first ?? ""
             let lastComponent = specificComponent.last ?? ""
-            return (basedURL, secondLastComponent, lastComponent)
+            return (secondLastComponent, lastComponent)
         }
+    }
+}
+
+private extension URL {
+    var isDirectory: Bool {
+        var isDir: ObjCBool = false
+        FileManager.default.fileExists(atPath: path, isDirectory: &isDir)
+        return isDir.boolValue
     }
 }

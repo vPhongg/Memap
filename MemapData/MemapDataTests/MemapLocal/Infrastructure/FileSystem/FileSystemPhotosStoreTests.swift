@@ -156,7 +156,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
     
     // MARK: - Moving Files
     
-    func test_move_deliverNoErrorMovePhotoToDestination() {
+    func test_move_deliverNoErrorMoveFileToAnyDestination() {
         let sut = makeSUT()
         let photo = anyPhoto()
         let photoURL = testSpecificPlaceResourcesDirectoryURL().appendingPathComponent(photo.name)
@@ -247,6 +247,26 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         wait(for: [expectation2], timeout: 1.0)
     }
     
+    func test_move_deliverNoErrorMoveWholePlaceDirectoryToTrash() {
+        let sut = makeSUT()
+        let photos = [anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto()]
+        let url = testSpecificPlaceResourcesDirectoryURL()
+        
+        insert(photos, to: sut, at: url)
+        
+        let expectation1 = expectation(description: "Waiting for completion to be invoked")
+        sut.moveToTrash(at: url) { result in
+            switch result {
+            case .success():
+                break
+            case .failure( let error):
+                XCTFail("Expected success but got error: \(error) instead")
+            }
+            expectation1.fulfill()
+        }
+        wait(for: [expectation1], timeout: 1.0)
+    }
+    
     // MARK: - Helpers
     
     private func insert(_ photos: [Photo], to sut: FileSystemPhotoStore, at directoryURL: URL) {
@@ -284,7 +304,6 @@ final class FileSystemPhotosStoreTests: XCTestCase {
     private func testExactResourcesTrashBasedURL() -> URL {
         return documentDirectory()
             .appendingPathComponent("Memap")
-            .appendingPathComponent("resources")
             .appendingPathComponent(".trash")
     }
     
