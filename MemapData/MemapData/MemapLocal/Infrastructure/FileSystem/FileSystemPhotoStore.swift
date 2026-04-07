@@ -103,13 +103,27 @@ extension FileSystemPhotoStore {
         }
     }
     
-    private func getPhotoFullTrashURL(baseTrashURL: URL, srcURL: URL) -> URL {
-        return baseTrashURL.appending(path: getPhotoURL(from: srcURL))
+    public func moveToTrash(at srcURL: URL, completion: @escaping MovingCompletion) {
+        do {
+            
+            let result = getSplitedURL(from: srcURL)
+            let urlToCreate = result.basedURL
+                .appendingPathComponent(".trash")
+                .appendingPathComponent(result.secondLastComponent)
+            try fileManager.createDirectory(at: urlToCreate, withIntermediateDirectories: true)
+            let destination = urlToCreate.appendingPathComponent(result.lastComponent)
+            try fileManager.moveItem(at: srcURL, to: destination)
+            completion(.success(()))
+        } catch {
+            completion(.failure(error))
+        }
         
-        func getPhotoURL(from fullURL: URL) -> String {
-            let components = fullURL.pathComponents
-            return components.suffix(2).joined(separator: "/")
+        func getSplitedURL(from url: URL) -> (basedURL: URL, secondLastComponent: String, lastComponent: String) {
+            let basedURL = url.deletingLastPathComponent().deletingLastPathComponent()
+            let specificComponent = url.pathComponents.suffix(2)
+            let secondLastComponent = specificComponent.first ?? ""
+            let lastComponent = specificComponent.last ?? ""
+            return (basedURL, secondLastComponent, lastComponent)
         }
     }
-    
 }
