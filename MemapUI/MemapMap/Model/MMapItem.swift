@@ -15,7 +15,9 @@ public struct MMapItem: Hashable {
     public let latitude: Double
     public let longitude: Double
     public let createdTimestamp: Date?
-    public let imagePath: String?
+    public let imagesPath: String?
+    public let videosPath: String?
+    public let note: String?
     public var mapItem: MKMapItem?
     public let isAdded: Bool
     
@@ -25,7 +27,9 @@ public struct MMapItem: Hashable {
         latitude: Double,
         longitude: Double,
         createdTimestamp: Date?,
-        imagePath: String?,
+        imagesPath: String?,
+        videosPath: String?,
+        note: String?,
         mapItem: MKMapItem? = nil,
         isAdded: Bool
     ) {
@@ -34,7 +38,9 @@ public struct MMapItem: Hashable {
         self.latitude = latitude
         self.longitude = longitude
         self.createdTimestamp = createdTimestamp
-        self.imagePath = imagePath
+        self.imagesPath = imagesPath
+        self.videosPath = videosPath
+        self.note = note
         self.mapItem = mapItem
         self.isAdded = isAdded
     }
@@ -77,7 +83,9 @@ extension MMapItem {
             latitude: feature.coordinate.latitude,
             longitude: feature.coordinate.longitude,
             createdTimestamp: nil,
-            imagePath: nil,
+            imagesPath: nil,
+            videosPath: nil,
+            note: nil,
             isAdded: false
         )
     }

@@ -50,8 +50,10 @@ extension Array where Element == PlaceInfoDomain {
                     name: item.name,
                     latitude: lat,
                     longitude: long,
-                    createdTimestamp: item.createdTimestamp,
-                    imagePath: item.imagePath,
+                    savedTimestamp: item.savedTimestamp,
+                    imagesPath: item.imagesPath,
+                    videosPath: item.videosPath,
+                    note: item.note,
                     isAdded: item.isAdded
                 )
             } else {

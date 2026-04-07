@@ -14,7 +14,7 @@ public class PlaceInfoDetailViewModel {
     let cache: PlaceSaver
     let deletor: PlaceDeletor
     
-    public var model: PlaceInfoViewModel = PlaceInfoViewModel(id: UUID(), name: .empty, latitude: 0, longitude: 0, createdTimestamp: Date(), imagePath: nil, isAdded: false)
+    public var model: PlaceInfoViewModel = PlaceInfoViewModel(id: UUID(), name: .empty, latitude: 0, longitude: 0, savedTimestamp: Date(), imagesPath: nil, videosPath: nil, note: nil, isAdded: false)
     
     public static var addPlaceText: String {
         return Constant.addPlace.localized

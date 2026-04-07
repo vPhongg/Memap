@@ -13,8 +13,10 @@ public struct PlaceInfoViewModel {
     public var name: String?
     public let latitude: Double
     public let longitude: Double
-    public let createdTimestamp: Date?
-    public let imagePath: String?
+    public let savedTimestamp: Date?
+    public let imagesPath: String?
+    public let videosPath: String?
+    public let note: String?
     public var isAdded: Bool
     
     public init(
@@ -22,16 +24,20 @@ public struct PlaceInfoViewModel {
         name: String? = nil,
         latitude: Double,
         longitude: Double,
-        createdTimestamp: Date?,
-        imagePath: String?,
+        savedTimestamp: Date?,
+        imagesPath: String?,
+        videosPath: String?,
+        note: String?,
         isAdded: Bool
     ) {
         self.id = id
         self.name = name
         self.latitude = latitude
         self.longitude = longitude
-        self.createdTimestamp = createdTimestamp
-        self.imagePath = imagePath
+        self.savedTimestamp = savedTimestamp
+        self.imagesPath = imagesPath
+        self.videosPath = videosPath
+        self.note = note
         self.isAdded = isAdded
     }
 }

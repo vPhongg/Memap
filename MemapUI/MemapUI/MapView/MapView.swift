@@ -58,8 +58,10 @@ extension MMapItem {
             name: name,
             latitude: latitude,
             longitude: longitude,
-            createdTimestamp: createdTimestamp,
-            imagePath: imagePath,
+            savedTimestamp: createdTimestamp,
+            imagesPath: imagesPath,
+            videosPath: videosPath,
+            note: note,
             isAdded: isAdded
         )
     }
@@ -73,8 +75,10 @@ extension Array where Element == PlaceInfoViewModel {
                 name: $0.name,
                 latitude: $0.latitude,
                 longitude: $0.longitude,
-                createdTimestamp: $0.createdTimestamp,
-                imagePath: $0.imagePath,
+                createdTimestamp: $0.savedTimestamp,
+                imagesPath: $0.imagesPath,
+                videosPath: $0.videosPath,
+                note: $0.note,
                 isAdded: $0.isAdded
             )
         }

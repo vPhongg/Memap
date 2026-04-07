@@ -16,13 +16,15 @@ public struct PlaceInfoResponseDTO: Decodable, Equatable {
     public let name: String?
     public let latitude: Double?
     public let longitude: Double?
-    public let createdTimestamp: String?
-    public let imagePath: String?
+    public let savedTimestamp: String?
+    public let imagesPath: String?
+    public let videosPath: String?
+    public let note: String?
 }
 
 public extension PlaceInfoResponseDTO {
     func toModel() -> PlaceInfoDomain? {
-        guard let id, let uuid = UUID(uuidString: id), let createdTimestamp else {
+        guard let id, let uuid = UUID(uuidString: id), let savedTimestamp else {
             return nil
         }
         return PlaceInfoDomain(
@@ -30,8 +32,10 @@ public extension PlaceInfoResponseDTO {
             name: name,
             latitude: latitude,
             longitude: longitude,
-            createdTimestamp: convertToDate(from: createdTimestamp),
-            imagePath: imagePath,
+            savedTimestamp: convertToDate(from: savedTimestamp),
+            imagesPath: imagesPath,
+            videosPath: videosPath,
+            note: note,
             isAdded: true // Fix true because `LocalPlaceInfo` represent items from `Persistence Storage`, which means it surely saved to `Persistence Storage` previously.
         )
     }

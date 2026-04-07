@@ -35,19 +35,17 @@ final public class DefaultMapViewModel: MapViewModel {
 extension Array where Element == PlaceInfo {
     public func toModels() -> [PlaceInfoViewModel] {
         return compactMap { item in
-            if let lat = item.latitude, let long = item.longitude {
-                return PlaceInfoViewModel(
-                    id: item.id,
-                    name: item.name,
-                    latitude: lat,
-                    longitude: long,
-                    createdTimestamp: item.createdTimestamp,
-                    imagePath: item.imagePath,
-                    isAdded: item.isAdded
-                )
-            } else {
-                return nil
-            }
+            return PlaceInfoViewModel(
+                id: item.id,
+                name: item.name,
+                latitude: item.latitude,
+                longitude: item.longitude,
+                savedTimestamp: item.savedTimestamp,
+                imagesPath: item.imagesPath,
+                videosPath: item.videosPath,
+                note: item.note,
+                isAdded: item.isAdded
+            )
         }
     }
 }
@@ -59,8 +57,10 @@ extension PlaceInfoViewModel {
             name: name,
             latitude: latitude,
             longitude: longitude,
-            createdTimestamp: createdTimestamp ?? Date(),
-            imagePath: imagePath,
+            savedTimestamp: savedTimestamp ?? Date(),
+            imagesPath: imagesPath,
+            videosPath: videosPath,
+            note: note,
             isAdded: isAdded
         )
     }
