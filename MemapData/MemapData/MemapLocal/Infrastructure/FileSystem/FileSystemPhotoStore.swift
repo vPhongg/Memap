@@ -21,6 +21,7 @@ extension FileManager: FileManagerProtocol {}
 public class FileSystemPhotoStore: PhotoStore {
     public enum PhotoStoreError: Swift.Error {
         case documentDirectoryNotFound
+        case failedToRemoveItem
     }
     
     let fileManager: FileManagerProtocol
@@ -91,7 +92,7 @@ extension FileSystemPhotoStore {
                 try fileManager.removeItem(at: fileURL)
                 completion(.success(()))
             } catch {
-                completion(.failure(error))
+                completion(.failure(PhotoStoreError.failedToRemoveItem))
             }
         }
     }
@@ -105,7 +106,7 @@ extension FileSystemPhotoStore {
             try fileManager.removeItem(at: url)
             completion(.success(()))
         } catch {
-            completion(.failure(error))
+            completion(.failure(PhotoStoreError.failedToRemoveItem))
         }
     }
 }

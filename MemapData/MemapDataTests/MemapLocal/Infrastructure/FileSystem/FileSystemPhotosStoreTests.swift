@@ -18,7 +18,7 @@ class MockFileManager: FileManagerProtocol {
     }
     
     func removeItem(at URL: URL) throws {
-        //
+        throw FileSystemPhotoStore.PhotoStoreError.failedToRemoveItem
     }
     
     func moveItem(at srcURL: URL, to dstURL: URL) throws {
@@ -26,7 +26,7 @@ class MockFileManager: FileManagerProtocol {
     }
     
     func fileExists(atPath path: String) -> Bool {
-        return false
+        return true
     }
     
     func createDirectory(at url: URL, withIntermediateDirectories createIntermediates: Bool, attributes: [FileAttributeKey : Any]?) throws {
@@ -193,6 +193,27 @@ final class FileSystemPhotosStoreTests: XCTestCase {
                 break
             case .failure( let error):
                 XCTFail("Expected success but got error: \(error) instead")
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
+    }
+    
+    func test_deleteDirectory_deliverErrorOnRemoveItemError() {
+        let sut = makeSUT(fileManager: MockFileManager())
+        
+        let url = testSpecificPlaceResourcesDirectoryURL()
+        let photos = [anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto()]
+        
+        insert(photos, to: sut, at: url)
+        
+        let expectation = expectation(description: "Waiting for completion to be invoked")
+        sut.deleteDirectory(at: url) { result in
+            switch result {
+            case .success():
+                XCTFail("Expected failure but got error: \(result) instead")
+            case .failure( let error):
+                XCTAssertEqual(error as? FileSystemPhotoStore.PhotoStoreError, FileSystemPhotoStore.PhotoStoreError.failedToRemoveItem)
             }
             expectation.fulfill()
         }
