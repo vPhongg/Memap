@@ -24,7 +24,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
     
     // MARK: - Retrievals
     
-    func test_retrieve_deliversEmptyOnEmptyFolder() {
+    func test_retrieve_deliversEmptyOnEmptyDirectory() {
         let sut = makeSUT()
         let directoryURL = testSpecificPlaceResourcesDirectoryURL()
         
@@ -38,7 +38,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
     
-    func test_retrieve_deliversPhotosOnNonEmptyFolder() {
+    func test_retrieve_deliversPhotosOnNonEmptyDirectory() {
         let sut = makeSUT()
         let directoryURL = testSpecificPlaceResourcesDirectoryURL()
         let photos = [anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto()]
@@ -53,6 +53,23 @@ final class FileSystemPhotosStoreTests: XCTestCase {
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 1.0)
+    }
+    
+    func test_retrieve_deliversErrorOnNonExistPlaceDirectory() {
+        let sut = makeSUT()
+        let directoryURL = testSpecificPlaceResourcesDirectoryURL()
+        
+        var error: Error?
+        let expectation = expectation(description: "Waiting for completion to be invoked")
+        sut.retrieve(from: directoryURL) { result in
+            if case .failure(let receivedError) = result {
+                error = receivedError
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
+        
+        XCTAssertNotNil(error)
     }
     
     // MARK: - Insertions
