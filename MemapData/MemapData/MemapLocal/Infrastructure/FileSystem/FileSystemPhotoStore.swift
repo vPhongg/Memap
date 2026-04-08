@@ -53,7 +53,7 @@ extension FileSystemPhotoStore {
     
     public func insert(_ photos: [Photo], toDirectory url: URL, completion: @escaping InsertionCompletion) {
         do {
-            try fileManager.createDirectory(at: url, withIntermediateDirectories: true)
+            try self.createDirectory(for: url)
             for photo in photos {
                 let fileURL = url.appendingPathComponent(photo.name)
                 try photo.jpegData.write(to: fileURL)
@@ -109,7 +109,7 @@ extension FileSystemPhotoStore {
         completion: @escaping MovingCompletion
     ) {
         do {
-            try fileManager.createDirectory(at: dstURL, withIntermediateDirectories: true)
+            try self.createDirectory(for: dstURL)
 
             let destination = dstURL.appendingPathComponent(srcURL.lastPathComponent)
             try fileManager.moveItem(at: srcURL, to: destination)
@@ -124,12 +124,12 @@ extension FileSystemPhotoStore {
             let result = getSplitedURL(from: srcURL)
             let trashURL = try basedTrashURL()
             if srcURL.isDirectory {
-                try fileManager.createDirectory(at: trashURL, withIntermediateDirectories: true)
+                try self.createDirectory(for: trashURL)
                 let destination = trashURL.appendingPathComponent(result.lastComponent)
                 try fileManager.moveItem(at: srcURL, to: destination)
             } else {
                 let trashURLToCreate = trashURL.appending(path: result.secondLastComponent)
-                try fileManager.createDirectory(at: trashURLToCreate, withIntermediateDirectories: true)
+                try self.createDirectory(for: trashURLToCreate)
                 let destination = trashURLToCreate.appendingPathComponent(result.lastComponent)
                 try fileManager.moveItem(at: srcURL, to: destination)
             }
@@ -145,6 +145,14 @@ extension FileSystemPhotoStore {
             let lastComponent = specificComponent.last ?? ""
             return (secondLastComponent, lastComponent)
         }
+    }
+}
+
+// MARK: - Creations
+
+extension FileSystemPhotoStore {
+    public func createDirectory(for url: URL) throws {
+        try fileManager.createDirectory(at: url, withIntermediateDirectories: true)
     }
 }
 
