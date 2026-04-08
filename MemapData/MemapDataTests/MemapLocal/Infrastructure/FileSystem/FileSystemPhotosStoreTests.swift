@@ -24,9 +24,11 @@ final class FileSystemPhotosStoreTests: XCTestCase {
     
     // MARK: - Retrievals
     
-    func test_retrieve_deliversEmptyOnEmptyDirectory() {
+    func test_retrieve_deliversEmptyOnEmptyDirectory() throws {
         let sut = makeSUT()
         let directoryURL = testSpecificPlaceResourcesDirectoryURL()
+        
+        try sut.createDirectory(for: directoryURL)
         
         let expectation = expectation(description: "Waiting for completion to be invoked")
         sut.retrieve(from: directoryURL) { result in
