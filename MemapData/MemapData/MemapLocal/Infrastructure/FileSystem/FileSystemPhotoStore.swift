@@ -22,6 +22,7 @@ public class FileSystemPhotoStore: PhotoStore {
     public enum PhotoStoreError: Swift.Error {
         case documentDirectoryNotFound
         case failedToRemoveItem
+        case failedToMoveItem
     }
     
     let fileManager: FileManagerProtocol
@@ -129,7 +130,7 @@ extension FileSystemPhotoStore {
             try fileManager.moveItem(at: srcURL, to: destination)
             completion(.success(()))
         } catch {
-            completion(.failure(error))
+            completion(.failure(PhotoStoreError.failedToMoveItem))
         }
     }
     

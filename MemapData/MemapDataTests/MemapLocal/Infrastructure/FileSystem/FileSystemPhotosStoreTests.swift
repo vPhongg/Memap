@@ -22,7 +22,7 @@ class MockFileManager: FileManagerProtocol {
     }
     
     func moveItem(at srcURL: URL, to dstURL: URL) throws {
-        //
+        throw FileSystemPhotoStore.PhotoStoreError.failedToMoveItem
     }
     
     func fileExists(atPath path: String) -> Bool {
@@ -162,6 +162,28 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
     
+    func test_delete_deliverErrorOnRemoveItemError() throws {
+        let sut = makeSUT(fileManager: MockFileManager())
+        let photo = anyPhoto()
+        let directoryURL = testSpecificPlaceResourcesDirectoryURL()
+        
+        insert([photo], to: sut, at: directoryURL)
+        
+        let filePathToDetele = directoryURL.appendingPathComponent(photo.name)
+        
+        let expectation = expectation(description: "Waiting for completion to be invoked")
+        sut.delete([filePathToDetele]) { result in
+            switch result {
+            case .success():
+                XCTFail("Expected failure but got error: \(result) instead")
+            case .failure( let error):
+                XCTAssertEqual(error as? FileSystemPhotoStore.PhotoStoreError, FileSystemPhotoStore.PhotoStoreError.failedToRemoveItem)
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
+    }
+    
     func test_delete_deliverNoErrorIfDirectoryNotExist() {
         let sut = makeSUT()
         let url = testSpecificPlaceResourcesDirectoryURL()
@@ -253,6 +275,29 @@ final class FileSystemPhotosStoreTests: XCTestCase {
             retrieveExpectation.fulfill()
         }
         wait(for: [retrieveExpectation], timeout: 1.0)
+    }
+    
+    func test_move_deliverErrorOnMoveItemError() {
+        let sut = makeSUT(fileManager: MockFileManager())
+        let photo = anyPhoto()
+        let photoURL = testSpecificPlaceResourcesDirectoryURL().appendingPathComponent(photo.name)
+        let photos = [anyPhoto(), anyPhoto(), photo, anyPhoto(), anyPhoto()]
+        let url = testSpecificPlaceResourcesDirectoryURL()
+        let dstDirectory = testAnyDestDirectoryURL()
+        
+        insert(photos, to: sut, at: url)
+        
+        let moveExpectation = expectation(description: "Waiting for completion to be invoked")
+        sut.move(at: photoURL, to: dstDirectory) { result in
+            switch result {
+            case .success():
+                XCTFail("Expected failure but got error: \(result) instead")
+            case .failure( let error):
+                XCTAssertEqual(error as? FileSystemPhotoStore.PhotoStoreError, FileSystemPhotoStore.PhotoStoreError.failedToMoveItem)
+            }
+            moveExpectation.fulfill()
+        }
+        wait(for: [moveExpectation], timeout: 1.0)
     }
     
     func test_moveToTrash_deliverNoErrorMoveOneFile() {
