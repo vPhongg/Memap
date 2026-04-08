@@ -7,14 +7,27 @@
 
 import Foundation
 
+public protocol FileManagerProtocol {
+    func urls(for directory: FileManager.SearchPathDirectory, in domainMask: FileManager.SearchPathDomainMask) -> [URL]
+    func contentsOfDirectory(at url: URL, includingPropertiesForKeys keys: [URLResourceKey]?, options mask: FileManager.DirectoryEnumerationOptions) throws -> [URL]
+    func removeItem(at URL: URL) throws
+    func moveItem(at srcURL: URL, to dstURL: URL) throws
+    func fileExists(atPath path: String) -> Bool
+    func createDirectory(at url: URL, withIntermediateDirectories createIntermediates: Bool, attributes: [FileAttributeKey : Any]?) throws
+}
+
+extension FileManager: FileManagerProtocol {}
+
 public class FileSystemPhotoStore: PhotoStore {
-    enum PhotoStoreError: Swift.Error {
+    public enum PhotoStoreError: Swift.Error {
         case documentDirectoryNotFound
     }
     
-    let fileManager = FileManager.default
+    let fileManager: FileManagerProtocol
     
-    public init() {}
+    public init(fileManager: FileManagerProtocol = FileManager.default) {
+        self.fileManager = fileManager
+    }
     
     private func basedTrashURL() throws -> URL {
         return try documentDirectory().appending(path: "Memap").appending(path: ".trash")
@@ -37,7 +50,7 @@ extension FileSystemPhotoStore {
     
     public func retrieve(from url: URL, completion: @escaping RetrievalCompletion) {
         do {
-            let contents = try fileManager.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
+            let contents = try fileManager.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [])
             completion(.success(contents))
         } catch {
             completion(.failure(error))
@@ -110,7 +123,7 @@ extension FileSystemPhotoStore {
     ) {
         do {
             try self.createDirectory(for: dstURL)
-
+            
             let destination = dstURL.appendingPathComponent(srcURL.lastPathComponent)
             try fileManager.moveItem(at: srcURL, to: destination)
             completion(.success(()))
@@ -152,7 +165,7 @@ extension FileSystemPhotoStore {
 
 extension FileSystemPhotoStore {
     public func createDirectory(for url: URL) throws {
-        try fileManager.createDirectory(at: url, withIntermediateDirectories: true)
+        try fileManager.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
     }
 }
 

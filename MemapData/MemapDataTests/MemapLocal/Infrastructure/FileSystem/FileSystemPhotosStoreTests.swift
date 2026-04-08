@@ -8,6 +8,32 @@
 import XCTest
 import MemapData
 
+class MockFileManager: FileManagerProtocol {
+    func urls(for directory: FileManager.SearchPathDirectory, in domainMask: FileManager.SearchPathDomainMask) -> [URL] {
+        return []
+    }
+    
+    func contentsOfDirectory(at url: URL, includingPropertiesForKeys keys: [URLResourceKey]?, options mask: FileManager.DirectoryEnumerationOptions) throws -> [URL] {
+        return []
+    }
+    
+    func removeItem(at URL: URL) throws {
+        //
+    }
+    
+    func moveItem(at srcURL: URL, to dstURL: URL) throws {
+        //
+    }
+    
+    func fileExists(atPath path: String) -> Bool {
+        return false
+    }
+    
+    func createDirectory(at url: URL, withIntermediateDirectories createIntermediates: Bool, attributes: [FileAttributeKey : Any]?) throws {
+        //
+    }
+}
+
 final class FileSystemPhotosStoreTests: XCTestCase {
     
     override func setUp() {
@@ -208,7 +234,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         wait(for: [retrieveExpectation], timeout: 1.0)
     }
     
-    func test_move_deliverNoErrorMoveOneFileToTrash() {
+    func test_moveToTrash_deliverNoErrorMoveOneFile() {
         let sut = makeSUT()
         let photo = anyPhoto()
         let photoURL = testSpecificPlaceResourcesDirectoryURL().appendingPathComponent(photo.name)
@@ -230,7 +256,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         wait(for: [moveExpectation], timeout: 1.0)
     }
     
-    func test_move_deliverNoErrorMoveOneFileByOneToTrash() {
+    func test_moveToTrash_deliverNoErrorMoveOneFileByOne() {
         let sut = makeSUT()
         let photo1 = anyPhoto()
         let photo2 = anyPhoto()
@@ -266,7 +292,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         wait(for: [expectation2], timeout: 1.0)
     }
     
-    func test_move_deliverNoErrorMoveWholePlaceDirectoryToTrash() {
+    func test_moveToTrash_deliverNoErrorMoveWholePlaceDirectory() {
         let sut = makeSUT()
         let photos = [anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto()]
         let url = testSpecificPlaceResourcesDirectoryURL()
@@ -280,6 +306,26 @@ final class FileSystemPhotosStoreTests: XCTestCase {
                 break
             case .failure( let error):
                 XCTFail("Expected success but got error: \(error) instead")
+            }
+            expectation1.fulfill()
+        }
+        wait(for: [expectation1], timeout: 1.0)
+    }
+    
+    func test_moveToTrash_deliverErrorUponDocumentDirectoryNotFound() {
+        let sut = makeSUT(fileManager: MockFileManager())
+        let photos = [anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto()]
+        let url = testSpecificPlaceResourcesDirectoryURL()
+        
+        insert(photos, to: sut, at: url)
+        
+        let expectation1 = expectation(description: "Waiting for completion to be invoked")
+        sut.moveToTrash(at: url) { result in
+            switch result {
+            case .success():
+                XCTFail("Expected failure but got error: \(result) instead")
+            case .failure( let error):
+                XCTAssertEqual(error as? FileSystemPhotoStore.PhotoStoreError, FileSystemPhotoStore.PhotoStoreError.documentDirectoryNotFound)
             }
             expectation1.fulfill()
         }
@@ -301,8 +347,12 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         return Photo(name: photoName, jpegData: fakeJpegData)
     }
     
-    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> FileSystemPhotoStore {
-        let sut = FileSystemPhotoStore()
+    private func makeSUT(
+        fileManager: FileManagerProtocol = FileManager.default,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> FileSystemPhotoStore {
+        let sut = FileSystemPhotoStore(fileManager: fileManager)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }
