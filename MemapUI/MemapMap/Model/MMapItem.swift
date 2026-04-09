@@ -93,9 +93,9 @@ extension MMapItem {
 
 
 extension Array where Element == MMapItem {
-    func toMMapAnnotations() -> [MMapAnnotation] {
+    func toMapPlaces() -> [MapPlace] {
         return map {
-            MMapAnnotation(
+            MapPlace(
                 title: $0.name,
                 latitude: $0.latitude,
                 longitude: $0.longitude
