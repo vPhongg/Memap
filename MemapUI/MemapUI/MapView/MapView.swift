@@ -9,14 +9,20 @@ import SwiftUI
 import MemapMap
 import MemapPresentation
 
-struct MapView: View {
+public struct MapView: View {
     
-    @Binding var isPresentingPlaceInfoDetailView: Bool
+    @State var isPresentingPlaceInfoDetailView: Bool
     @Bindable var viewModel: AnyMapViewModel
     
     var onSelectItem: (PlaceInfoViewModel) -> Void
     
-    var body: some View {
+    public init(isPresentingPlaceInfoDetailView: Bool, viewModel: AnyMapViewModel, onSelectItem: @escaping (PlaceInfoViewModel) -> Void) {
+        self.isPresentingPlaceInfoDetailView = isPresentingPlaceInfoDetailView
+        self.viewModel = viewModel
+        self.onSelectItem = onSelectItem
+    }
+    
+    public var body: some View {
         MMap(
             items: viewModel.places.toModels().toMMapItems(),
             isPresentingPlaceInfoDetailView: $isPresentingPlaceInfoDetailView,

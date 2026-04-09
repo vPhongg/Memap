@@ -5,18 +5,20 @@
 //  Created by Vu Dinh Phong on 09/04/2026.
 //
 
+import SwiftUI
 import Foundation
 import MemapPresentation
 import MemapData
 import MemapDomain
 import MemapUI
-import MemapMap
 
 final class MapUIComposer {
     private init() {}
     
-    static func composedWith(loader: PlaceLoader, saver: PlaceSaver, deletor: PlaceDeletor) -> MapViewController {
-        let bundle = Bundle(for: MapViewController.self)
-        return MapViewController(nibName: "MapViewController", bundle: bundle)
+    static func composedWith(loader: PlaceLoader, saver: PlaceSaver, deletor: PlaceDeletor) -> UIHostingController<MapView> {
+        let mapViewModel = DefaultMapViewModel(memapLoader: loader)
+        let anyMapViewModel = AnyMapViewModel(mapViewModel)
+        let mapView = MapView(isPresentingPlaceInfoDetailView: false, viewModel: anyMapViewModel, onSelectItem: { _ in })
+        return UIHostingController(rootView: mapView)
     }
 }

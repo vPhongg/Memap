@@ -17,13 +17,18 @@ public class MapViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
+        registerAnnotationViewClasses()
+        
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         
         mapView.delegate = self
         mapView.showsUserLocation = true
-        
+    }
+    
+    private func registerAnnotationViewClasses() {
+        mapView.register(PlaceAnnotationView.self, forAnnotationViewWithReuseIdentifier: NSStringFromClass(PlaceAnnotation.self))
     }
     
 }
@@ -33,16 +38,10 @@ public class MapViewController: UIViewController {
 extension MapViewController: MKMapViewDelegate {
 
     public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let annotation = annotation as? Cycle else { return nil }
-
-        switch annotation.type {
-        case .unicycle:
-            return UnicycleAnnotationView(annotation: annotation, reuseIdentifier: UnicycleAnnotationView.ReuseID)
-        case .bicycle:
-            return BicycleAnnotationView(annotation: annotation, reuseIdentifier: BicycleAnnotationView.ReuseID)
-        case .tricycle:
-            return TricycleAnnotationView(annotation: annotation, reuseIdentifier: TricycleAnnotationView.ReuseID)
-        }
+        guard let annotation = annotation as? PlaceAnnotation else { return nil }
+        
+        let placeAnnotation = PlaceAnnotationView(annotation: annotation, reuseIdentifier: NSStringFromClass(PlaceAnnotation.self))
+        return placeAnnotation
     }
 }
 

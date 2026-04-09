@@ -30,7 +30,7 @@ public struct MainView: View {
     public var body: some View {
         ZStack(alignment: .bottomTrailing) {
             MapView(
-                isPresentingPlaceInfoDetailView: $isPresentingPlaceInfoDetailView,
+                isPresentingPlaceInfoDetailView: isPresentingPlaceInfoDetailView,
                 viewModel: mapViewModel,
                 onSelectItem: { item in
                     placeInfoDetailViewModel.model = item
