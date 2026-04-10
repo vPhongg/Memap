@@ -14,13 +14,16 @@ public struct MapView: View {
     @State var viewModel: AnyMapViewModel
     
     var didSelectMapKitPOI: (PlaceInfoViewModel) -> Void
+    var didDeselectMapKitPOI: () -> Void
     
     public init(
         viewModel: AnyMapViewModel,
-        didSelectMapKitPOI: @escaping (PlaceInfoViewModel) -> Void
+        didSelectMapKitPOI: @escaping (PlaceInfoViewModel) -> Void,
+        didDeselectMapKitPOI: @escaping () -> Void
     ) {
         self.viewModel = viewModel
         self.didSelectMapKitPOI = didSelectMapKitPOI
+        self.didDeselectMapKitPOI = didDeselectMapKitPOI
     }
     
     public var body: some View {
@@ -28,7 +31,8 @@ public struct MapView: View {
             items: viewModel.places.toModels().toMMapItems(),
             didSelectMapKitPOI: { item in
                 didSelectMapKitPOI(item.toPresentationModel())
-            }
+            },
+            didDeselectMapKitPOI: didDeselectMapKitPOI
         )
         .ignoresSafeArea()
         .overlay {

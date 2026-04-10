@@ -34,6 +34,9 @@ public struct MainView: View {
                 didSelectMapKitPOI: { item in
                     isPresentingPlaceDetailView = true
                     placeDetailViewModel.model = item
+                },
+                didDeselectMapKitPOI: {
+                    isPresentingPlaceDetailView = false
                 }
             )
             SideButtonsView(
