@@ -9,19 +9,14 @@ import SwiftUI
 
 public struct MMapView: UIViewControllerRepresentable {
     
-    @Binding var isPresentingPlaceInfoDetailView: Bool
-    
-    private var items: [MMapItem]
-    
-    var onSelectItem: (MMapItem) -> Void
+    private let items: [MMapItem]
+    private let onSelectItem: (MMapItem) -> Void
     
     public init(
         items: [MMapItem],
-        isPresentingPlaceInfoDetailView: Binding<Bool>,
         onSelectItem: @escaping (MMapItem) -> Void
     ) {
         self.items = items.addMKMapItem()
-        self._isPresentingPlaceInfoDetailView = isPresentingPlaceInfoDetailView
         self.onSelectItem = onSelectItem
     }
     

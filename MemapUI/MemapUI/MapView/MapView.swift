@@ -11,7 +11,6 @@ import MemapPresentation
 
 public struct MapView: View {
     
-    @State var isPresentingPlaceInfoDetailView: Bool
     @State var viewModel: AnyMapViewModel
     
     var onSelectItem: (PlaceInfoViewModel) -> Void
@@ -21,7 +20,6 @@ public struct MapView: View {
         viewModel: AnyMapViewModel,
         onSelectItem: @escaping (PlaceInfoViewModel) -> Void
     ) {
-        self.isPresentingPlaceInfoDetailView = isPresentingPlaceInfoDetailView
         self.viewModel = viewModel
         self.onSelectItem = onSelectItem
     }
@@ -29,7 +27,6 @@ public struct MapView: View {
     public var body: some View {
         MMapView(
             items: viewModel.places.toModels().toMMapItems(),
-            isPresentingPlaceInfoDetailView: $isPresentingPlaceInfoDetailView,
             onSelectItem: { item in
                 onSelectItem(item.toPresentationModel())
             }
