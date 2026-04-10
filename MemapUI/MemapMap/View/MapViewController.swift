@@ -84,6 +84,10 @@ extension MapViewController: MKMapViewDelegate {
     
     public func mapView(_ mapView: MKMapView, didSelect annotation: any MKAnnotation) {
         
+        if let cluster = annotation as? MKClusterAnnotation {
+            zoomToCluster(cluster, in: mapView)
+        }
+        
         if annotation is PlaceAnnotation {
             print("is PlaceAnnotation")
         }
@@ -95,10 +99,32 @@ extension MapViewController: MKMapViewDelegate {
         if let annotation = annotation as? MKMapFeatureAnnotation {
             didSelectMapKitPOI(MMapItem.from(annotation))
         }
+        
     }
     
     public func mapView(_ mapView: MKMapView, didDeselect annotation: any MKAnnotation) {
         didDeselectMapKitPOI()
+    }
+    
+    // MARK: - Helpers
+    
+    private func zoomToCluster(_ cluster: MKClusterAnnotation, in mapView: MKMapView) {
+        let inset: CGFloat = 80
+        let annotations = cluster.memberAnnotations
+        
+        var zoomRect = MKMapRect.null
+        
+        for annotation in annotations {
+            let point = MKMapPoint(annotation.coordinate)
+            let rect = MKMapRect(x: point.x, y: point.y, width: 0, height: 0)
+            zoomRect = zoomRect.union(rect)
+        }
+        
+        let edgePadding = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
+        
+        UIView.animate(withDuration: 0.39) {
+            mapView.setVisibleMapRect(zoomRect, edgePadding: edgePadding, animated: true)
+        }
     }
     
 }
