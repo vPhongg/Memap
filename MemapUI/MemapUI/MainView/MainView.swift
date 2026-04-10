@@ -31,7 +31,7 @@ public struct MainView: View {
         ZStack(alignment: .bottomTrailing) {
             MapView(
                 viewModel: mapViewModel,
-                onSelectItem: { item in
+                didSelectMapKitPOI: { item in
                     isPresentingPlaceDetailView = true
                     placeDetailViewModel.model = item
                 }

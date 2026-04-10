@@ -10,21 +10,21 @@ import SwiftUI
 public struct MMapView: UIViewControllerRepresentable {
     
     private let items: [MMapItem]
-    private let onSelectItem: (MMapItem) -> Void
+    private let didSelectMapKitPOI: (MMapItem) -> Void
     
     public init(
         items: [MMapItem],
-        onSelectItem: @escaping (MMapItem) -> Void
+        didSelectMapKitPOI: @escaping (MMapItem) -> Void
     ) {
         self.items = items.addMKMapItem()
-        self.onSelectItem = onSelectItem
+        self.didSelectMapKitPOI = didSelectMapKitPOI
     }
     
     public func makeUIViewController(context: Context) -> MapViewController {
         return MapViewController(
             items: items.toPlaceAnnotations(),
-            onSelectMapKitPOI: { item in
-                onSelectItem(item)
+            didSelectMapKitPOI: { item in
+                didSelectMapKitPOI(item)
             })
     }
     

@@ -13,21 +13,21 @@ public struct MapView: View {
     
     @State var viewModel: AnyMapViewModel
     
-    var onSelectItem: (PlaceInfoViewModel) -> Void
+    var didSelectMapKitPOI: (PlaceInfoViewModel) -> Void
     
     public init(
         viewModel: AnyMapViewModel,
-        onSelectItem: @escaping (PlaceInfoViewModel) -> Void
+        didSelectMapKitPOI: @escaping (PlaceInfoViewModel) -> Void
     ) {
         self.viewModel = viewModel
-        self.onSelectItem = onSelectItem
+        self.didSelectMapKitPOI = didSelectMapKitPOI
     }
     
     public var body: some View {
         MMapView(
             items: viewModel.places.toModels().toMMapItems(),
-            onSelectItem: { item in
-                onSelectItem(item.toPresentationModel())
+            didSelectMapKitPOI: { item in
+                didSelectMapKitPOI(item.toPresentationModel())
             }
         )
         .ignoresSafeArea()

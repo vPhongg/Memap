@@ -13,7 +13,7 @@ public class MapViewController: UIViewController {
     
     // MARK: External Data
     let items: [PlaceAnnotation]
-    let onSelectMapKitPOI: (MMapItem) -> Void
+    let didSelectMapKitPOI: (MMapItem) -> Void
     
     // MARK: Internal Data
     private let locationManager = CLLocationManager()
@@ -23,10 +23,10 @@ public class MapViewController: UIViewController {
     // MARK: Init Methods
     public init(
         items: [PlaceAnnotation],
-        onSelectMapKitPOI: @escaping (MMapItem) -> Void
+        didSelectMapKitPOI: @escaping (MMapItem) -> Void
     ) {
         self.items = items
-        self.onSelectMapKitPOI = onSelectMapKitPOI
+        self.didSelectMapKitPOI = didSelectMapKitPOI
         
         let bundle = Bundle(for: MapViewController.self)
         super.init(nibName: "MapViewController", bundle: bundle)
@@ -87,7 +87,7 @@ extension MapViewController: MKMapViewDelegate {
         }
         
         if let annotation = annotation as? MKMapFeatureAnnotation {
-            onSelectMapKitPOI(MMapItem.from(annotation))
+            didSelectMapKitPOI(MMapItem.from(annotation))
         }
     }
     
