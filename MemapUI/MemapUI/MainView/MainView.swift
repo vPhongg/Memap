@@ -11,7 +11,7 @@ import MemapPresentation
 public struct MainView: View {
     
     @State private var mapViewModel: AnyMapViewModel
-    @State private var placeInfoDetailViewModel: PlaceInfoDetailViewModel
+    @State private var placeInfoDetailViewModel: PlaceDetailViewModel
     @State private var placesListViewModel: DefaultPlacesListViewModelWrapper
     
     @State private var isPresentingPlaceInfoDetailView: Bool = false
@@ -19,7 +19,7 @@ public struct MainView: View {
     
     public init(
         mapViewModel: AnyMapViewModel,
-        placeInfoDetailViewModel: PlaceInfoDetailViewModel,
+        placeInfoDetailViewModel: PlaceDetailViewModel,
         placesListViewModel: DefaultPlacesListViewModelWrapper
     ) {
         self.mapViewModel = mapViewModel
@@ -50,15 +50,10 @@ public struct MainView: View {
             }
             .padding()
         }
-        .sheet(isPresented: $isPresentingPlaceInfoDetailView, onDismiss: {
-            isPresentingPlaceInfoDetailView = false
-        }) {
-            PlaceDetailView(viewModel: placeInfoDetailViewModel)
-                .presentationDetents([.fraction(0.3), .large])
-                .presentationBackgroundInteraction(.enabled)
-                .presentationDragIndicator(.visible)
-                .presentationBackground(.ultraThinMaterial)
-        }
+        .showDetailView(
+            isPresented: $isPresentingPlaceInfoDetailView,
+            viewModel: placeInfoDetailViewModel
+        )
         .sheet(isPresented: $isPresentingPlacesListView, content: {
             PlacesListView(viewModel: mapViewModel)
                 .presentationDetents([.large])

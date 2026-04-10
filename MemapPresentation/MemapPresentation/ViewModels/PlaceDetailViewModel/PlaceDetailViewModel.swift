@@ -1,5 +1,5 @@
 //
-//  PlaceInfoDetailViewModel.swift
+//  PlaceDetailViewModel.swift
 //  MemapPresentation
 //
 //  Created by Vu Dinh Phong on 06/03/2026.
@@ -9,7 +9,7 @@ import Foundation
 import MemapData
 
 @Observable
-public class PlaceInfoDetailViewModel {
+public class PlaceDetailViewModel {
     
     let cache: PlaceSaver
     let deletor: PlaceDeletor

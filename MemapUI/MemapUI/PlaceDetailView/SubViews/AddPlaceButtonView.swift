@@ -21,8 +21,8 @@ struct AddPlaceButtonView: View {
             HStack(spacing: 8) {
                 Image(systemName: isAdded ? "minus" : "plus")
                 Text(isAdded
-                     ? PlaceInfoDetailViewModel.removePlaceText
-                     : PlaceInfoDetailViewModel.addPlaceText)
+                     ? PlaceDetailViewModel.removePlaceText
+                     : PlaceDetailViewModel.addPlaceText)
             }
             .font(isAdded ? .subheadline : .headline)
             .padding(.horizontal, 16)

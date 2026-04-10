@@ -11,7 +11,7 @@ import MemapPresentation
 
 struct PlaceDetailView: View {
     
-    @Bindable var viewModel: PlaceInfoDetailViewModel
+    @Bindable var viewModel: PlaceDetailViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
