@@ -14,7 +14,7 @@ public struct MainView: View {
     @State private var placeDetailViewModel: PlaceDetailViewModel
     @State private var placesListViewModel: DefaultPlacesListViewModelWrapper
     
-    @State private var isPresentingPlaceInfoDetailView: Bool = false
+    @State private var isPresentingPlaceDetailView: Bool = false
     @State private var isPresentingPlacesListView: Bool = false
     
     public init(
@@ -30,7 +30,6 @@ public struct MainView: View {
     public var body: some View {
         ZStack(alignment: .bottomTrailing) {
             MapView(
-                isPresentingPlaceInfoDetailView: isPresentingPlaceInfoDetailView,
                 viewModel: mapViewModel,
                 onSelectItem: { item in
                     placeDetailViewModel.model = item
@@ -50,8 +49,8 @@ public struct MainView: View {
             }
             .padding()
         }
-        .sheet(isPresented: $isPresentingPlaceInfoDetailView, onDismiss: {
-            isPresentingPlaceInfoDetailView = false
+        .sheet(isPresented: $isPresentingPlaceDetailView, onDismiss: {
+            isPresentingPlaceDetailView = false
         }) {
             PlaceDetailView(viewModel: placeDetailViewModel)
                 .presentationDetents([.fraction(0.3), .large])

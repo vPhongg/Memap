@@ -30,7 +30,3 @@ public struct MMapView: UIViewControllerRepresentable {
         mapController.updateItems(items.toPlaceAnnotations())
     }
 }
-
-//#Preview {
-//    MMapView()
-//}

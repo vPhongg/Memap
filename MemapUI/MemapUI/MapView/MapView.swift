@@ -16,7 +16,6 @@ public struct MapView: View {
     var onSelectItem: (PlaceInfoViewModel) -> Void
     
     public init(
-        isPresentingPlaceInfoDetailView: Bool,
         viewModel: AnyMapViewModel,
         onSelectItem: @escaping (PlaceInfoViewModel) -> Void
     ) {
