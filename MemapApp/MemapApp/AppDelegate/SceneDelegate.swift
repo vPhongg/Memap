@@ -28,9 +28,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func configureWindow() {
         let localStoreURL = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("memap-store.sqlite")
         let store = try! CoreDataMemapStore(storeURL: localStoreURL)
-        let placeLoader = LocalPlaceLoader(store: store)
-        let mapViewController = MapUIComposer.composedWith(loader: placeLoader, saver: placeLoader, deletor: placeLoader)
-        window?.rootViewController = UINavigationController(rootViewController: mapViewController)
+        let localDataStore = LocalPlaceLoader(store: store)
+        let mapHostingController = MainViewComposer.composed(loader: localDataStore, cache: localDataStore, deletor: localDataStore)
+        window?.rootViewController = mapHostingController
         window?.makeKeyAndVisible()
     }
 
