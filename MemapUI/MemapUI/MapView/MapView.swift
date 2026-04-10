@@ -12,18 +12,22 @@ import MemapPresentation
 public struct MapView: View {
     
     @State var isPresentingPlaceInfoDetailView: Bool
-    @Bindable var viewModel: AnyMapViewModel
+    @State var viewModel: AnyMapViewModel
     
     var onSelectItem: (PlaceInfoViewModel) -> Void
     
-    public init(isPresentingPlaceInfoDetailView: Bool, viewModel: AnyMapViewModel, onSelectItem: @escaping (PlaceInfoViewModel) -> Void) {
+    public init(
+        isPresentingPlaceInfoDetailView: Bool,
+        viewModel: AnyMapViewModel,
+        onSelectItem: @escaping (PlaceInfoViewModel) -> Void
+    ) {
         self.isPresentingPlaceInfoDetailView = isPresentingPlaceInfoDetailView
         self.viewModel = viewModel
         self.onSelectItem = onSelectItem
     }
     
     public var body: some View {
-        MMap(
+        MMapView(
             items: viewModel.places.toModels().toMMapItems(),
             isPresentingPlaceInfoDetailView: $isPresentingPlaceInfoDetailView,
             onSelectItem: { item in

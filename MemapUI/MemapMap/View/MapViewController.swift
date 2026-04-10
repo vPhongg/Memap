@@ -11,8 +11,30 @@ public class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     
+    // MARK: External Data
+    let items: [PlaceAnnotation]
+    let onSelectItem: (MMapItem) -> Void
+    
+    // MARK: Internal Data
     private let locationManager = CLLocationManager()
     private var hasCenteredUserLocation = false
+    
+    
+    // MARK: Init Methods
+    public init(
+        items: [PlaceAnnotation],
+        onSelectItem: @escaping (MMapItem) -> Void
+    ) {
+        self.items = items
+        self.onSelectItem = onSelectItem
+        
+        let bundle = Bundle(for: MapViewController.self)
+        super.init(nibName: "MapViewController", bundle: bundle)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +47,14 @@ public class MapViewController: UIViewController {
         
         mapView.delegate = self
         mapView.showsUserLocation = true
+        mapView.addAnnotations(items)
+    }
+    
+    // MARK: Custom Methods
+    
+    func updateItems(_ newItems: [PlaceAnnotation]) {
+        mapView.removeAnnotations(items)
+        mapView.addAnnotations(newItems)
     }
     
     private func registerAnnotationViewClasses() {

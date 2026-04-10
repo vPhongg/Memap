@@ -7,17 +7,35 @@
 
 import SwiftUI
 
-struct MMapView: UIViewControllerRepresentable {
-    func makeUIViewController(context: Context) -> MapViewController {
-        let bundle = Bundle(for: MapViewController.self)
-        return MapViewController(nibName: "MapViewController", bundle: bundle)
+public struct MMapView: UIViewControllerRepresentable {
+    
+    @Binding var isPresentingPlaceInfoDetailView: Bool
+    
+    private var items: [MMapItem]
+    
+    var onSelectItem: (MMapItem) -> Void
+    
+    public init(
+        items: [MMapItem],
+        isPresentingPlaceInfoDetailView: Binding<Bool>,
+        onSelectItem: @escaping (MMapItem) -> Void
+    ) {
+        self.items = items.addMKMapItem()
+        self._isPresentingPlaceInfoDetailView = isPresentingPlaceInfoDetailView
+        self.onSelectItem = onSelectItem
     }
     
-    func updateUIViewController(_ uiViewController: MapViewController, context: Context) {
-        // update data if needed
+    public func makeUIViewController(context: Context) -> MapViewController {
+        return MapViewController(items: items.toPlaceAnnotations(), onSelectItem: { _ in
+            print("onSelectItem")
+        })
+    }
+    
+    public func updateUIViewController(_ mapController: MapViewController, context: Context) {
+        mapController.updateItems(items.toPlaceAnnotations())
     }
 }
 
-#Preview {
-    MMapView()
-}
+//#Preview {
+//    MMapView()
+//}

@@ -8,7 +8,7 @@
 import MapKit
 import SwiftUI
 
-class PlaceAnnotationView: MKAnnotationView {
+class PlaceAnnotationView: MKMarkerAnnotationView {
     
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
@@ -16,26 +16,24 @@ class PlaceAnnotationView: MKAnnotationView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        clusteringIdentifier = "CustomAnnotation"
+        fatalError("init(coder:) has not been implemented")
     }
     
+    /// - Tag: DisplayConfiguration
     override func prepareForDisplay() {
         super.prepareForDisplay()
         displayPriority = .defaultHigh
+        markerTintColor = UIColor.systemGreen
     }
     
 }
 
 //class PlaceAnnotationView: MKAnnotationView {
-//    
-//    static let ReuseID = "customAnnotationView"
-//    
 //    var title: String = ""
 //    
 //    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
 //        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-//        clusteringIdentifier = "customAnnotation"
+//        clusteringIdentifier = "CustomAnnotation"
 //    }
 //    
 //    required init?(coder aDecoder: NSCoder) {

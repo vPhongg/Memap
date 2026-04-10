@@ -66,6 +66,16 @@ extension Array where Element == MMapItem {
         return map { $0.toMKMapItem() }
     }
     
+    func toPlaceAnnotations() -> [PlaceAnnotation] {
+        return map {
+            PlaceAnnotation(
+                title: $0.name,
+                latitude: $0.latitude,
+                longitude: $0.longitude
+            )
+        }
+    }
+    
     func addMKMapItem() -> [MMapItem] {
         map { item in
             var copy = item
