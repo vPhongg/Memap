@@ -1,5 +1,5 @@
 //
-//  PlaceInfoDetailView.swift
+//  PlaceDetailView.swift
 //  MemapPresentation
 //
 //  Created by Vu Dinh Phong on 02/03/2026.
@@ -9,7 +9,7 @@
 import SwiftUI
 import MemapPresentation
 
-struct PlaceInfoDetailView: View {
+struct PlaceDetailView: View {
     
     @Bindable var viewModel: PlaceInfoDetailViewModel
     

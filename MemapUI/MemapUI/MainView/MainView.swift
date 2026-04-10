@@ -53,7 +53,7 @@ public struct MainView: View {
         .sheet(isPresented: $isPresentingPlaceInfoDetailView, onDismiss: {
             isPresentingPlaceInfoDetailView = false
         }) {
-            PlaceInfoDetailView(viewModel: placeInfoDetailViewModel)
+            PlaceDetailView(viewModel: placeInfoDetailViewModel)
                 .presentationDetents([.fraction(0.3), .large])
                 .presentationBackgroundInteraction(.enabled)
                 .presentationDragIndicator(.visible)
