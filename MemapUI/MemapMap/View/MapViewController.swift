@@ -15,7 +15,7 @@ public class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     
     // MARK: External Data
-    let items: [PlaceAnnotation]
+    var items: [PlaceAnnotation]
     let didSelectMapKitPOI: MapItemSelectionHandler
     let didDeselectMapKitPOI: MapItemDeselectionHandler
     
@@ -55,20 +55,14 @@ public class MapViewController: UIViewController {
         mapView.showsUserLocation = true
         mapView.pointOfInterestFilter = .includingAll
         mapView.selectableMapFeatures = [.physicalFeatures, .pointsOfInterest]
-        mapView.addAnnotations(items)
     }
     
     // MARK: Custom Methods
     
     func updateItems(_ newItems: [PlaceAnnotation]) {
-        mapView.removeAnnotations(items)
+        mapView.removeAnnotations(self.items)
+        self.items = newItems
         mapView.addAnnotations(newItems)
-    }
-    
-    func deselectAllItems() {
-        for annotation in mapView.selectedAnnotations {
-            mapView.deselectAnnotation(annotation, animated: true)
-        }
     }
     
     private func registerAnnotationViewClasses() {
