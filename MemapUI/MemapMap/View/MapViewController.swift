@@ -22,6 +22,7 @@ public class MapViewController: UIViewController {
     // MARK: Internal Data
     private let locationManager = CLLocationManager()
     private var hasCenteredUserLocation = false
+    private var selectedPOI: MKAnnotation?
     
     
     // MARK: Init Methods
@@ -67,6 +68,10 @@ public class MapViewController: UIViewController {
         mapView.removeAnnotations(self.items)
         self.items = newItems
         mapView.addAnnotations(newItems)
+    }
+    
+    func deselectSelectedPOI() {
+        mapView.deselectAnnotation(selectedPOI, animated: true)
     }
     
     private func registerAnnotationViewClasses() {

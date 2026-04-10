@@ -31,13 +31,15 @@ public struct MainView: View {
         ZStack(alignment: .bottomTrailing) {
             MapView(
                 viewModel: mapViewModel,
-                isPresentingPlaceDetailView: $isPresentingPlaceDetailView,
+                isPresentingPlaceDetailView: isPresentingPlaceDetailView,
                 didSelectMapKitPOI: { item in
                     isPresentingPlaceDetailView = true
                     placeDetailViewModel.model = item
                 },
                 didDeselectMapKitPOI: {
-                    isPresentingPlaceDetailView = false
+                    if isPresentingPlaceDetailView {
+                        isPresentingPlaceDetailView = false
+                    }
                 }
             )
             SideButtonsView(

@@ -36,5 +36,9 @@ public struct MMapView: UIViewControllerRepresentable {
     
     public func updateUIViewController(_ mapController: MapViewController, context: Context) {
         mapController.updateItems(items.toPlaceAnnotations())
+        
+        if !isPresentingPlaceDetailView {
+            mapController.deselectSelectedPOI()
+        }
     }
 }
