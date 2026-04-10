@@ -19,7 +19,7 @@ final class MainViewComposer {
         let mapViewModel = DefaultMapViewModel(memapLoader: loader)
         let anyMapViewModel = AnyMapViewModel(mapViewModel)
         
-        let placeInfoDetailViewModel = PlaceDetailViewModel(cache: cache, deletor: deletor)
+        let placeInfoDetailViewModel = PlaceDetailViewModel(saver: cache, deletor: deletor)
         
         let networkService = DefaultNetworkService(sessionManager: DefaultNetworkSessionManager())
         let placesListDataTransferService = DefaultDataTransferService(with: networkService)

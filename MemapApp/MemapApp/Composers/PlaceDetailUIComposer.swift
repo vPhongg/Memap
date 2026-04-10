@@ -15,10 +15,9 @@ import MemapUI
 final class PlaceDetailUIComposer {
     private init() {}
     
-    static func composedWith(saver: PlaceSaver, deletor: PlaceDeletor) -> UIHostingController<MapView> {
-        let mapViewModel = DefaultMapViewModel(memapLoader: loader)
-        let anyMapViewModel = AnyMapViewModel(mapViewModel)
-        let mapView = MapView(isPresentingPlaceInfoDetailView: false, viewModel: anyMapViewModel, onSelectItem: { _ in })
-        return UIHostingController(rootView: mapView)
+    static func composedWith(saver: PlaceSaver, deletor: PlaceDeletor) -> UIHostingController<PlaceDetailView> {
+        let viewModel = PlaceDetailViewModel(saver: saver, deletor: deletor)
+        let placeDetailView = PlaceDetailView(viewModel: viewModel)
+        return UIHostingController(rootView: placeDetailView)
     }
 }

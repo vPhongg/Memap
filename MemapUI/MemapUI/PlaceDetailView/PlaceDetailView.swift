@@ -9,11 +9,15 @@
 import SwiftUI
 import MemapPresentation
 
-struct PlaceDetailView: View {
+public struct PlaceDetailView: View {
     
     @Bindable var viewModel: PlaceDetailViewModel
     
-    var body: some View {
+    public init(viewModel: PlaceDetailViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    public var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack(alignment: .top) {
                 PlaceNameView(placeName: viewModel.model.name.defaultUnknown)
