@@ -11,7 +11,7 @@ import MemapPresentation
 public struct MainView: View {
     
     @State private var mapViewModel: AnyMapViewModel
-    @State private var placeInfoDetailViewModel: PlaceDetailViewModel
+    @State private var placeDetailViewModel: PlaceDetailViewModel
     @State private var placesListViewModel: DefaultPlacesListViewModelWrapper
     
     @State private var isPresentingPlaceInfoDetailView: Bool = false
@@ -19,11 +19,11 @@ public struct MainView: View {
     
     public init(
         mapViewModel: AnyMapViewModel,
-        placeInfoDetailViewModel: PlaceDetailViewModel,
+        placeDetailViewModel: PlaceDetailViewModel,
         placesListViewModel: DefaultPlacesListViewModelWrapper
     ) {
         self.mapViewModel = mapViewModel
-        self.placeInfoDetailViewModel = placeInfoDetailViewModel
+        self.placeDetailViewModel = placeDetailViewModel
         self.placesListViewModel = placesListViewModel
     }
     
@@ -33,7 +33,7 @@ public struct MainView: View {
                 isPresentingPlaceInfoDetailView: isPresentingPlaceInfoDetailView,
                 viewModel: mapViewModel,
                 onSelectItem: { item in
-                    placeInfoDetailViewModel.model = item
+                    placeDetailViewModel.model = item
                 }
             )
             SideButtonsView(
@@ -50,10 +50,15 @@ public struct MainView: View {
             }
             .padding()
         }
-        .showDetailView(
-            isPresented: $isPresentingPlaceInfoDetailView,
-            viewModel: placeInfoDetailViewModel
-        )
+        .sheet(isPresented: $isPresentingPlaceInfoDetailView, onDismiss: {
+            isPresentingPlaceInfoDetailView = false
+        }) {
+            PlaceDetailView(viewModel: placeDetailViewModel)
+                .presentationDetents([.fraction(0.3), .large])
+                .presentationBackgroundInteraction(.enabled)
+                .presentationDragIndicator(.visible)
+                .presentationBackground(.ultraThinMaterial)
+        }
         .sheet(isPresented: $isPresentingPlacesListView, content: {
             PlacesListView(viewModel: mapViewModel)
                 .presentationDetents([.large])

@@ -19,7 +19,7 @@ final class MainViewComposer {
         let mapViewModel = DefaultMapViewModel(memapLoader: loader)
         let anyMapViewModel = AnyMapViewModel(mapViewModel)
         
-        let placeInfoDetailViewModel = PlaceDetailViewModel(saver: cache, deletor: deletor)
+        let placeDetailViewModel = PlaceDetailViewModel(saver: cache, deletor: deletor)
         
         let networkService = DefaultNetworkService(sessionManager: DefaultNetworkSessionManager())
         let placesListDataTransferService = DefaultDataTransferService(with: networkService)
@@ -30,7 +30,7 @@ final class MainViewComposer {
         
         let mainView = MainView(
             mapViewModel: anyMapViewModel,
-            placeInfoDetailViewModel: placeInfoDetailViewModel,
+            placeDetailViewModel: placeDetailViewModel,
             placesListViewModel: placesListViewModelWrapper
         )
         return UIHostingController(rootView: mainView)
