@@ -11,12 +11,12 @@ public struct MMapView: UIViewControllerRepresentable {
     
     private let items: [MMapItem]
     private let didSelectMapKitPOI: MapItemSelectionHandler
-    private let didDeselectMapKitPOI: () -> Void
+    private let didDeselectMapKitPOI: MapItemDeselectionHandler
     
     public init(
         items: [MMapItem],
         didSelectMapKitPOI: @escaping MapItemSelectionHandler,
-        didDeselectMapKitPOI: @escaping () -> Void
+        didDeselectMapKitPOI: @escaping MapItemDeselectionHandler
     ) {
         self.items = items.addMKMapItem()
         self.didSelectMapKitPOI = didSelectMapKitPOI

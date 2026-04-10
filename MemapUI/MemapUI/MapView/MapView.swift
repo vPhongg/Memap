@@ -14,12 +14,12 @@ public struct MapView: View {
     @State var viewModel: AnyMapViewModel
     
     var didSelectMapKitPOI: (PlaceInfoViewModel) -> Void
-    var didDeselectMapKitPOI: () -> Void
+    var didDeselectMapKitPOI: MapItemDeselectionHandler
     
     public init(
         viewModel: AnyMapViewModel,
         didSelectMapKitPOI: @escaping (PlaceInfoViewModel) -> Void,
-        didDeselectMapKitPOI: @escaping () -> Void
+        didDeselectMapKitPOI: @escaping MapItemDeselectionHandler
     ) {
         self.viewModel = viewModel
         self.didSelectMapKitPOI = didSelectMapKitPOI

@@ -8,6 +8,7 @@
 import MapKit
 
 public typealias MapItemSelectionHandler = (MMapItem) -> Void
+public typealias MapItemDeselectionHandler = () -> Void
 
 public class MapViewController: UIViewController {
     
@@ -16,7 +17,7 @@ public class MapViewController: UIViewController {
     // MARK: External Data
     let items: [PlaceAnnotation]
     let didSelectMapKitPOI: MapItemSelectionHandler
-    let didDeselectMapKitPOI: () -> Void
+    let didDeselectMapKitPOI: MapItemDeselectionHandler
     
     // MARK: Internal Data
     private let locationManager = CLLocationManager()
@@ -27,7 +28,7 @@ public class MapViewController: UIViewController {
     public init(
         items: [PlaceAnnotation],
         didSelectMapKitPOI: @escaping MapItemSelectionHandler,
-        didDeselectMapKitPOI: @escaping () -> Void
+        didDeselectMapKitPOI: @escaping MapItemDeselectionHandler
     ) {
         self.items = items
         self.didSelectMapKitPOI = didSelectMapKitPOI
