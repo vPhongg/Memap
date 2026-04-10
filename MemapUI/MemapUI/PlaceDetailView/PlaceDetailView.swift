@@ -25,7 +25,7 @@ public struct PlaceDetailView: View {
                 AddPlaceButtonView(
                     didTapAddPlaceButton: viewModel.didTapAddPlaceButton,
                     didTapRemovePlaceButton: viewModel.didTapRemovePlaceButton,
-                    isAdded: viewModel.model.isAdded
+                    isSaved: viewModel.model.isSaved
                 )
             }
             CollectionView(images: [])

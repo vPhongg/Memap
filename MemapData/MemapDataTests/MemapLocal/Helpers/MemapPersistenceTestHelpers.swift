@@ -19,7 +19,7 @@ func uniquePlace() -> PlaceInfo {
         imagesPath: nil,
         videosPath: nil,
         note: nil,
-        isAdded: true
+        isSaved: true
     )
 }
 

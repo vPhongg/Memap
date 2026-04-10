@@ -12,23 +12,23 @@ struct AddPlaceButtonView: View {
     
     let didTapAddPlaceButton: () -> Void
     let didTapRemovePlaceButton: () -> Void
-    var isAdded: Bool
+    var isSaved: Bool
     
     var body: some View {
         Button {
-            isAdded ? didTapRemovePlaceButton() : didTapAddPlaceButton()
+            isSaved ? didTapRemovePlaceButton() : didTapAddPlaceButton()
         } label: {
             HStack(spacing: 8) {
-                Image(systemName: isAdded ? "minus" : "plus")
-                Text(isAdded
+                Image(systemName: isSaved ? "minus" : "plus")
+                Text(isSaved
                      ? PlaceDetailViewModel.removePlaceText
                      : PlaceDetailViewModel.addPlaceText)
             }
-            .font(isAdded ? .subheadline : .headline)
+            .font(isSaved ? .subheadline : .headline)
             .padding(.horizontal, 16)
             .padding(.vertical, 10)
             .foregroundStyle(.white)
-            .background(isAdded ? .red : .green, in: Capsule())
+            .background(isSaved ? .red : .green, in: Capsule())
         }
     }
     

@@ -54,7 +54,7 @@ extension Array where Element == PlaceInfoDomain {
                     imagesPath: item.imagesPath,
                     videosPath: item.videosPath,
                     note: item.note,
-                    isAdded: item.isAdded
+                    isSaved: item.isSaved
                 )
             } else {
                 return nil

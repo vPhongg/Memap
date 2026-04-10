@@ -19,7 +19,7 @@ public struct MMapItem: Hashable {
     public let videosPath: String?
     public let note: String?
     public var mapItem: MKMapItem?
-    public let isAdded: Bool
+    public let isSaved: Bool
     
     public init(
         id: UUID,
@@ -31,7 +31,7 @@ public struct MMapItem: Hashable {
         videosPath: String?,
         note: String?,
         mapItem: MKMapItem? = nil,
-        isAdded: Bool
+        isSaved: Bool
     ) {
         self.id = id
         self.name = name
@@ -42,7 +42,7 @@ public struct MMapItem: Hashable {
         self.videosPath = videosPath
         self.note = note
         self.mapItem = mapItem
-        self.isAdded = isAdded
+        self.isSaved = isSaved
     }
     
     func toMKMapItem() -> MKMapItem {
@@ -98,7 +98,7 @@ extension MMapItem {
             imagesPath: nil,
             videosPath: nil,
             note: nil,
-            isAdded: false
+            isSaved: false
         )
     }
     
@@ -112,7 +112,7 @@ extension MMapItem {
             imagesPath: nil,
             videosPath: nil,
             note: nil,
-            isAdded: false
+            isSaved: false
         )
     }
     

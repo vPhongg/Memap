@@ -68,7 +68,7 @@ extension MMapItem {
             imagesPath: imagesPath,
             videosPath: videosPath,
             note: note,
-            isAdded: isAdded
+            isSaved: isSaved
         )
     }
 }
@@ -85,7 +85,7 @@ extension Array where Element == PlaceInfoViewModel {
                 imagesPath: $0.imagesPath,
                 videosPath: $0.videosPath,
                 note: $0.note,
-                isAdded: $0.isAdded
+                isSaved: $0.isSaved
             )
         }
     }

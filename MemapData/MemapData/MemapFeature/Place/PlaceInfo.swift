@@ -17,7 +17,7 @@ public struct PlaceInfo: Equatable {
     public let imagesPath: String?
     public let videosPath: String?
     public let note: String?
-    public let isAdded: Bool
+    public let isSaved: Bool
     
     public init(
         id: UUID,
@@ -28,7 +28,7 @@ public struct PlaceInfo: Equatable {
         imagesPath: String?,
         videosPath: String?,
         note: String?,
-        isAdded: Bool
+        isSaved: Bool
     ) {
         self.id = id
         self.name = name
@@ -38,7 +38,7 @@ public struct PlaceInfo: Equatable {
         self.imagesPath = imagesPath
         self.videosPath = videosPath
         self.note = note
-        self.isAdded = isAdded
+        self.isSaved = isSaved
     }
 }
 

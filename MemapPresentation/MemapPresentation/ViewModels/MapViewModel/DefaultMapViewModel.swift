@@ -44,7 +44,7 @@ extension Array where Element == PlaceInfo {
                 imagesPath: item.imagesPath,
                 videosPath: item.videosPath,
                 note: item.note,
-                isAdded: item.isAdded
+                isSaved: item.isSaved
             )
         }
     }
@@ -61,7 +61,7 @@ extension PlaceInfoViewModel {
             imagesPath: imagesPath,
             videosPath: videosPath,
             note: note,
-            isAdded: isAdded
+            isSaved: isSaved
         )
     }
 }

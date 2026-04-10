@@ -14,7 +14,7 @@ public class PlaceDetailViewModel {
     let saver: PlaceSaver
     let deletor: PlaceDeletor
     
-    public var model: PlaceInfoViewModel = PlaceInfoViewModel(id: UUID(), name: .empty, latitude: 0, longitude: 0, savedTimestamp: Date(), imagesPath: nil, videosPath: nil, note: nil, isAdded: false)
+    public var model: PlaceInfoViewModel = PlaceInfoViewModel(id: UUID(), name: .empty, latitude: 0, longitude: 0, savedTimestamp: Date(), imagesPath: nil, videosPath: nil, note: nil, isSaved: false)
     
     public static var addPlaceText: String {
         return Constant.addPlace.localized
@@ -32,7 +32,7 @@ public class PlaceDetailViewModel {
     public func didTapAddPlaceButton() {
         Task {
             try await save(model.toModel())
-            model.isAdded = true
+            model.isSaved = true
         }
     }
     

@@ -17,7 +17,7 @@ public struct PlaceInfoViewModel {
     public let imagesPath: String?
     public let videosPath: String?
     public let note: String?
-    public var isAdded: Bool
+    public var isSaved: Bool
     
     public init(
         id: UUID,
@@ -28,7 +28,7 @@ public struct PlaceInfoViewModel {
         imagesPath: String?,
         videosPath: String?,
         note: String?,
-        isAdded: Bool
+        isSaved: Bool
     ) {
         self.id = id
         self.name = name
@@ -38,6 +38,6 @@ public struct PlaceInfoViewModel {
         self.imagesPath = imagesPath
         self.videosPath = videosPath
         self.note = note
-        self.isAdded = isAdded
+        self.isSaved = isSaved
     }
 }
