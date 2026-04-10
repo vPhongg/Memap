@@ -12,16 +12,19 @@ import MemapPresentation
 public struct MapView: View {
     
     @State var viewModel: AnyMapViewModel
+    @Binding var isPresentingPlaceDetailView: Bool
     
     var didSelectMapKitPOI: (PlaceInfoViewModel) -> Void
     var didDeselectMapKitPOI: MapItemDeselectionHandler
     
     public init(
         viewModel: AnyMapViewModel,
+        isPresentingPlaceDetailView: Binding<Bool>,
         didSelectMapKitPOI: @escaping (PlaceInfoViewModel) -> Void,
         didDeselectMapKitPOI: @escaping MapItemDeselectionHandler
     ) {
         self.viewModel = viewModel
+        self._isPresentingPlaceDetailView = isPresentingPlaceDetailView
         self.didSelectMapKitPOI = didSelectMapKitPOI
         self.didDeselectMapKitPOI = didDeselectMapKitPOI
     }
@@ -29,6 +32,7 @@ public struct MapView: View {
     public var body: some View {
         MMapView(
             items: viewModel.places.toModels().toMMapItems(),
+            isPresentingPlaceDetailView: isPresentingPlaceDetailView,
             didSelectMapKitPOI: { item in
                 didSelectMapKitPOI(item.toPresentationModel())
             },

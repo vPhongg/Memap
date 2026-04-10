@@ -65,6 +65,12 @@ public class MapViewController: UIViewController {
         mapView.addAnnotations(newItems)
     }
     
+    func deselectAllItems() {
+        for annotation in mapView.selectedAnnotations {
+            mapView.deselectAnnotation(annotation, animated: true)
+        }
+    }
+    
     private func registerAnnotationViewClasses() {
         mapView.register(PlaceAnnotationView.self, forAnnotationViewWithReuseIdentifier: NSStringFromClass(PlaceAnnotation.self))
     }
