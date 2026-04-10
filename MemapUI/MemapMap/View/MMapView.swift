@@ -10,12 +10,12 @@ import SwiftUI
 public struct MMapView: UIViewControllerRepresentable {
     
     private let items: [MMapItem]
-    private let didSelectMapKitPOI: (MMapItem) -> Void
+    private let didSelectMapKitPOI: MapItemSelectionHandler
     private let didDeselectMapKitPOI: () -> Void
     
     public init(
         items: [MMapItem],
-        didSelectMapKitPOI: @escaping (MMapItem) -> Void,
+        didSelectMapKitPOI: @escaping MapItemSelectionHandler,
         didDeselectMapKitPOI: @escaping () -> Void
     ) {
         self.items = items.addMKMapItem()

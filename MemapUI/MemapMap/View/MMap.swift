@@ -21,12 +21,12 @@ public struct MMap: View {
     
     private var items: [MMapItem]
     
-    var onSelectItem: (MMapItem) -> Void
+    var onSelectItem: MapItemSelectionHandler
     
     public init(
         items: [MMapItem],
         isPresentingPlaceInfoDetailView: Binding<Bool>,
-        onSelectItem: @escaping (MMapItem) -> Void
+        onSelectItem: @escaping MapItemSelectionHandler
     ) {
         self.items = items.addMKMapItem()
         self._isPresentingPlaceInfoDetailView = isPresentingPlaceInfoDetailView
