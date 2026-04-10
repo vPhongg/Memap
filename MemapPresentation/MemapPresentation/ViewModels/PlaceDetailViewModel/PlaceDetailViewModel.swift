@@ -11,7 +11,7 @@ import MemapData
 @Observable
 public class PlaceDetailViewModel {
     
-    let cache: PlaceSaver
+    let saver: PlaceSaver
     let deletor: PlaceDeletor
     
     public var model: PlaceInfoViewModel = PlaceInfoViewModel(id: UUID(), name: .empty, latitude: 0, longitude: 0, savedTimestamp: Date(), imagesPath: nil, videosPath: nil, note: nil, isAdded: false)
@@ -24,8 +24,8 @@ public class PlaceDetailViewModel {
         return Constant.removePlace.localized
     }
     
-    public init(cache: PlaceSaver, deletor: PlaceDeletor) {
-        self.cache = cache
+    public init(saver: PlaceSaver, deletor: PlaceDeletor) {
+        self.saver = saver
         self.deletor = deletor
     }
     
@@ -43,7 +43,7 @@ public class PlaceDetailViewModel {
     }
     
     private func save(_ place: PlaceInfo) async throws -> Void {
-        try await cache.save(place)
+        try await saver.save(place)
     }
     
 }
