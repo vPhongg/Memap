@@ -13,7 +13,7 @@ public class MapViewController: UIViewController {
     
     // MARK: External Data
     let items: [PlaceAnnotation]
-    let onSelectItem: (MMapItem) -> Void
+    let onSelectMapKitPOI: (MMapItem) -> Void
     
     // MARK: Internal Data
     private let locationManager = CLLocationManager()
@@ -23,10 +23,10 @@ public class MapViewController: UIViewController {
     // MARK: Init Methods
     public init(
         items: [PlaceAnnotation],
-        onSelectItem: @escaping (MMapItem) -> Void
+        onSelectMapKitPOI: @escaping (MMapItem) -> Void
     ) {
         self.items = items
-        self.onSelectItem = onSelectItem
+        self.onSelectMapKitPOI = onSelectMapKitPOI
         
         let bundle = Bundle(for: MapViewController.self)
         super.init(nibName: "MapViewController", bundle: bundle)
@@ -47,6 +47,8 @@ public class MapViewController: UIViewController {
         
         mapView.delegate = self
         mapView.showsUserLocation = true
+        mapView.pointOfInterestFilter = .includingAll
+        mapView.selectableMapFeatures = [.physicalFeatures, .pointsOfInterest]
         mapView.addAnnotations(items)
     }
     
@@ -73,6 +75,22 @@ extension MapViewController: MKMapViewDelegate {
         let placeAnnotation = PlaceAnnotationView(annotation: annotation, reuseIdentifier: NSStringFromClass(PlaceAnnotation.self))
         return placeAnnotation
     }
+    
+    public func mapView(_ mapView: MKMapView, didSelect annotation: any MKAnnotation) {
+        
+        if annotation is PlaceAnnotation {
+            print("is PlaceAnnotation")
+        }
+        
+        if let annotation = annotation as? PlaceAnnotation {
+            print("annotation as? PlaceAnnotation")
+        }
+        
+        if let annotation = annotation as? MKMapFeatureAnnotation {
+            onSelectMapKitPOI(MMapItem.from(annotation))
+        }
+    }
+    
 }
 
 

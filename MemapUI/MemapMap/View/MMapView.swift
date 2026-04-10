@@ -21,9 +21,11 @@ public struct MMapView: UIViewControllerRepresentable {
     }
     
     public func makeUIViewController(context: Context) -> MapViewController {
-        return MapViewController(items: items.toPlaceAnnotations(), onSelectItem: { _ in
-            print("onSelectItem")
-        })
+        return MapViewController(
+            items: items.toPlaceAnnotations(),
+            onSelectMapKitPOI: { item in
+                onSelectItem(item)
+            })
     }
     
     public func updateUIViewController(_ mapController: MapViewController, context: Context) {

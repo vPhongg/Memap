@@ -32,6 +32,7 @@ public struct MainView: View {
             MapView(
                 viewModel: mapViewModel,
                 onSelectItem: { item in
+                    isPresentingPlaceDetailView = true
                     placeDetailViewModel.model = item
                 }
             )

@@ -86,6 +86,7 @@ extension Array where Element == MMapItem {
 }
 
 extension MMapItem {
+    
     static func from(_ feature: MapFeature) -> Self {
         .init(
             id: UUID(),
@@ -99,6 +100,21 @@ extension MMapItem {
             isAdded: false
         )
     }
+    
+    static func from(_ annotation: MKMapFeatureAnnotation) -> Self {
+        .init(
+            id: UUID(),
+            name: annotation.title,
+            latitude: annotation.coordinate.latitude,
+            longitude: annotation.coordinate.longitude,
+            createdTimestamp: nil,
+            imagesPath: nil,
+            videosPath: nil,
+            note: nil,
+            isAdded: false
+        )
+    }
+    
 }
 
 
