@@ -69,6 +69,7 @@ extension Array where Element == MMapItem {
     func toPlaceAnnotations() -> [PlaceAnnotation] {
         return map {
             PlaceAnnotation(
+                id: $0.id,
                 title: $0.name,
                 latitude: $0.latitude,
                 longitude: $0.longitude
@@ -115,17 +116,4 @@ extension MMapItem {
         )
     }
     
-}
-
-
-extension Array where Element == MMapItem {
-    func toMapPlaces() -> [PlaceAnnotation] {
-        return map {
-            PlaceAnnotation(
-                title: $0.name,
-                latitude: $0.latitude,
-                longitude: $0.longitude
-            )
-        }
-    }
 }

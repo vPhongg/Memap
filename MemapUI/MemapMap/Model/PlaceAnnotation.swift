@@ -8,14 +8,17 @@
 import MapKit
 
 public final class PlaceAnnotation: NSObject, MKAnnotation {
-    public var coordinate: CLLocationCoordinate2D
-    public var title: String?
+    public let id: UUID
+    public let title: String?
+    public let coordinate: CLLocationCoordinate2D
     
     public init(
+        id: UUID,
         title: String?,
         latitude: Double,
         longitude: Double
     ) {
+        self.id = id
         self.title = title
         self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }

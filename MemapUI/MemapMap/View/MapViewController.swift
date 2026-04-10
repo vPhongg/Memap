@@ -60,6 +60,10 @@ public class MapViewController: UIViewController {
     // MARK: Custom Methods
     
     func updateItems(_ newItems: [PlaceAnnotation]) {
+        let oldIDs = items.map(\.id)
+        let newIDs = newItems.map(\.id)
+        guard oldIDs != newIDs else { return }
+        
         mapView.removeAnnotations(self.items)
         self.items = newItems
         mapView.addAnnotations(newItems)
