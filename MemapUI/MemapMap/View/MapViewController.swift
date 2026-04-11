@@ -16,7 +16,7 @@ public class MapViewController: UIViewController {
     
     // MARK: External Data
     var items: [PlaceAnnotation]
-    let didSelectMapKitPOI: MapItemSelectionHandler
+    let didSelectMapItem: MapItemSelectionHandler
     let didDeselectMapKitPOI: MapItemDeselectionHandler
     
     // MARK: Internal Data
@@ -28,11 +28,11 @@ public class MapViewController: UIViewController {
     // MARK: Init Methods
     public init(
         items: [PlaceAnnotation],
-        didSelectMapKitPOI: @escaping MapItemSelectionHandler,
+        didSelectMapItem: @escaping MapItemSelectionHandler,
         didDeselectMapKitPOI: @escaping MapItemDeselectionHandler
     ) {
         self.items = items
-        self.didSelectMapKitPOI = didSelectMapKitPOI
+        self.didSelectMapItem = didSelectMapItem
         self.didDeselectMapKitPOI = didDeselectMapKitPOI
         
         let bundle = Bundle(for: MapViewController.self)
@@ -106,11 +106,11 @@ extension MapViewController: MKMapViewDelegate {
         case let cluster as MKClusterAnnotation:
             zoomToCluster(cluster, in: mapView)
             
-        case let place as PlaceAnnotation:
-            print(place.title)
+        case let placeAnnotation as PlaceAnnotation:
+            didSelectMapItem(MMapItem.from(placeAnnotation))
             
         case let poi as MKMapFeatureAnnotation:
-            didSelectMapKitPOI(MMapItem.from(poi))
+            didSelectMapItem(MMapItem.from(poi))
             
         default:
             break

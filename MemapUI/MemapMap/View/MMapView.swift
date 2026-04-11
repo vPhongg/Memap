@@ -30,7 +30,7 @@ public struct MMapView: UIViewControllerRepresentable {
     public func makeUIViewController(context: Context) -> MapViewController {
         return MapViewController(
             items: items.toPlaceAnnotations(),
-            didSelectMapKitPOI: { didSelectMapKitPOI($0) },
+            didSelectMapItem: { didSelectMapKitPOI($0) },
             didDeselectMapKitPOI: didDeselectMapKitPOI)
     }
     

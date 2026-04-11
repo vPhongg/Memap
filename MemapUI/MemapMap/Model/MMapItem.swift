@@ -72,7 +72,12 @@ extension Array where Element == MMapItem {
                 id: $0.id,
                 title: $0.name,
                 latitude: $0.latitude,
-                longitude: $0.longitude
+                longitude: $0.longitude,
+                createdTimestamp: $0.createdTimestamp,
+                imagesPath: $0.imagesPath,
+                videosPath: $0.videosPath,
+                note: $0.note,
+                isSaved: $0.isSaved
             )
         }
     }
@@ -113,6 +118,20 @@ extension MMapItem {
             videosPath: nil,
             note: nil,
             isSaved: false
+        )
+    }
+    
+    static func from(_ annotation: PlaceAnnotation) -> Self {
+        .init(
+            id: annotation.id,
+            name: annotation.title,
+            latitude: annotation.coordinate.latitude,
+            longitude: annotation.coordinate.longitude,
+            createdTimestamp: annotation.createdTimestamp,
+            imagesPath: annotation.imagesPath,
+            videosPath: annotation.videosPath,
+            note: annotation.note,
+            isSaved: annotation.isSaved
         )
     }
     
