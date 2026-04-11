@@ -15,6 +15,7 @@ public struct MapView: View {
     
     private let isPresentingPlaceDetailView: Bool
     private let isPlaceSaved: Bool
+    private var removedPlace: PlaceInfoViewModel?
     
     private let didSelectMapKitPOI: (PlaceInfoViewModel) -> Void
     private let didDeselectMapKitPOI: MapItemDeselectionHandler
@@ -23,12 +24,14 @@ public struct MapView: View {
         viewModel: AnyMapViewModel,
         isPresentingPlaceDetailView: Bool,
         isPlaceSaved: Bool,
+        removedPlace: PlaceInfoViewModel?,
         didSelectMapKitPOI: @escaping (PlaceInfoViewModel) -> Void,
         didDeselectMapKitPOI: @escaping MapItemDeselectionHandler
     ) {
         self.viewModel = viewModel
         self.isPresentingPlaceDetailView = isPresentingPlaceDetailView
         self.isPlaceSaved = isPlaceSaved
+        self.removedPlace = removedPlace
         self.didSelectMapKitPOI = didSelectMapKitPOI
         self.didDeselectMapKitPOI = didDeselectMapKitPOI
     }
@@ -61,6 +64,13 @@ public struct MapView: View {
             Task {
                 if isPlaceSaved {
                      try await self.viewModel.load()
+                }
+            }
+        }
+        .onChange(of: removedPlace) { _, place in
+            if let place {
+                Task {
+                    try await self.viewModel.load()
                 }
             }
         }

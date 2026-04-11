@@ -8,7 +8,7 @@
 import Foundation
 
 /// A model that represents data for MapView
-public struct PlaceInfoViewModel {
+public struct PlaceInfoViewModel: Equatable {
     public let id: UUID
     public var name: String?
     public let latitude: Double

@@ -13,8 +13,14 @@ public struct PlaceDetailView: View {
     
     @Bindable var viewModel: PlaceDetailViewModel
     
-    public init(viewModel: PlaceDetailViewModel) {
+    var onSuccessRemoved: (PlaceInfoViewModel) -> Void
+    
+    public init(
+        viewModel: PlaceDetailViewModel,
+        onSuccessRemoved: @escaping (PlaceInfoViewModel) -> Void
+    ) {
         self.viewModel = viewModel
+        self.onSuccessRemoved = onSuccessRemoved
     }
     
     public var body: some View {
@@ -32,5 +38,11 @@ public struct PlaceDetailView: View {
             Spacer()
         }
         .padding()
+        .onChange(of: viewModel.removedPlace) { _, place in
+            if let place {
+                onSuccessRemoved(place)
+                viewModel.removedPlace = nil
+            }
+        }
     }
 }

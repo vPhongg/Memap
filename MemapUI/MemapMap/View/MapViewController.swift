@@ -24,7 +24,6 @@ public class MapViewController: UIViewController {
     private var hasCenteredUserLocation = false
     private var selectedPOI: MKAnnotation?
     
-    
     // MARK: Init Methods
     public init(
         items: [PlaceAnnotation],
@@ -68,6 +67,11 @@ public class MapViewController: UIViewController {
         mapView.removeAnnotations(self.items)
         self.items = newItems
         mapView.addAnnotations(newItems)
+    }
+    
+    func clearSelectedPlaceAnnotation() {
+        guard let selectedAnnotation = mapView.selectedAnnotations.first as? PlaceAnnotation else { return }
+        mapView.removeAnnotation(selectedAnnotation)
     }
     
     func deselectSelectedPOI() {

@@ -17,6 +17,7 @@ public struct MainView: View {
     @State private var isPresentingPlaceDetailView: Bool = false
     @State private var isPresentingPlacesListView: Bool = false
     @State private var isPlaceSaved: Bool = false
+    @State private var removedPlace: PlaceInfoViewModel?
     
     public init(
         mapViewModel: AnyMapViewModel,
@@ -34,6 +35,7 @@ public struct MainView: View {
                 viewModel: mapViewModel,
                 isPresentingPlaceDetailView: isPresentingPlaceDetailView,
                 isPlaceSaved: placeDetailViewModel.model.isSaved,
+                removedPlace: removedPlace,
                 didSelectMapKitPOI: { item in
                     isPresentingPlaceDetailView = true
                     placeDetailViewModel.model = item
@@ -61,7 +63,13 @@ public struct MainView: View {
         .sheet(isPresented: $isPresentingPlaceDetailView, onDismiss: {
             isPresentingPlaceDetailView = false
         }) {
-            PlaceDetailView(viewModel: placeDetailViewModel)
+            PlaceDetailView(
+                viewModel: placeDetailViewModel,
+                onSuccessRemoved: { place in
+                    isPresentingPlaceDetailView = false
+                    removedPlace = place
+                }
+            )
                 .presentationDetents([.fraction(0.3), .large])
                 .presentationBackgroundInteraction(.enabled)
                 .presentationDragIndicator(.visible)

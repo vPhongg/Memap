@@ -16,6 +16,8 @@ public class PlaceDetailViewModel {
     
     public var model: PlaceInfoViewModel = PlaceInfoViewModel(id: UUID(), name: .empty, latitude: 0, longitude: 0, savedTimestamp: Date(), imagesPath: nil, videosPath: nil, note: nil, isSaved: false)
     
+    public var removedPlace: PlaceInfoViewModel?
+    
     public static var addPlaceText: String {
         return Constant.addPlace.localized
     }
@@ -39,6 +41,7 @@ public class PlaceDetailViewModel {
     public func didTapRemovePlaceButton() {
         Task {
             try await deletor.delete(model.toModel())
+            removedPlace = model
         }
     }
     
