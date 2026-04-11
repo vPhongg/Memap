@@ -13,7 +13,7 @@ import MapKit
 public struct MMap: View {
     
     @State private var selectedItem: MapSelection<MMapItem>?
-    @State private var selectedID: UUID?
+    @State private var selectedID: String?
     @State private var userLocation: MapCameraPosition = .userLocation(followsHeading: true, fallback: .automatic)
     //    @State private var userLocation: MapCameraPosition = .automatic
     

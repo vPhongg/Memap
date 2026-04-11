@@ -8,7 +8,7 @@
 import MapKit
 
 public final class PlaceAnnotation: NSObject, MKAnnotation {
-    public let id: UUID
+    public let id: String
     public let title: String?
     public let coordinate: CLLocationCoordinate2D
     public let createdTimestamp: Date?
@@ -18,7 +18,7 @@ public final class PlaceAnnotation: NSObject, MKAnnotation {
     public let isSaved: Bool
     
     public init(
-        id: UUID,
+        id: String,
         title: String?,
         latitude: Double,
         longitude: Double,

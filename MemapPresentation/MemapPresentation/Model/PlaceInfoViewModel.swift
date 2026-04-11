@@ -9,7 +9,7 @@ import Foundation
 
 /// A model that represents data for MapView
 public struct PlaceInfoViewModel: Equatable {
-    public let id: UUID
+    public let id: String
     public var name: String?
     public let latitude: Double
     public let longitude: Double
@@ -20,7 +20,7 @@ public struct PlaceInfoViewModel: Equatable {
     public var isSaved: Bool
     
     public init(
-        id: UUID,
+        id: String,
         name: String? = nil,
         latitude: Double,
         longitude: Double,

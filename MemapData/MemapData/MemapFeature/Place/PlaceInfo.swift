@@ -9,7 +9,7 @@
 import Foundation
 
 public struct PlaceInfo: Equatable {
-    public let id: UUID
+    public let id: String
     public let name: String?
     public let latitude: Double
     public let longitude: Double
@@ -20,7 +20,7 @@ public struct PlaceInfo: Equatable {
     public let isSaved: Bool
     
     public init(
-        id: UUID,
+        id: String,
         name: String?,
         latitude: Double,
         longitude: Double,

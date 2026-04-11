@@ -10,7 +10,7 @@ import CoreData
 
 @objc(ManagedPlaceInfo)
 class ManagedPlaceInfo: NSManagedObject {
-    @NSManaged var id: UUID
+    @NSManaged var id: String
     @NSManaged var name: String?
     @NSManaged var latitude: NSNumber
     @NSManaged var longitude: NSNumber
@@ -42,7 +42,7 @@ extension ManagedPlaceInfo {
 }
 
 extension ManagedPlaceInfo {
-    static func delete(by id: UUID, in context: NSManagedObjectContext) throws {
+    static func delete(by id: String, in context: NSManagedObjectContext) throws {
         let request = NSFetchRequest<ManagedPlaceInfo>(entityName: "ManagedPlaceInfo")
         request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
         request.fetchLimit = 1

@@ -24,11 +24,11 @@ public struct PlaceInfoResponseDTO: Decodable, Equatable {
 
 public extension PlaceInfoResponseDTO {
     func toModel() -> PlaceInfoDomain? {
-        guard let id, let uuid = UUID(uuidString: id), let savedTimestamp else {
+        guard let id, let savedTimestamp else {
             return nil
         }
         return PlaceInfoDomain(
-            id: uuid,
+            id: id,
             name: name,
             latitude: latitude,
             longitude: longitude,

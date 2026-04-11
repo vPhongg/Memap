@@ -10,7 +10,7 @@ import MapKit
 import SwiftUI
 
 public struct MMapItem: Hashable {
-    public let id: UUID
+    public let id: String
     public let name: String?
     public let latitude: Double
     public let longitude: Double
@@ -22,7 +22,7 @@ public struct MMapItem: Hashable {
     public let isSaved: Bool
     
     public init(
-        id: UUID,
+        id: String,
         name: String?,
         latitude: Double,
         longitude: Double,
@@ -95,7 +95,7 @@ extension MMapItem {
     
     static func from(_ feature: MapFeature) -> Self {
         .init(
-            id: UUID(),
+            id: generatePlaceID(lat: feature.coordinate.latitude, long: feature.coordinate.longitude),
             name: feature.title,
             latitude: feature.coordinate.latitude,
             longitude: feature.coordinate.longitude,
@@ -109,7 +109,7 @@ extension MMapItem {
     
     static func from(_ annotation: MKMapFeatureAnnotation) -> Self {
         .init(
-            id: UUID(),
+            id: generatePlaceID(lat: annotation.coordinate.latitude, long: annotation.coordinate.longitude),
             name: annotation.title,
             latitude: annotation.coordinate.latitude,
             longitude: annotation.coordinate.longitude,
@@ -135,7 +135,7 @@ extension MMapItem {
         )
     }
     
-    private func generatePlaceID(lat: CLLocationDegrees, long: CLLocationDegrees) -> String {
+    private static func generatePlaceID(lat: CLLocationDegrees, long: CLLocationDegrees) -> String {
         return "\(lat.toString)_\(long.toString)"
     }
     

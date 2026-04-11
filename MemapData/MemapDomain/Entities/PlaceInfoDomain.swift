@@ -12,7 +12,7 @@ import Foundation
 /// Thus creating `PlaceInfoDomain` just to an alternative to `PLaceInfo` to use, so we don't import `MemapData` in the `Domain` module.
 /// The `Domain` module must not depend on `Data` module, but vice versa.
 public struct PlaceInfoDomain: Equatable {
-    public let id: UUID
+    public let id: String
     public let name: String?
     public let latitude: Double?
     public let longitude: Double?
@@ -23,7 +23,7 @@ public struct PlaceInfoDomain: Equatable {
     public let isSaved: Bool
     
     public init(
-        id: UUID,
+        id: String,
         name: String?,
         latitude: Double?,
         longitude: Double?,
