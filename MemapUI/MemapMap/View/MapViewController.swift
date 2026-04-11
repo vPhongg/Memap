@@ -69,11 +69,6 @@ public class MapViewController: UIViewController {
         mapView.addAnnotations(newItems)
     }
     
-    func clearSelectedPlaceAnnotation() {
-        guard let selectedAnnotation = mapView.selectedAnnotations.first as? PlaceAnnotation else { return }
-        mapView.removeAnnotation(selectedAnnotation)
-    }
-    
     func deselectSelectedPOI() {
         mapView.deselectAnnotation(selectedPOI, animated: true)
     }
