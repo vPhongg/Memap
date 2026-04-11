@@ -11,20 +11,24 @@ import MemapPresentation
 
 public struct MapView: View {
     
-    @State var viewModel: AnyMapViewModel
+    @Bindable private var viewModel: AnyMapViewModel
     
-    var isPresentingPlaceDetailView: Bool
-    var didSelectMapKitPOI: (PlaceInfoViewModel) -> Void
-    var didDeselectMapKitPOI: MapItemDeselectionHandler
+    private let isPresentingPlaceDetailView: Bool
+    private let onSavedPlace: Bool
+    
+    private let didSelectMapKitPOI: (PlaceInfoViewModel) -> Void
+    private let didDeselectMapKitPOI: MapItemDeselectionHandler
     
     public init(
         viewModel: AnyMapViewModel,
-        isPresentingPlaceDetailView:  Bool,
+        isPresentingPlaceDetailView: Bool,
+        onSavedPlace: Bool,
         didSelectMapKitPOI: @escaping (PlaceInfoViewModel) -> Void,
         didDeselectMapKitPOI: @escaping MapItemDeselectionHandler
     ) {
         self.viewModel = viewModel
         self.isPresentingPlaceDetailView = isPresentingPlaceDetailView
+        self.onSavedPlace = onSavedPlace
         self.didSelectMapKitPOI = didSelectMapKitPOI
         self.didDeselectMapKitPOI = didDeselectMapKitPOI
     }
@@ -51,6 +55,13 @@ public struct MapView: View {
                 try await self.viewModel.load()
             } catch {
                 print("ABC \(error.localizedDescription)")
+            }
+        }
+        .onChange(of: onSavedPlace) { _, _ in
+            Task {
+                if onSavedPlace {
+                     try await self.viewModel.load()
+                }
             }
         }
     }
