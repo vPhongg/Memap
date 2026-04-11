@@ -92,23 +92,7 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     public func mapView(_ mapView: MKMapView, didSelect annotation: any MKAnnotation) {
-        
-        if let cluster = annotation as? MKClusterAnnotation {
-            zoomToCluster(cluster, in: mapView)
-        }
-        
-        if annotation is PlaceAnnotation {
-            print("is PlaceAnnotation")
-        }
-        
-        if let annotation = annotation as? PlaceAnnotation {
-            print("annotation as? PlaceAnnotation")
-        }
-        
-        if let annotation = annotation as? MKMapFeatureAnnotation {
-            didSelectMapKitPOI(MMapItem.from(annotation))
-        }
-        
+        handleSelected(annotation)
     }
     
     public func mapView(_ mapView: MKMapView, didDeselect annotation: any MKAnnotation) {
@@ -116,6 +100,22 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     // MARK: - Helpers
+    
+    private func handleSelected(_ annotation: MKAnnotation) {
+        switch annotation {
+        case let cluster as MKClusterAnnotation:
+            zoomToCluster(cluster, in: mapView)
+            
+        case let place as PlaceAnnotation:
+            print(place.title)
+            
+        case let poi as MKMapFeatureAnnotation:
+            didSelectMapKitPOI(MMapItem.from(poi))
+            
+        default:
+            break
+        }
+    }
     
     private func zoomToCluster(_ cluster: MKClusterAnnotation, in mapView: MKMapView) {
         let inset: CGFloat = 80
