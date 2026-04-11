@@ -135,4 +135,8 @@ extension MMapItem {
         )
     }
     
+    private func generatePlaceID(lat: CLLocationDegrees, long: CLLocationDegrees) -> String {
+        return "\(lat.toString)_\(long.toString)"
+    }
+    
 }
