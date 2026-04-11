@@ -9,5 +9,10 @@
         <attribute name="note" optional="YES" attributeType="String"/>
         <attribute name="savedTimestamp" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="videosPath" optional="YES" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
 </model>
