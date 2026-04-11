@@ -14,7 +14,7 @@ public struct MapView: View {
     @Bindable private var viewModel: AnyMapViewModel
     
     private let isPresentingPlaceDetailView: Bool
-    private let onSavedPlace: Bool
+    private let isPlaceSaved: Bool
     
     private let didSelectMapKitPOI: (PlaceInfoViewModel) -> Void
     private let didDeselectMapKitPOI: MapItemDeselectionHandler
@@ -22,13 +22,13 @@ public struct MapView: View {
     public init(
         viewModel: AnyMapViewModel,
         isPresentingPlaceDetailView: Bool,
-        onSavedPlace: Bool,
+        isPlaceSaved: Bool,
         didSelectMapKitPOI: @escaping (PlaceInfoViewModel) -> Void,
         didDeselectMapKitPOI: @escaping MapItemDeselectionHandler
     ) {
         self.viewModel = viewModel
         self.isPresentingPlaceDetailView = isPresentingPlaceDetailView
-        self.onSavedPlace = onSavedPlace
+        self.isPlaceSaved = isPlaceSaved
         self.didSelectMapKitPOI = didSelectMapKitPOI
         self.didDeselectMapKitPOI = didDeselectMapKitPOI
     }
@@ -57,9 +57,9 @@ public struct MapView: View {
                 print("ABC \(error.localizedDescription)")
             }
         }
-        .onChange(of: onSavedPlace) { _, _ in
+        .onChange(of: isPlaceSaved) { _, _ in
             Task {
-                if onSavedPlace {
+                if isPlaceSaved {
                      try await self.viewModel.load()
                 }
             }

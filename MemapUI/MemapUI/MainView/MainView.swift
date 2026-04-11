@@ -16,7 +16,7 @@ public struct MainView: View {
     
     @State private var isPresentingPlaceDetailView: Bool = false
     @State private var isPresentingPlacesListView: Bool = false
-    @State private var onSavedPlace: Bool = false
+    @State private var isPlaceSaved: Bool = false
     
     public init(
         mapViewModel: AnyMapViewModel,
@@ -33,7 +33,7 @@ public struct MainView: View {
             MapView(
                 viewModel: mapViewModel,
                 isPresentingPlaceDetailView: isPresentingPlaceDetailView,
-                onSavedPlace: placeDetailViewModel.model.isSaved,
+                isPlaceSaved: placeDetailViewModel.model.isSaved,
                 didSelectMapKitPOI: { item in
                     isPresentingPlaceDetailView = true
                     placeDetailViewModel.model = item
