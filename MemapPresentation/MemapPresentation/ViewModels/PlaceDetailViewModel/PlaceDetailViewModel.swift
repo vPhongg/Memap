@@ -14,7 +14,7 @@ public class PlaceDetailViewModel {
     let saver: PlaceSaver
     let deletor: PlaceDeletor
     
-    public var model: PlaceInfoViewModel = PlaceInfoViewModel(id: "anyID", name: .empty, latitude: 0, longitude: 0, savedTimestamp: Date(), imagesPath: nil, videosPath: nil, note: nil, isSaved: false)
+    public var model: PlaceInfoViewModel = PlaceInfoViewModel.defaultObject()
     
     public var removedPlace: PlaceInfoViewModel?
     

@@ -59,6 +59,20 @@ public struct MMapItem: Hashable {
         mapItem.name = name
         return mapItem
     }
+    
+    func toPlaceAnnotation() -> PlaceAnnotation {
+        PlaceAnnotation(
+            id: self.id,
+            title: self.name,
+            latitude: self.latitude,
+            longitude: self.longitude,
+            createdTimestamp: self.createdTimestamp,
+            imagesPath: self.imagesPath,
+            videosPath: self.videosPath,
+            note: self.note,
+            isSaved: self.isSaved
+        )
+    }
 }
 
 extension Array where Element == MMapItem {
@@ -67,19 +81,7 @@ extension Array where Element == MMapItem {
     }
     
     func toPlaceAnnotations() -> [PlaceAnnotation] {
-        return map {
-            PlaceAnnotation(
-                id: $0.id,
-                title: $0.name,
-                latitude: $0.latitude,
-                longitude: $0.longitude,
-                createdTimestamp: $0.createdTimestamp,
-                imagesPath: $0.imagesPath,
-                videosPath: $0.videosPath,
-                note: $0.note,
-                isSaved: $0.isSaved
-            )
-        }
+        return map { $0.toPlaceAnnotation() }
     }
     
     func addMKMapItem() -> [MMapItem] {

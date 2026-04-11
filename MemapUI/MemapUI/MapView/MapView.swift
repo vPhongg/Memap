@@ -94,20 +94,24 @@ extension MMapItem {
     }
 }
 
+extension PlaceInfoViewModel {
+    func toMMapItem() -> MMapItem {
+        MMapItem(
+            id: self.id,
+            name: self.name,
+            latitude: self.latitude,
+            longitude: self.longitude,
+            createdTimestamp: self.savedTimestamp,
+            imagesPath: self.imagesPath,
+            videosPath: self.videosPath,
+            note: self.note,
+            isSaved: self.isSaved
+        )
+    }
+}
+
 extension Array where Element == PlaceInfoViewModel {
     func toMMapItems() -> [MMapItem] {
-        return map {
-            MMapItem(
-                id: $0.id,
-                name: $0.name,
-                latitude: $0.latitude,
-                longitude: $0.longitude,
-                createdTimestamp: $0.savedTimestamp,
-                imagesPath: $0.imagesPath,
-                videosPath: $0.videosPath,
-                note: $0.note,
-                isSaved: $0.isSaved
-            )
-        }
+        return map { $0.toMMapItem() }
     }
 }
