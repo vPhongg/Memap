@@ -89,21 +89,6 @@ extension Array where Element == MMapItem {
 
 extension MMapItem {
     
-    static func from(_ feature: MapFeature) -> Self {
-        .init(
-            id: generatePlaceID(lat: feature.coordinate.latitude, long: feature.coordinate.longitude),
-            name: feature.title,
-            latitude: feature.coordinate.latitude,
-            longitude: feature.coordinate.longitude,
-            createdTimestamp: nil,
-            imagesPath: nil,
-            videosPath: nil,
-            note: nil,
-            isSaved: false,
-            backgroundColor: nil,
-        )
-    }
-    
     static func from(_ annotation: MKMapFeatureAnnotation) -> Self {
         .init(
             id: generatePlaceID(lat: annotation.coordinate.latitude, long: annotation.coordinate.longitude),

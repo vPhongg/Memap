@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		334BD3AE2F63EC30004A78C0 /* MemapDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 334BD3AD2F63EC30004A78C0 /* MemapDomain.framework */; };
-		334BD3AF2F63EC30004A78C0 /* MemapDomain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 334BD3AD2F63EC30004A78C0 /* MemapDomain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		338052582F68100B00471194 /* MemapUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 338052572F68100B00471194 /* MemapUI.framework */; };
 		338052592F68100B00471194 /* MemapUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 338052572F68100B00471194 /* MemapUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		338CF3542F7183ED00D542E3 /* MemapMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C1B9C82F5005F1002F8AEF /* MemapMap.framework */; };
@@ -37,7 +35,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				33C1B9BD2F500414002F8AEF /* MemapData.framework in Embed Frameworks */,
-				334BD3AF2F63EC30004A78C0 /* MemapDomain.framework in Embed Frameworks */,
 				338CF3552F7183ED00D542E3 /* MemapMap.framework in Embed Frameworks */,
 				33C1B9C02F500417002F8AEF /* MemapPresentation.framework in Embed Frameworks */,
 				338052592F68100B00471194 /* MemapUI.framework in Embed Frameworks */,
@@ -89,7 +86,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				33C1B9BC2F500414002F8AEF /* MemapData.framework in Frameworks */,
-				334BD3AE2F63EC30004A78C0 /* MemapDomain.framework in Frameworks */,
 				338CF3542F7183ED00D542E3 /* MemapMap.framework in Frameworks */,
 				33C1B9BF2F500417002F8AEF /* MemapPresentation.framework in Frameworks */,
 				338052582F68100B00471194 /* MemapUI.framework in Frameworks */,

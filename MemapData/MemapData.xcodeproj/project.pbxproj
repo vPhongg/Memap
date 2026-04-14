@@ -50,11 +50,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		334BD0BA2F617289004A78C0 /* MemapDomain */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MemapDomain;
-			sourceTree = "<group>";
-		};
 		33C1BA002F501424002F8AEF /* MemapDataTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = MemapDataTests;
@@ -106,7 +101,6 @@
 			children = (
 				33C1BA092F5014B6002F8AEF /* MemapData */,
 				33C1BA002F501424002F8AEF /* MemapDataTests */,
-				334BD0BA2F617289004A78C0 /* MemapDomain */,
 				334BD0CF2F619954004A78C0 /* Frameworks */,
 				33C1B4402F4ECD4D002F8AEF /* Products */,
 			);
@@ -154,9 +148,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				334BD0BA2F617289004A78C0 /* MemapDomain */,
 			);
 			name = MemapDomain;
 			packageProductDependencies = (

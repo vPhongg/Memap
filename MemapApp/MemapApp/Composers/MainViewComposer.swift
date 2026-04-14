@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 import MemapPresentation
 import MemapData
-import MemapDomain
 import MemapUI
 
 final class MainViewComposer {
@@ -20,12 +19,7 @@ final class MainViewComposer {
         let anyMapViewModel = AnyMapViewModel(mapViewModel)
         
         let placeDetailViewModel = PlaceDetailViewModel(saver: cache, deletor: deletor)
-        
-        let networkService = DefaultNetworkService(sessionManager: DefaultNetworkSessionManager())
-        let placesListDataTransferService = DefaultDataTransferService(with: networkService)
-        let placesListRepository = DefaultPlacesRepository(dataTransferService: placesListDataTransferService)
-        let loadPlacesUseCase = DefaultLoadPlacesUseCase(placesRepository: placesListRepository)
-        let placesListViewModel = DefaultPlacesListViewModel(loadPlacesUseCase: loadPlacesUseCase)
+        let placesListViewModel = DefaultPlacesListViewModel(loader: loader)
         let placesListViewModelWrapper = DefaultPlacesListViewModelWrapper(viewModel: placesListViewModel)
         
         let mainView = MainView(
