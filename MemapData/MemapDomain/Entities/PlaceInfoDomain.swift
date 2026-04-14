@@ -21,6 +21,7 @@ public struct PlaceInfoDomain: Equatable {
     public let videosPath: String?
     public let note: String?
     public let isSaved: Bool
+    public let backgroundColor: String?
     
     public init(
         id: String,
@@ -31,7 +32,8 @@ public struct PlaceInfoDomain: Equatable {
         imagesPath: String?,
         videosPath: String?,
         note: String?,
-        isSaved: Bool
+        isSaved: Bool,
+        backgroundColor: String?
     ) {
         self.id = id
         self.name = name
@@ -42,5 +44,6 @@ public struct PlaceInfoDomain: Equatable {
         self.videosPath = videosPath
         self.note = note
         self.isSaved = isSaved
+        self.backgroundColor = backgroundColor
     }
 }

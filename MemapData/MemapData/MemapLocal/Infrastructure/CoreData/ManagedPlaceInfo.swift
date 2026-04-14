@@ -18,6 +18,7 @@ class ManagedPlaceInfo: NSManagedObject {
     @NSManaged var imagesPath: String?
     @NSManaged var videosPath: String?
     @NSManaged var note: String?
+    @NSManaged var backgroundColor: String?
 }
 
 extension ManagedPlaceInfo {
@@ -36,7 +37,8 @@ extension ManagedPlaceInfo {
             savedTimestamp: savedTimestamp,
             imagesPath: imagesPath,
             videosPath: videosPath,
-            note: note
+            note: note,
+            backgroundColor: backgroundColor
         )
     }
 }
@@ -65,6 +67,9 @@ extension ManagedPlaceInfo {
         managedPlace.longitude = place.longitude.toNSNumber
         managedPlace.savedTimestamp = place.savedTimestamp
         managedPlace.imagesPath = place.imagesPath
+        managedPlace.videosPath = place.videosPath
+        managedPlace.note = place.note
+        managedPlace.backgroundColor = place.backgroundColor
         
         do {
             try context.save()

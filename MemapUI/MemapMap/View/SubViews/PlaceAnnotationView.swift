@@ -10,9 +10,12 @@ import SwiftUI
 
 class PlaceAnnotationView: MKMarkerAnnotationView {
     
+    var placeAnnotation: PlaceAnnotation?
+    
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         clusteringIdentifier = "CustomAnnotation"
+        self.placeAnnotation = annotation as? PlaceAnnotation
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -23,7 +26,7 @@ class PlaceAnnotationView: MKMarkerAnnotationView {
     override func prepareForDisplay() {
         super.prepareForDisplay()
         displayPriority = .defaultHigh
-        markerTintColor = UIColor.systemGreen
+        markerTintColor = placeAnnotation?.backgroundColor
         glyphImage = UIImage(systemName: "person.crop.square.badge.camera")
     }
     

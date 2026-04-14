@@ -44,7 +44,8 @@ extension Array where Element == PlaceInfo {
                 imagesPath: item.imagesPath,
                 videosPath: item.videosPath,
                 note: item.note,
-                isSaved: item.isSaved
+                isSaved: item.isSaved,
+                backgroundColor: item.backgroundColor
             )
         }
     }
@@ -61,7 +62,8 @@ extension PlaceInfoViewModel {
             imagesPath: imagesPath,
             videosPath: videosPath,
             note: note,
-            isSaved: isSaved
+            isSaved: isSaved,
+            backgroundColor: backgroundColor
         )
     }
 }

@@ -19,6 +19,7 @@ public struct MMapItem: Hashable {
     public let videosPath: String?
     public let note: String?
     public let isSaved: Bool
+    public let backgroundColor: UIColor?
     
     public init(
         id: String,
@@ -29,7 +30,8 @@ public struct MMapItem: Hashable {
         imagesPath: String?,
         videosPath: String?,
         note: String?,
-        isSaved: Bool
+        isSaved: Bool,
+        backgroundColor: UIColor?,
     ) {
         self.id = id
         self.name = name
@@ -40,6 +42,7 @@ public struct MMapItem: Hashable {
         self.videosPath = videosPath
         self.note = note
         self.isSaved = isSaved
+        self.backgroundColor = backgroundColor
     }
     
     func toMKMapItem() -> MKMapItem {
@@ -67,7 +70,8 @@ public struct MMapItem: Hashable {
             imagesPath: self.imagesPath,
             videosPath: self.videosPath,
             note: self.note,
-            isSaved: self.isSaved
+            isSaved: self.isSaved,
+            backgroundColor: self.backgroundColor
         )
     }
 }
@@ -95,7 +99,8 @@ extension MMapItem {
             imagesPath: nil,
             videosPath: nil,
             note: nil,
-            isSaved: false
+            isSaved: false,
+            backgroundColor: nil,
         )
     }
     
@@ -109,7 +114,8 @@ extension MMapItem {
             imagesPath: nil,
             videosPath: nil,
             note: nil,
-            isSaved: false
+            isSaved: false,
+            backgroundColor: annotation.iconStyle?.backgroundColor,
         )
     }
     
@@ -123,7 +129,8 @@ extension MMapItem {
             imagesPath: annotation.imagesPath,
             videosPath: annotation.videosPath,
             note: annotation.note,
-            isSaved: annotation.isSaved
+            isSaved: annotation.isSaved,
+            backgroundColor: annotation.backgroundColor
         )
     }
     

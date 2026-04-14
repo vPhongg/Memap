@@ -18,6 +18,7 @@ public struct PlaceInfoViewModel: Equatable {
     public let videosPath: String?
     public let note: String?
     public var isSaved: Bool
+    public var backgroundColor: String?
     
     public init(
         id: String,
@@ -28,7 +29,8 @@ public struct PlaceInfoViewModel: Equatable {
         imagesPath: String?,
         videosPath: String?,
         note: String?,
-        isSaved: Bool
+        isSaved: Bool,
+        backgroundColor: String?
     ) {
         self.id = id
         self.name = name
@@ -39,9 +41,10 @@ public struct PlaceInfoViewModel: Equatable {
         self.videosPath = videosPath
         self.note = note
         self.isSaved = isSaved
+        self.backgroundColor = backgroundColor
     }
     
     public static func defaultObject() -> PlaceInfoViewModel {
-        PlaceInfoViewModel(id: "anyID", name: .empty, latitude: 0, longitude: 0, savedTimestamp: Date(), imagesPath: nil, videosPath: nil, note: nil, isSaved: false)
+        PlaceInfoViewModel(id: "anyID", name: .empty, latitude: 0, longitude: 0, savedTimestamp: Date(), imagesPath: nil, videosPath: nil, note: nil, isSaved: false, backgroundColor: "")
     }
 }

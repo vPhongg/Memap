@@ -18,6 +18,7 @@ public struct PlaceInfo: Equatable {
     public let videosPath: String?
     public let note: String?
     public let isSaved: Bool
+    public let backgroundColor: String?
     
     public init(
         id: String,
@@ -28,7 +29,8 @@ public struct PlaceInfo: Equatable {
         imagesPath: String?,
         videosPath: String?,
         note: String?,
-        isSaved: Bool
+        isSaved: Bool,
+        backgroundColor: String?
     ) {
         self.id = id
         self.name = name
@@ -39,6 +41,7 @@ public struct PlaceInfo: Equatable {
         self.videosPath = videosPath
         self.note = note
         self.isSaved = isSaved
+        self.backgroundColor = backgroundColor
     }
 }
 
@@ -52,7 +55,8 @@ public extension PlaceInfo {
             savedTimestamp: savedTimestamp,
             imagesPath: imagesPath,
             videosPath: videosPath,
-            note: note
+            note: note,
+            backgroundColor: backgroundColor
         )
     }
 }

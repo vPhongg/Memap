@@ -20,6 +20,7 @@ public struct PlaceInfoResponseDTO: Decodable, Equatable {
     public let imagesPath: String?
     public let videosPath: String?
     public let note: String?
+    public let backgroundColor: String?
 }
 
 public extension PlaceInfoResponseDTO {
@@ -36,7 +37,8 @@ public extension PlaceInfoResponseDTO {
             imagesPath: imagesPath,
             videosPath: videosPath,
             note: note,
-            isSaved: true // Fix true because `LocalPlaceInfo` represent items from `Persistence Storage`, which means it surely saved to `Persistence Storage` previously.
+            isSaved: true, // Fix true because `LocalPlaceInfo` represent items from `Persistence Storage`, which means it surely saved to `Persistence Storage` previously.
+            backgroundColor: backgroundColor
         )
     }
     

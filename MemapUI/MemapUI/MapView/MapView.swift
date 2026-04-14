@@ -89,7 +89,8 @@ extension MMapItem {
             imagesPath: imagesPath,
             videosPath: videosPath,
             note: note,
-            isSaved: isSaved
+            isSaved: isSaved,
+            backgroundColor: backgroundColor?.toHexString() ?? ""
         )
     }
 }
@@ -105,7 +106,8 @@ extension PlaceInfoViewModel {
             imagesPath: self.imagesPath,
             videosPath: self.videosPath,
             note: self.note,
-            isSaved: self.isSaved
+            isSaved: self.isSaved,
+            backgroundColor: UIColor(hex: backgroundColor)
         )
     }
 }

@@ -16,6 +16,7 @@ public final class PlaceAnnotation: NSObject, MKAnnotation {
     public let videosPath: String?
     public let note: String?
     public let isSaved: Bool
+    public let backgroundColor: UIColor?
     
     public init(
         id: String,
@@ -26,7 +27,8 @@ public final class PlaceAnnotation: NSObject, MKAnnotation {
         imagesPath: String?,
         videosPath: String?,
         note: String?,
-        isSaved: Bool
+        isSaved: Bool,
+        backgroundColor: UIColor?
     ) {
         self.id = id
         self.title = title
@@ -36,5 +38,6 @@ public final class PlaceAnnotation: NSObject, MKAnnotation {
         self.videosPath = videosPath
         self.note = note
         self.isSaved = isSaved
+        self.backgroundColor = backgroundColor
     }
 }
