@@ -21,7 +21,7 @@ public struct MMapView: UIViewControllerRepresentable {
         didSelectMapKitPOI: @escaping MapItemSelectionHandler,
         didDeselectMapKitPOI: @escaping MapItemDeselectionHandler
     ) {
-        self.items = items.addMKMapItem()
+        self.items = items
         self.isPresentingPlaceDetailView = isPresentingPlaceDetailView
         self.didSelectMapKitPOI = didSelectMapKitPOI
         self.didDeselectMapKitPOI = didDeselectMapKitPOI

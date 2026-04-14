@@ -18,7 +18,6 @@ public struct MMapItem: Hashable {
     public let imagesPath: String?
     public let videosPath: String?
     public let note: String?
-    public var mapItem: MKMapItem?
     public let isSaved: Bool
     
     public init(
@@ -30,7 +29,6 @@ public struct MMapItem: Hashable {
         imagesPath: String?,
         videosPath: String?,
         note: String?,
-        mapItem: MKMapItem? = nil,
         isSaved: Bool
     ) {
         self.id = id
@@ -41,7 +39,6 @@ public struct MMapItem: Hashable {
         self.imagesPath = imagesPath
         self.videosPath = videosPath
         self.note = note
-        self.mapItem = mapItem
         self.isSaved = isSaved
     }
     
@@ -84,13 +81,6 @@ extension Array where Element == MMapItem {
         return map { $0.toPlaceAnnotation() }
     }
     
-    func addMKMapItem() -> [MMapItem] {
-        map { item in
-            var copy = item
-            copy.mapItem = item.toMKMapItem()
-            return copy
-        }
-    }
 }
 
 extension MMapItem {
