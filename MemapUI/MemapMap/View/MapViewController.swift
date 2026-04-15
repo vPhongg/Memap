@@ -135,6 +135,20 @@ extension MapViewController: MKMapViewDelegate {
         }
     }
     
+    private func getCountryCity(of poi: MKMapFeatureAnnotation, completion: @escaping (String, String) -> Void) {
+        let request = MKMapItemRequest(mapFeatureAnnotation: poi)
+        
+        request.getMapItem { mapItem, error in
+            guard let mapItem = mapItem else { return }
+            
+            let placemark = mapItem.placemark
+            let country = placemark.country ?? ""
+            let city = placemark.locality ?? (placemark.administrativeArea ?? "")
+            
+            completion(country, city)
+        }
+    }
+    
 }
 
 
