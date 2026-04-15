@@ -11,7 +11,7 @@ import MemapData
  
 func uniquePlace() -> PlaceInfo {
     PlaceInfo(
-        id: UUID(),
+        id: UUID().uuidString,
         name: nil,
         latitude: 1,
         longitude: 2,
@@ -19,7 +19,8 @@ func uniquePlace() -> PlaceInfo {
         imagesPath: nil,
         videosPath: nil,
         note: nil,
-        isSaved: true
+        isSaved: true,
+        backgroundColor: nil
     )
 }
 
