@@ -27,7 +27,7 @@ class PlaceAnnotationView: MKMarkerAnnotationView {
         super.prepareForDisplay()
         displayPriority = .defaultHigh
         markerTintColor = placeAnnotation?.backgroundColor
-        glyphImage = UIImage(systemName: "person.crop.square.badge.camera")
+        glyphImage = UIImage(systemName: "person.crop.square.badge.camera.fill")
     }
     
 }
