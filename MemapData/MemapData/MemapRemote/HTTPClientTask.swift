@@ -21,4 +21,6 @@ public protocol HTTPClient {
     ///   - completion: Swift.Result<(Data, HTTPURLResponse), Error>
     @discardableResult
     func get(from url: URL, completion: @escaping (Result) -> Void) -> HTTPClientTask
+    
+    func get(from url: URL) async throws -> (Data, HTTPURLResponse)
 }

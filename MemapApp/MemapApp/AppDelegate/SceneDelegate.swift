@@ -28,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func configureWindow() {
         let localPlaceLoader = makeLocalPlaceLoader()
         let remotePlaceLoader = makeRemotePlaceLoader()
-        let mapHostingController = MainViewComposer.composed(loader: localPlaceLoader, cache: localPlaceLoader, deletor: localPlaceLoader)
+        let mapHostingController = MainViewComposer.composed(loader: remotePlaceLoader, cache: localPlaceLoader, deletor: localPlaceLoader)
         window?.rootViewController = mapHostingController
         window?.makeKeyAndVisible()
     }

@@ -60,9 +60,8 @@ extension RemotePlaceLoader: PlaceLoader {
             }
             
         case .asyncAwait:
-            print()
-            
-            return []
+            let (data, response) = try await client.get(from: url)
+            return try RemotePlaceLoader.map(data, from: response)
         }
     }
     
