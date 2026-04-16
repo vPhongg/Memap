@@ -5,24 +5,33 @@
             "name": "Bệnh viện Việt Đức",
             "latitude": 21.027791333369954,
             "longitude": 105.84690839061749,
-            "createdTimestamp": "2026-03-11T01:20:00Z",
-            "imagePath": "/images/lake.png"
+            "savedTimestamp": "2026-03-11T01:20:00Z",
+            "imagesPath": "/images/lake.png",
+            "videosPath": "/videos/lake.mov",
+            "note": "nothing",
+            "backgroundColor": "#008000"
         },
         {
             "id": "E3EAA7F7-3F1C-4F8E-A0F7-2B4A9D6E8C2C",
             "name": "Thư viện quốc gia Việt Nam",
             "latitude": 21.02618899542704,
             "longitude": 105.84967644318435,
-            "createdTimestamp": "2026-03-11T01:20:00Z",
-            "imagePath": "/images/lake.png"
+            "savedTimestamp": "2026-03-11T01:20:00Z",
+            "imagesPath": "/images/lake.png",
+            "videosPath": "/videos/lake.mov",
+            "note": "nothing",
+            "backgroundColor": "#008000"
         },
         {
             "id": "E3EAA7F7-3F1C-4F8E-A0F7-2B4A9D6E8C2D",
             "name": "Tháp Rùa",
             "latitude": 21.02798154600063,
             "longitude": 105.85225145702243,
-            "createdTimestamp": "2026-03-11T01:20:00Z",
-            "imagePath": "/images/lake.png"
-        }
+            "savedTimestamp": "2026-03-11T01:20:00Z",
+            "imagesPath": "/images/lake.png",
+            "videosPath": "/videos/lake.mov",
+            "note": "nothing",
+            "backgroundColor": "#008000"
+        },
     ]
 }

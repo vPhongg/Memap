@@ -26,12 +26,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func configureWindow() {
-        let localStoreURL = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("memap-store.sqlite")
-        let store = try! CoreDataMemapStore(storeURL: localStoreURL)
-        let localDataStore = LocalPlaceLoader(store: store)
-        let mapHostingController = MainViewComposer.composed(loader: localDataStore, cache: localDataStore, deletor: localDataStore)
+        let localPlaceLoader = makeLocalPlaceLoader()
+        let remotePlaceLoader = makeRemotePlaceLoader()
+        let mapHostingController = MainViewComposer.composed(loader: remotePlaceLoader, cache: localPlaceLoader, deletor: localPlaceLoader)
         window?.rootViewController = mapHostingController
         window?.makeKeyAndVisible()
+    }
+    
+    private func makeLocalPlaceLoader() -> LocalPlaceLoader {
+        let localStoreURL = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("memap-store.sqlite")
+        let store = try! CoreDataMemapStore(storeURL: localStoreURL)
+        return LocalPlaceLoader(store: store)
+    }
+    
+    private func makeRemotePlaceLoader() -> RemotePlaceLoader {
+        let url = URL(string: "http://localhost:3000/places")!
+        let client = URLSessionHTTPClient()
+        return RemotePlaceLoader(url: url, client: client, mode: .withCheckedContinuation)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
