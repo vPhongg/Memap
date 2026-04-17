@@ -45,6 +45,6 @@ public struct PlaceInfoViewModel: Equatable {
     }
     
     public static func defaultObject() -> PlaceInfoViewModel {
-        PlaceInfoViewModel(id: "anyID", name: .empty, latitude: 0, longitude: 0, savedTimestamp: Date(), imagesPath: nil, videosPath: nil, note: nil, isSaved: false, backgroundColor: "")
+        PlaceInfoViewModel(id: "anyID", name: .empty, latitude: 0, longitude: 0, savedTimestamp: Date(), imagesPath: nil, videosPath: nil, note: nil, isSaved: false, backgroundColor: nil)
     }
 }

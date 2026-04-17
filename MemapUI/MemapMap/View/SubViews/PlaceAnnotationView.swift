@@ -14,12 +14,12 @@ class PlaceAnnotationView: MKMarkerAnnotationView {
     
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        clusteringIdentifier = "CustomAnnotation"
+        clusteringIdentifier = "CustomPlaceAnnotation"
         self.placeAnnotation = annotation as? PlaceAnnotation
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
     
     /// - Tag: DisplayConfiguration
@@ -31,28 +31,3 @@ class PlaceAnnotationView: MKMarkerAnnotationView {
     }
     
 }
-
-//class PlaceAnnotationView: MKAnnotationView {
-//    var title: String = ""
-//    
-//    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
-//        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-//        clusteringIdentifier = "CustomAnnotation"
-//    }
-//    
-//    required init?(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)
-//    }
-//    
-//    func setupView() {
-//        let view = PlaceMarkerView(
-//            title: self.title,
-//            size: 29,
-//            isActive: false
-//        )
-//        
-//        let controller = UIHostingController(rootView: view)
-//        addSubview(controller.view)
-//    }
-//    
-//}
