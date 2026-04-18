@@ -14,9 +14,9 @@ public class PlaceDetailViewModel {
     let saver: PlaceSaver
     let deletor: PlaceDeletor
     
-    public var model: PlaceInfoViewModel = PlaceInfoViewModel.defaultObject()
+    public var model: PlacePresentationModel = PlacePresentationModel.defaultObject()
     
-    public var removedPlace: PlaceInfoViewModel?
+    public var removedPlace: PlacePresentationModel?
     
     public static var addPlaceText: String {
         return Constant.addPlace.localized

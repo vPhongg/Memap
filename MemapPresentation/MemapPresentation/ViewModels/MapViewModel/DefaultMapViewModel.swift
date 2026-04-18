@@ -33,9 +33,9 @@ final public class DefaultMapViewModel: MapViewModel {
 }
 
 extension Array where Element == PlaceInfo {
-    public func toModels() -> [PlaceInfoViewModel] {
+    public func toModels() -> [PlacePresentationModel] {
         return compactMap { item in
-            return PlaceInfoViewModel(
+            return PlacePresentationModel(
                 id: item.id,
                 name: item.name,
                 latitude: item.latitude,
@@ -51,7 +51,7 @@ extension Array where Element == PlaceInfo {
     }
 }
 
-extension PlaceInfoViewModel {
+extension PlacePresentationModel {
     func toModel() -> PlaceInfo {
         PlaceInfo(
             id: id,

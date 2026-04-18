@@ -14,7 +14,7 @@ public final class DefaultPlacesListViewModel: PlacesListViewModel {
     
     // MARK: - OUTPUT
     public let isLoading: Observable<Bool> = Observable(false)
-    public var places: Observable<[PlaceInfoViewModel]> = Observable([])
+    public var places: Observable<[PlacePresentationModel]> = Observable([])
     public var error: Observable<String> = Observable(.empty)
     
     public init(

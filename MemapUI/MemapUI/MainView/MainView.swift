@@ -17,7 +17,7 @@ public struct MainView: View {
     @State private var isPresentingPlaceDetailView: Bool = false
     @State private var isPresentingPlacesListView: Bool = false
     @State private var isPlaceSaved: Bool = false
-    @State private var removedPlace: PlaceInfoViewModel?
+    @State private var removedPlace: PlacePresentationModel?
     
     public init(
         mapViewModel: AnyMapViewModel,

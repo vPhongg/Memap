@@ -1,5 +1,5 @@
 //
-//  PlaceInfoItem.swift
+//  PlacePresentationModel.swift
 //  MemapPresentation
 //
 //  Created by Vu Dinh Phong on 26/02/2026.
@@ -8,7 +8,7 @@
 import Foundation
 
 /// A model that represents data for MapView
-public struct PlaceInfoViewModel: Equatable {
+public struct PlacePresentationModel: Equatable {
     public let id: String
     public var name: String?
     public let latitude: Double
@@ -44,7 +44,7 @@ public struct PlaceInfoViewModel: Equatable {
         self.backgroundColor = backgroundColor
     }
     
-    public static func defaultObject() -> PlaceInfoViewModel {
-        PlaceInfoViewModel(id: "anyID", name: .empty, latitude: 0, longitude: 0, savedTimestamp: Date(), imagesPath: nil, videosPath: nil, note: nil, isSaved: false, backgroundColor: nil)
+    public static func defaultObject() -> PlacePresentationModel {
+        PlacePresentationModel(id: "anyID", name: .empty, latitude: 0, longitude: 0, savedTimestamp: Date(), imagesPath: nil, videosPath: nil, note: nil, isSaved: false, backgroundColor: nil)
     }
 }

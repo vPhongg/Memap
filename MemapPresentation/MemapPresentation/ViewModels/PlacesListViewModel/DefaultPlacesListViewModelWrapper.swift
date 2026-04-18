@@ -10,7 +10,7 @@ import Foundation
 @Observable
 public final class DefaultPlacesListViewModelWrapper {
     public var viewModel: PlacesListViewModel
-    public var places = [PlaceInfoViewModel]()
+    public var places = [PlacePresentationModel]()
     
     public init(viewModel: PlacesListViewModel) {
         self.viewModel = viewModel

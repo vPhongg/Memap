@@ -13,7 +13,7 @@ public protocol PlacesListViewModelInput {
 public protocol PlacesListViewModelOutput {
     var error: Observable<String> { get }
     var isLoading: Observable<Bool> { get }
-    var places: Observable<[PlaceInfoViewModel]> { get }
+    var places: Observable<[PlacePresentationModel]> { get }
 }
 
 public typealias PlacesListViewModel = PlacesListViewModelInput & PlacesListViewModelOutput

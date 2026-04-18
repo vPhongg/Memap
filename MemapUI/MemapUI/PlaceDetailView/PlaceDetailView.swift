@@ -13,11 +13,11 @@ public struct PlaceDetailView: View {
     
     @Bindable var viewModel: PlaceDetailViewModel
     
-    var onSuccessRemoved: (PlaceInfoViewModel) -> Void
+    var onSuccessRemoved: (PlacePresentationModel) -> Void
     
     public init(
         viewModel: PlaceDetailViewModel,
-        onSuccessRemoved: @escaping (PlaceInfoViewModel) -> Void
+        onSuccessRemoved: @escaping (PlacePresentationModel) -> Void
     ) {
         self.viewModel = viewModel
         self.onSuccessRemoved = onSuccessRemoved

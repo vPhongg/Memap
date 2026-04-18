@@ -15,17 +15,17 @@ public struct MapView: View {
     
     private let isPresentingPlaceDetailView: Bool
     private let isPlaceSaved: Bool
-    private var removedPlace: PlaceInfoViewModel?
+    private var removedPlace: PlacePresentationModel?
     
-    private let didSelectMapKitPOI: (PlaceInfoViewModel) -> Void
+    private let didSelectMapKitPOI: (PlacePresentationModel) -> Void
     private let didDeselectMapKitPOI: MapItemDeselectionHandler
     
     public init(
         viewModel: AnyMapViewModel,
         isPresentingPlaceDetailView: Bool,
         isPlaceSaved: Bool,
-        removedPlace: PlaceInfoViewModel?,
-        didSelectMapKitPOI: @escaping (PlaceInfoViewModel) -> Void,
+        removedPlace: PlacePresentationModel?,
+        didSelectMapKitPOI: @escaping (PlacePresentationModel) -> Void,
         didDeselectMapKitPOI: @escaping MapItemDeselectionHandler
     ) {
         self.viewModel = viewModel
@@ -79,8 +79,8 @@ public struct MapView: View {
 }
 
 extension MMapItem {
-    func toPresentationModel() -> PlaceInfoViewModel {
-        PlaceInfoViewModel(
+    func toPresentationModel() -> PlacePresentationModel {
+        PlacePresentationModel(
             id: id,
             name: name,
             latitude: latitude,
@@ -95,7 +95,7 @@ extension MMapItem {
     }
 }
 
-extension PlaceInfoViewModel {
+extension PlacePresentationModel {
     func toMMapItem() -> MMapItem {
         MMapItem(
             id: self.id,
@@ -112,7 +112,7 @@ extension PlaceInfoViewModel {
     }
 }
 
-extension Array where Element == PlaceInfoViewModel {
+extension Array where Element == PlacePresentationModel {
     func toMMapItems() -> [MMapItem] {
         return map { $0.toMMapItem() }
     }
