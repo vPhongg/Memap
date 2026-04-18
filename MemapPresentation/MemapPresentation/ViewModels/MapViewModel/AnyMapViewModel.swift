@@ -11,9 +11,9 @@ import MemapData
 /// A type eraser for `DefaultMapViewModel` since `MapViewModel` is protocol can not work with @Bindable for `MapView`
 @Observable
 final public class AnyMapViewModel: MapViewModel {
-    
     private let _getIsLoading: () -> Bool
     private let _getPlaces: () -> [Place]
+    private let _getPlaceGroups: () -> [PlaceGroup]
     private let _performLoad: () async throws -> Void
     
     public var isLoading: Bool {
@@ -24,6 +24,10 @@ final public class AnyMapViewModel: MapViewModel {
         _getPlaces()
     }
     
+    public var placeGroups: [PlaceGroup] {
+        _getPlaceGroups()
+    }
+    
     public func load() async throws {
         try await _performLoad()
     }
@@ -31,6 +35,7 @@ final public class AnyMapViewModel: MapViewModel {
     public init<ViewModel: MapViewModel>(_ viewModel: ViewModel) {
         _getIsLoading = { viewModel.isLoading }
         _getPlaces = { viewModel.places }
+        _getPlaceGroups = { viewModel.placeGroups }
         _performLoad = { try await  viewModel.load() }
     }
     

@@ -11,8 +11,26 @@ import MemapData
 @Observable
 final public class DefaultMapViewModel: MapViewModel {
     
+    public var placeGroups: [PlaceGroup] = []
     public var isLoading: Bool = false
-    public var places: [Place] = []
+    public var places: [Place] = [] {
+        didSet {
+            placeGroups = [
+                PlaceGroup(name: "Eating", places: [
+                    PlacePresentationModel.defaultObject(),
+                    PlacePresentationModel.defaultObject(),
+                ]),
+                PlaceGroup(name: "Store", places: [
+                    PlacePresentationModel.defaultObject(),
+                    PlacePresentationModel.defaultObject(),
+                ]),
+                PlaceGroup(name: "Tourism", places: [
+                    PlacePresentationModel.defaultObject(),
+                    PlacePresentationModel.defaultObject(),
+                ]),
+            ]
+        }
+    }
         
     private let memapLoader: PlaceLoader
     
