@@ -1,5 +1,5 @@
 //
-//  ManagedPlaceInfo.swift
+//  ManagedPlace.swift
 //  MemapData
 //
 //  Created by Vu Dinh Phong on 27/02/2026.
@@ -8,8 +8,8 @@
 
 import CoreData
 
-@objc(ManagedPlaceInfo)
-class ManagedPlaceInfo: NSManagedObject {
+@objc(ManagedPlace)
+class ManagedPlace: NSManagedObject {
     @NSManaged var id: String
     @NSManaged var name: String?
     @NSManaged var latitude: NSNumber
@@ -21,15 +21,15 @@ class ManagedPlaceInfo: NSManagedObject {
     @NSManaged var backgroundColor: String?
 }
 
-extension ManagedPlaceInfo {
-    static func fetch(in context: NSManagedObjectContext) throws -> [ManagedPlaceInfo] {
+extension ManagedPlace {
+    static func fetch(in context: NSManagedObjectContext) throws -> [ManagedPlace] {
         guard let entityName = entity().name else { return [] }
-        let request = NSFetchRequest<ManagedPlaceInfo>(entityName: entityName)
+        let request = NSFetchRequest<ManagedPlace>(entityName: entityName)
         return try context.fetch(request)
     }
     
-    var local: LocalPlaceInfo {
-        return LocalPlaceInfo(
+    var local: LocalPlace {
+        return LocalPlace(
             id: id,
             name: name,
             latitude: latitude.doubleValue,
@@ -43,9 +43,9 @@ extension ManagedPlaceInfo {
     }
 }
 
-extension ManagedPlaceInfo {
+extension ManagedPlace {
     static func delete(by id: String, in context: NSManagedObjectContext) throws {
-        let request = NSFetchRequest<ManagedPlaceInfo>(entityName: "ManagedPlaceInfo")
+        let request = NSFetchRequest<ManagedPlace>(entityName: "ManagedPlace")
         request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
         request.fetchLimit = 1
         
@@ -58,9 +58,9 @@ extension ManagedPlaceInfo {
     }
 }
 
-extension ManagedPlaceInfo {
-    static func insert(_ place: LocalPlaceInfo,  in context: NSManagedObjectContext) throws {
-        let managedPlace = ManagedPlaceInfo(context: context)
+extension ManagedPlace {
+    static func insert(_ place: LocalPlace,  in context: NSManagedObjectContext) throws {
+        let managedPlace = ManagedPlace(context: context)
         managedPlace.id = place.id
         managedPlace.name = place.name
         managedPlace.latitude = place.latitude.toNSNumber
@@ -86,8 +86,8 @@ extension Double {
     }
 }
 
-extension Array where Element == ManagedPlaceInfo {
-    var localPlaces: [LocalPlaceInfo] {
+extension Array where Element == ManagedPlace {
+    var localPlaces: [LocalPlace] {
         return map { $0.local }
     }
 }

@@ -11,15 +11,15 @@ import CoreData
 extension CoreDataMemapStore: PlaceStore {
     
     public func insert(_ place: LocalPlace) async throws {
-        try ManagedPlaceInfo.insert(place, in: context)
+        try ManagedPlace.insert(place, in: context)
     }
     
     public func retrieve() async throws -> [LocalPlace] {
-        try ManagedPlaceInfo.fetch(in: context).localPlaces
+        try ManagedPlace.fetch(in: context).localPlaces
     }
     
     public func delete(_ place: LocalPlace) async throws {
-        try ManagedPlaceInfo.delete(by: place.id, in: context)
+        try ManagedPlace.delete(by: place.id, in: context)
     }
     
 }
