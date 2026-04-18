@@ -10,26 +10,26 @@ import XCTest
 import MemapData
 
 extension CoreDataMemapStoreTests {
-    func expect(_ sut: PlaceStore, retrievedPlacesToContain exectedPlace: LocalPlaceInfo, file: StaticString = #filePath, line: UInt = #line) async throws {
+    func expect(_ sut: PlaceStore, retrievedPlacesToContain exectedPlace: LocalPlace, file: StaticString = #filePath, line: UInt = #line) async throws {
         let result = try await sut.retrieve()
         XCTAssertTrue(result.contains(exectedPlace))
     }
     
-    func expect(_ sut: PlaceStore, toRetrieveTwice exectedResult: [LocalPlaceInfo], file: StaticString = #filePath, line: UInt = #line) async throws {
+    func expect(_ sut: PlaceStore, toRetrieveTwice exectedResult: [LocalPlace], file: StaticString = #filePath, line: UInt = #line) async throws {
         try await expect(sut, toRetrieve: exectedResult, file: file, line: line)
         try await expect(sut, toRetrieve: exectedResult, file: file, line: line)
     }
     
-    func expect(_ sut: PlaceStore, toRetrieve exectedPlaces: [LocalPlaceInfo], file: StaticString = #filePath, line: UInt = #line) async throws {
+    func expect(_ sut: PlaceStore, toRetrieve exectedPlaces: [LocalPlace], file: StaticString = #filePath, line: UInt = #line) async throws {
         let retrievedPlaces = try await sut.retrieve()
         XCTAssertEqual(retrievedPlaces, exectedPlaces, file: file, line: line)
     }
     
-    func insert(_ place: LocalPlaceInfo, to sut: PlaceStore, file: StaticString = #filePath, line: UInt = #line) async throws {
+    func insert(_ place: LocalPlace, to sut: PlaceStore, file: StaticString = #filePath, line: UInt = #line) async throws {
         try await sut.insert(place)
     }
     
-    func delete(_ place: LocalPlaceInfo, to sut: PlaceStore, file: StaticString = #filePath, line: UInt = #line) async throws {
+    func delete(_ place: LocalPlace, to sut: PlaceStore, file: StaticString = #filePath, line: UInt = #line) async throws {
         try await sut.delete(place)
     }
     

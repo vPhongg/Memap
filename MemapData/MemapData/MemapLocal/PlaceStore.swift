@@ -11,21 +11,21 @@ public protocol PlaceStore {
     
     /// The result can be invoked in any threads
     /// Clients are responsible to dispatch to appropriate threads, if need
-    /// - Returns: [LocalPlaceInfo] or throw error
-    func retrieve() async throws -> [LocalPlaceInfo]
+    /// - Returns: [LocalPlace] or throw error
+    func retrieve() async throws -> [LocalPlace]
     
     /// The result can be invoked in any threads
     /// Clients are responsible to dispatch to appropriate threads, if need
     /// - Parameters:
-    ///   - place: LocalPlaceInfo
+    ///   - place: LocalPlace
     /// - Returns: Void or throw error
-    func insert(_ place: LocalPlaceInfo) async throws
+    func insert(_ place: LocalPlace) async throws
     
     
     /// The result can be invoked in any threads
     /// Clients are responsible to dispatch to appropriate threads, if need
     /// - Parameters:
-    ///   - place: LocalPlaceInfo
+    ///   - place: LocalPlace
     /// - Returns: Void or throw error
-    func delete(_ place: LocalPlaceInfo) async throws
+    func delete(_ place: LocalPlace) async throws
 }

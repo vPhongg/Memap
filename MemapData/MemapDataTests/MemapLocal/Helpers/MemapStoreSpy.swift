@@ -12,13 +12,13 @@ import MemapData
 final class MemapStoreSpy: PlaceStore {
     
     enum ReceivedMessage: Equatable {
-        case insert(_ item: LocalPlaceInfo)
+        case insert(_ item: LocalPlace)
         case retrieve
-        case delete(_ item: LocalPlaceInfo)
+        case delete(_ item: LocalPlace)
     }
     
     enum RetrieveResult {
-        case success([LocalPlaceInfo])
+        case success([LocalPlace])
         case failure(Error)
     }
     
@@ -37,7 +37,7 @@ final class MemapStoreSpy: PlaceStore {
     var insertionResult: InsertionResult = .success
     var deletionResult: InsertionResult = .success
     
-    func retrieve() async throws -> [LocalPlaceInfo] {
+    func retrieve() async throws -> [LocalPlace] {
         receivedMessages.append(.retrieve)
         
         switch retrieveResult {
@@ -48,7 +48,7 @@ final class MemapStoreSpy: PlaceStore {
         }
     }
     
-    func insert(_ place: LocalPlaceInfo) async throws {
+    func insert(_ place: LocalPlace) async throws {
         receivedMessages.append(.insert(place))
         
         if case .failure(let error) = insertionResult {
@@ -56,7 +56,7 @@ final class MemapStoreSpy: PlaceStore {
         }
     }
     
-    func delete(_ place: LocalPlaceInfo) async throws {
+    func delete(_ place: LocalPlace) async throws {
         receivedMessages.append(.delete(place))
         
         if case .failure(let error) = deletionResult {

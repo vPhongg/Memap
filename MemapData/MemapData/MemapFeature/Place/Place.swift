@@ -46,8 +46,8 @@ public struct Place: Equatable {
 }
 
 public extension Place {
-    func toLocal() -> LocalPlaceInfo {
-        return LocalPlaceInfo(
+    func toLocal() -> LocalPlace {
+        return LocalPlace(
             id: id,
             name: name,
             latitude: latitude,
@@ -62,7 +62,7 @@ public extension Place {
 }
 
 extension Array where Element == Place {
-    func toLocals() -> [LocalPlaceInfo] {
+    func toLocals() -> [LocalPlace] {
         return map { $0.toLocal() }
     }
 }

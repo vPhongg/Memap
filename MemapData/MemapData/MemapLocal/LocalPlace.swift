@@ -1,5 +1,5 @@
 //
-//  LocalPlaceInfo.swift
+//  LocalPlace.swift
 //  MemapData
 //
 //  Created by Vu Dinh Phong on 26/02/2026.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct LocalPlaceInfo: Equatable {
+public struct LocalPlace: Equatable {
     public let id: String
     public let name: String?
     public let latitude: Double
@@ -41,7 +41,7 @@ public struct LocalPlaceInfo: Equatable {
     }
 }
 
-public extension LocalPlaceInfo {
+public extension LocalPlace {
     func toModel() -> Place {
         return Place(
             id: id,
@@ -52,13 +52,13 @@ public extension LocalPlaceInfo {
             imagesPath: imagesPath,
             videosPath: videosPath,
             note: note,
-            isSaved: true, // Fix true because `LocalPlaceInfo` represent items from `Persistence Storage`, which means it surely saved to `Persistence Storage` previously.
+            isSaved: true, // Fix true because `LocalPlace` represent items from `Persistence Storage`, which means it surely saved to `Persistence Storage` previously.
             backgroundColor: backgroundColor
         )
     }
 }
 
-extension Array where Element == LocalPlaceInfo {
+extension Array where Element == LocalPlace {
     func toModels() -> [Place] {
         return map { $0.toModel() }
     }

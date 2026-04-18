@@ -24,7 +24,7 @@ func uniquePlace() -> Place {
     )
 }
 
-func uniquePlaces() -> (models: [Place], locals: [LocalPlaceInfo]) {
+func uniquePlaces() -> (models: [Place], locals: [LocalPlace]) {
     let places = [uniquePlace(), uniquePlace(), uniquePlace()]
     let localItems = places.map {
         $0.toLocal()
