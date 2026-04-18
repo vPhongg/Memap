@@ -82,7 +82,7 @@ extension MMapItem {
     func toPresentationModel() -> PlacePresentationModel {
         PlacePresentationModel(
             id: id,
-            name: name,
+            name: name ?? .empty,
             latitude: latitude,
             longitude: longitude,
             savedTimestamp: createdTimestamp,

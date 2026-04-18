@@ -10,7 +10,7 @@ import Foundation
 /// A model that represents data for MapView
 public struct PlacePresentationModel: Equatable {
     public let id: String
-    public var name: String?
+    public var name: String
     public let latitude: Double
     public let longitude: Double
     public let savedTimestamp: Date?
@@ -22,7 +22,7 @@ public struct PlacePresentationModel: Equatable {
     
     public init(
         id: String,
-        name: String? = nil,
+        name: String,
         latitude: Double,
         longitude: Double,
         savedTimestamp: Date?,

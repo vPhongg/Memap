@@ -37,7 +37,7 @@ extension Array where Element == Place {
         return compactMap { item in
             return PlacePresentationModel(
                 id: item.id,
-                name: item.name,
+                name: item.name ?? .empty,
                 latitude: item.latitude,
                 longitude: item.longitude,
                 savedTimestamp: item.savedTimestamp,

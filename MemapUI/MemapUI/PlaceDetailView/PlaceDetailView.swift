@@ -26,7 +26,7 @@ public struct PlaceDetailView: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack(alignment: .top) {
-                PlaceNameView(placeName: viewModel.model.name.defaultUnknown)
+                PlaceNameView(placeName: viewModel.model.name)
                 Spacer()
                 AddPlaceButtonView(
                     didTapAddPlaceButton: viewModel.didTapAddPlaceButton,
