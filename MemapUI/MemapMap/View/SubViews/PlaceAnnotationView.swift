@@ -25,9 +25,18 @@ class PlaceAnnotationView: MKMarkerAnnotationView {
     /// - Tag: DisplayConfiguration
     override func prepareForDisplay() {
         super.prepareForDisplay()
+        
+        setUponMKAnnotationView()
+        setUponMKMarkerAnnotationView()
+    }
+    
+    private func setUponMKAnnotationView() {
         displayPriority = .defaultHigh
+    }
+    
+    private func setUponMKMarkerAnnotationView() {
+        glyphImage = UIImage(systemName: "mappin.and.ellipse")
         markerTintColor = placeAnnotation?.backgroundColor
-        glyphImage = UIImage(systemName: "person.crop.square.badge.camera.fill")
     }
     
 }
