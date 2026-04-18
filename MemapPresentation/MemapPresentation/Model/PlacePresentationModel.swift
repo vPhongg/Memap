@@ -8,7 +8,7 @@
 import Foundation
 
 /// A model that represents data for MapView
-public struct PlacePresentationModel: Equatable {
+public struct PlacePresentationModel: Identifiable, Equatable {
     public let id: String
     public var name: String
     public let latitude: Double
@@ -45,6 +45,6 @@ public struct PlacePresentationModel: Equatable {
     }
     
     public static func defaultObject() -> PlacePresentationModel {
-        PlacePresentationModel(id: "anyID", name: .empty, latitude: 0, longitude: 0, savedTimestamp: Date(), imagesPath: nil, videosPath: nil, note: nil, isSaved: false, backgroundColor: nil)
+        PlacePresentationModel(id: UUID().uuidString, name: "This is any place name", latitude: 0, longitude: 0, savedTimestamp: Date(), imagesPath: nil, videosPath: nil, note: nil, isSaved: false, backgroundColor: nil)
     }
 }
