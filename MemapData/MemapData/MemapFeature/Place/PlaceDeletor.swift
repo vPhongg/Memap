@@ -7,5 +7,5 @@
 
 
 public protocol PlaceDeletor {
-    func delete(_ place: PlaceInfo) async throws
+    func delete(_ place: Place) async throws
 }

@@ -12,7 +12,7 @@ import MemapData
 final public class DefaultMapViewModel: MapViewModel {
     
     public var isLoading: Bool = false
-    public var places: [PlaceInfo] = []
+    public var places: [Place] = []
         
     private let memapLoader: PlaceLoader
     
@@ -32,7 +32,7 @@ final public class DefaultMapViewModel: MapViewModel {
     
 }
 
-extension Array where Element == PlaceInfo {
+extension Array where Element == Place {
     public func toModels() -> [PlacePresentationModel] {
         return compactMap { item in
             return PlacePresentationModel(
@@ -52,8 +52,8 @@ extension Array where Element == PlaceInfo {
 }
 
 extension PlacePresentationModel {
-    func toModel() -> PlaceInfo {
-        PlaceInfo(
+    func toModel() -> Place {
+        Place(
             id: id,
             name: name,
             latitude: latitude,

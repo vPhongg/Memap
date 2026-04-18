@@ -13,14 +13,14 @@ import MemapData
 final public class AnyMapViewModel: MapViewModel {
     
     private let _getIsLoading: () -> Bool
-    private let _getPlaces: () -> [PlaceInfo]
+    private let _getPlaces: () -> [Place]
     private let _performLoad: () async throws -> Void
     
     public var isLoading: Bool {
         _getIsLoading()
     }
     
-    public var places: [PlaceInfo] {
+    public var places: [Place] {
         _getPlaces()
     }
     

@@ -37,11 +37,11 @@ public final class RemotePlaceLoader {
 }
 
 extension RemotePlaceLoader: PlaceLoader {
-    public func load() async throws -> [PlaceInfo] {
+    public func load() async throws -> [Place] {
         
         switch mode {
         case .withCheckedContinuation:
-            typealias LoadContinuation = CheckedContinuation<[PlaceInfo], Swift.Error>
+            typealias LoadContinuation = CheckedContinuation<[Place], Swift.Error>
             return try await withCheckedThrowingContinuation { (continuation: LoadContinuation) in
                 client.get(from: url) { result in
                     switch result {
@@ -65,7 +65,7 @@ extension RemotePlaceLoader: PlaceLoader {
         }
     }
     
-    private static func map(_ data: Data, from response: HTTPURLResponse) throws -> [PlaceInfo] {
+    private static func map(_ data: Data, from response: HTTPURLResponse) throws -> [Place] {
         do {
             let places = try PlacesMapper.map(data, from: response)
             return places.toModels()
@@ -89,9 +89,9 @@ extension RemotePlaceLoader: PlaceLoader {
 }
 
 extension Array where Element == RemotePlaceResponse {
-    func toModels() -> [PlaceInfo] {
+    func toModels() -> [Place] {
         return map {
-            return PlaceInfo(
+            return Place(
                 id: $0.id,
                 name: $0.name,
                 latitude: $0.latitude,

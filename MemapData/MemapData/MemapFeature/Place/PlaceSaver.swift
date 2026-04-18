@@ -7,5 +7,5 @@
 
 
 public protocol PlaceSaver {
-    func save(_ place: PlaceInfo) async throws
+    func save(_ place: Place) async throws
 }

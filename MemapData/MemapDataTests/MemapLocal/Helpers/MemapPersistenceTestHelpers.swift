@@ -9,8 +9,8 @@
 import Foundation
 import MemapData
  
-func uniquePlace() -> PlaceInfo {
-    PlaceInfo(
+func uniquePlace() -> Place {
+    Place(
         id: UUID().uuidString,
         name: nil,
         latitude: 1,
@@ -24,7 +24,7 @@ func uniquePlace() -> PlaceInfo {
     )
 }
 
-func uniquePlaces() -> (models: [PlaceInfo], locals: [LocalPlaceInfo]) {
+func uniquePlaces() -> (models: [Place], locals: [LocalPlaceInfo]) {
     let places = [uniquePlace(), uniquePlace(), uniquePlace()]
     let localItems = places.map {
         $0.toLocal()

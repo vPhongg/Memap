@@ -45,7 +45,7 @@ public class PlaceDetailViewModel {
         }
     }
     
-    private func save(_ place: PlaceInfo) async throws -> Void {
+    private func save(_ place: Place) async throws -> Void {
         try await saver.save(place)
     }
     

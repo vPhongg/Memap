@@ -11,7 +11,7 @@ import MemapData
 
 public protocol MapViewModel {
     var isLoading: Bool { get }
-    var places: [PlaceInfo] { get }
+    var places: [Place] { get }
     
     func load() async throws -> Void
 }

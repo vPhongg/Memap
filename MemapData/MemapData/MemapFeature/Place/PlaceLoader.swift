@@ -7,5 +7,5 @@
 
 
 public protocol PlaceLoader {
-    func load() async throws -> [PlaceInfo]
+    func load() async throws -> [Place]
 }

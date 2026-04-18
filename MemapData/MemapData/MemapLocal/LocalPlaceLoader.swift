@@ -17,19 +17,19 @@ public final class LocalPlaceLoader {
 }
 
 extension LocalPlaceLoader: PlaceLoader {
-    public func load() async throws -> [PlaceInfo] {
+    public func load() async throws -> [Place] {
         return try await store.retrieve().toModels()
     }
 }
 
 extension LocalPlaceLoader: PlaceSaver {
-    public func save(_ place: PlaceInfo) async throws {
+    public func save(_ place: Place) async throws {
         try await store.insert(place.toLocal())
     }
 }
 
 extension LocalPlaceLoader: PlaceDeletor {
-    public func delete(_ place: PlaceInfo) async throws {
+    public func delete(_ place: Place) async throws {
         try await store.delete(place.toLocal())
     }
 }

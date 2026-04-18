@@ -1,5 +1,5 @@
 //
-//  PlaceInfo.swift
+//  LocalPlaceInfo.swift
 //  MemapData
 //
 //  Created by Vu Dinh Phong on 26/02/2026.
@@ -42,8 +42,8 @@ public struct LocalPlaceInfo: Equatable {
 }
 
 public extension LocalPlaceInfo {
-    func toModel() -> PlaceInfo {
-        return PlaceInfo(
+    func toModel() -> Place {
+        return Place(
             id: id,
             name: name,
             latitude: latitude,
@@ -59,7 +59,7 @@ public extension LocalPlaceInfo {
 }
 
 extension Array where Element == LocalPlaceInfo {
-    func toModels() -> [PlaceInfo] {
+    func toModels() -> [Place] {
         return map { $0.toModel() }
     }
 }

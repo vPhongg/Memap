@@ -1,5 +1,5 @@
 //
-//  PlaceInfo.swift
+//  Place.swift
 //  MemapData
 //
 //  Created by Vu Dinh Phong on 26/02/2026.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct PlaceInfo: Equatable {
+public struct Place: Equatable {
     public let id: String
     public let name: String?
     public let latitude: Double
@@ -45,7 +45,7 @@ public struct PlaceInfo: Equatable {
     }
 }
 
-public extension PlaceInfo {
+public extension Place {
     func toLocal() -> LocalPlaceInfo {
         return LocalPlaceInfo(
             id: id,
@@ -61,7 +61,7 @@ public extension PlaceInfo {
     }
 }
 
-extension Array where Element == PlaceInfo {
+extension Array where Element == Place {
     func toLocals() -> [LocalPlaceInfo] {
         return map { $0.toLocal() }
     }
