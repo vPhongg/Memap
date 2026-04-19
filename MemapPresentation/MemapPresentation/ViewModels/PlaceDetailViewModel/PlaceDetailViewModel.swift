@@ -33,14 +33,14 @@ public class PlaceDetailViewModel {
     
     public func didTapAddPlaceButton() {
         Task {
-            try await save(model.toModel())
+            try await save(model.toPresentationModel())
             model.isSaved = true
         }
     }
     
     public func didTapRemovePlaceButton() {
         Task {
-            try await deletor.delete(model.toModel())
+            try await deletor.delete(model.toPresentationModel())
             removedPlace = model
         }
     }

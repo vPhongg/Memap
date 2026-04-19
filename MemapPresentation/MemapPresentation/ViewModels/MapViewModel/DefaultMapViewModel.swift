@@ -16,18 +16,7 @@ final public class DefaultMapViewModel: MapViewModel {
     public var places: [Place] = [] {
         didSet {
             placeGroups = [
-                PlaceGroup(name: "Eating", places: [
-                    PlacePresentationModel.defaultObject(),
-                    PlacePresentationModel.defaultObject(),
-                ]),
-                PlaceGroup(name: "Store", places: [
-                    PlacePresentationModel.defaultObject(),
-                    PlacePresentationModel.defaultObject(),
-                ]),
-                PlaceGroup(name: "Tourism", places: [
-                    PlacePresentationModel.defaultObject(),
-                    PlacePresentationModel.defaultObject(),
-                ]),
+                PlaceGroup(name: "Unknown", places: places.toPresentationModels() )
             ]
         }
     }
@@ -51,7 +40,7 @@ final public class DefaultMapViewModel: MapViewModel {
 }
 
 extension Array where Element == Place {
-    public func toModels() -> [PlacePresentationModel] {
+    public func toPresentationModels() -> [PlacePresentationModel] {
         return compactMap { item in
             return PlacePresentationModel(
                 id: item.id,
@@ -70,7 +59,7 @@ extension Array where Element == Place {
 }
 
 extension PlacePresentationModel {
-    func toModel() -> Place {
+    func toPresentationModel() -> Place {
         Place(
             id: id,
             name: name,

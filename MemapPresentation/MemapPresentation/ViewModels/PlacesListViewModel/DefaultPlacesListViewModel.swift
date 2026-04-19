@@ -28,7 +28,7 @@ public final class DefaultPlacesListViewModel: PlacesListViewModel {
         
         Task {
             do {
-                places.value = try await loader.load().toModels()
+                places.value = try await loader.load().toPresentationModels()
             } catch {
                 self.error.value = error.localizedDescription
             }

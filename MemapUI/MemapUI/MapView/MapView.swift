@@ -38,7 +38,7 @@ public struct MapView: View {
     
     public var body: some View {
         MMapView(
-            items: viewModel.places.toModels().toMMapItems(),
+            items: viewModel.places.toPresentationModels().toMMapItems(),
             isPresentingPlaceDetailView: isPresentingPlaceDetailView,
             didSelectMapKitPOI: { item in
                 didSelectMapKitPOI(item.toPresentationModel())
