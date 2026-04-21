@@ -10,27 +10,29 @@ import MemapPresentation
 
 struct PlacesListView: View {
     
-    @Bindable var viewModel: AnyMapViewModel
+    @Bindable var viewModel: DefaultPlacesListViewModelWrapper
     
     var body: some View {
-        List {
-            ForEach(viewModel.placeGroups) { group in
-                Section(header: Text(group.name)) {
-                    ForEach(group.places) { place in
-                        PlaceRowView(place: place)
-                            .onTapGesture {
-                                print(place.name)
-                            }
-                    }
+//        List {
+//            ForEach(viewModel.places) { group in
+//                Section(header: Text(group.name)) {
+//                    ForEach(group.places) { place in
+//                        PlaceRowView(place: place)
+//                            .onTapGesture {
+//                                print(place.name)
+//                            }
+//                    }
+//                }
+//            }
+//         }
+        List(viewModel.places, id: \.id) { place in
+            PlaceRowView(place: place)
+                .onTapGesture {
+                    print(place.name)
                 }
-            }
-         }
+        }
         .task {
-            do {
-                try await self.viewModel.load()
-            } catch {
-                print("ABC \(error.localizedDescription)")
-            }
+            self.viewModel.viewModel.load()
         }
     }
     

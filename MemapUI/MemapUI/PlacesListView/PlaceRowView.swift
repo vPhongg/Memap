@@ -26,3 +26,7 @@ struct PlaceRowView: View {
     }
     
 }
+
+#Preview {
+    PlaceRowView(place: PlacePresentationModel.defaultObject())
+}

@@ -76,7 +76,7 @@ public struct MainView: View {
                 .presentationBackground(.ultraThinMaterial)
         }
         .sheet(isPresented: $isPresentingPlacesListView, content: {
-            PlacesListView(viewModel: mapViewModel)
+            PlacesListView(viewModel: placesListViewModel)
                 .presentationDetents([.large])
         })
     }
