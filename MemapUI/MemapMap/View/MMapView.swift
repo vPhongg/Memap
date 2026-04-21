@@ -9,19 +9,24 @@ import SwiftUI
 
 public struct MMapView: UIViewControllerRepresentable {
     
-    var isPresentingPlaceDetailView: Bool
-    
+    // Incoming data
+    private let selectedPlace: MMapItem?
+    private let isPresentingPlaceDetailView: Bool
     private let items: [MMapItem]
+    
+    // Outgoing data
     private let didSelectMapKitPOI: MapItemSelectionHandler
     private let didDeselectMapKitPOI: MapItemDeselectionHandler
     
     public init(
         items: [MMapItem],
+        selectedPlace: MMapItem?,
         isPresentingPlaceDetailView: Bool,
         didSelectMapKitPOI: @escaping MapItemSelectionHandler,
         didDeselectMapKitPOI: @escaping MapItemDeselectionHandler
     ) {
         self.items = items
+        self.selectedPlace = selectedPlace
         self.isPresentingPlaceDetailView = isPresentingPlaceDetailView
         self.didSelectMapKitPOI = didSelectMapKitPOI
         self.didDeselectMapKitPOI = didDeselectMapKitPOI
@@ -36,6 +41,8 @@ public struct MMapView: UIViewControllerRepresentable {
     
     public func updateUIViewController(_ mapController: MapViewController, context: Context) {
         mapController.updateItems(items.toPlaceAnnotations())
+        
+        mapController.navigateTo(selectedPlace.toPlaceAnnotation())
         
         if !isPresentingPlaceDetailView {
             mapController.deselectSelectedPOI()

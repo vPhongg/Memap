@@ -16,6 +16,7 @@ public struct MapView: View {
     private let isPresentingPlaceDetailView: Bool
     private let isPlaceSaved: Bool
     private var removedPlace: PlacePresentationModel?
+    private var selectedPlace: PlacePresentationModel?
     
     private let didSelectMapKitPOI: (PlacePresentationModel) -> Void
     private let didDeselectMapKitPOI: MapItemDeselectionHandler
@@ -25,6 +26,7 @@ public struct MapView: View {
         isPresentingPlaceDetailView: Bool,
         isPlaceSaved: Bool,
         removedPlace: PlacePresentationModel?,
+        selectedPlace: PlacePresentationModel?,
         didSelectMapKitPOI: @escaping (PlacePresentationModel) -> Void,
         didDeselectMapKitPOI: @escaping MapItemDeselectionHandler
     ) {
@@ -32,6 +34,7 @@ public struct MapView: View {
         self.isPresentingPlaceDetailView = isPresentingPlaceDetailView
         self.isPlaceSaved = isPlaceSaved
         self.removedPlace = removedPlace
+        self.selectedPlace = selectedPlace
         self.didSelectMapKitPOI = didSelectMapKitPOI
         self.didDeselectMapKitPOI = didDeselectMapKitPOI
     }
@@ -39,6 +42,7 @@ public struct MapView: View {
     public var body: some View {
         MMapView(
             items: viewModel.places.toPresentationModels().toMMapItems(),
+            selectedPlace: selectedPlace.toMMapItem(),
             isPresentingPlaceDetailView: isPresentingPlaceDetailView,
             didSelectMapKitPOI: { item in
                 didSelectMapKitPOI(item.toPresentationModel())
@@ -95,6 +99,13 @@ extension MMapItem {
     }
 }
 
+extension Optional where Wrapped == PlacePresentationModel {
+    func toMMapItem() -> MMapItem? {
+        guard let self else { return nil }
+        return self.toMMapItem()
+    }
+}
+
 extension PlacePresentationModel {
     func toMMapItem() -> MMapItem {
         MMapItem(
@@ -107,7 +118,7 @@ extension PlacePresentationModel {
             videosPath: self.videosPath,
             note: self.note,
             isSaved: self.isSaved,
-            backgroundColor: UIColor(hex: backgroundColor)
+            backgroundColor: UIColor(hex: self.backgroundColor)
         )
     }
 }

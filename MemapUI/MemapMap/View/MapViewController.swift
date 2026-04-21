@@ -82,7 +82,7 @@ public class MapViewController: UIViewController {
 // MARK: - MKMapViewDelegate
 
 extension MapViewController: MKMapViewDelegate {
-
+    
     public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         if let annotation = annotation as? MKClusterAnnotation {
@@ -109,6 +109,19 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     // MARK: - Helpers
+    
+    func navigateTo(_ place: PlaceAnnotation?) {
+        guard let place else { return }
+        
+        let region = MKCoordinateRegion(
+            center: place.coordinate,
+            latitudinalMeters: userLocationViewDistance,
+            longitudinalMeters: userLocationViewDistance
+        )
+        UIView.animate(withDuration: 0.39) { [weak self] in
+            self?.mapView.setRegion(region, animated: true)
+        }
+    }
     
     private func handleSelected(_ annotation: MKAnnotation) {
         switch annotation {

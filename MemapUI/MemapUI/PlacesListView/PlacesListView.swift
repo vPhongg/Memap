@@ -12,6 +12,8 @@ struct PlacesListView: View {
     
     @Bindable var viewModel: DefaultPlacesListViewModelWrapper
     
+    let didSelectPlace: (PlacePresentationModel) -> Void
+    
     var body: some View {
 //        List {
 //            ForEach(viewModel.places) { group in
@@ -28,7 +30,7 @@ struct PlacesListView: View {
         List(viewModel.places, id: \.id) { place in
             PlaceRowView(place: place)
                 .onTapGesture {
-                    print(place.name)
+                    didSelectPlace(place)
                 }
         }
         .task {

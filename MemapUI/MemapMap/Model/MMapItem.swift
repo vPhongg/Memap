@@ -45,20 +45,16 @@ public struct MMapItem: Hashable {
         self.backgroundColor = backgroundColor
     }
     
-    func toMKMapItem() -> MKMapItem {
-        let location = CLLocation(latitude: latitude, longitude: longitude)
-        var mapItem: MKMapItem
-        
-        if #available(iOS 26.0, *) {
-            mapItem = MKMapItem(location: location, address: nil)
-        } else {
-            let placeMark = MKPlacemark(coordinate: location.coordinate)
-            mapItem = MKMapItem(placemark: placeMark)
-        }
-        
-        mapItem.name = name
-        return mapItem
+}
+
+extension Optional where Wrapped == MMapItem {
+    func toPlaceAnnotation() -> PlaceAnnotation? {
+        guard let self else { return nil }
+        return self.toPlaceAnnotation()
     }
+}
+
+extension MMapItem {
     
     func toPlaceAnnotation() -> PlaceAnnotation {
         PlaceAnnotation(
@@ -77,14 +73,9 @@ public struct MMapItem: Hashable {
 }
 
 extension Array where Element == MMapItem {
-    func toMKMapItems() -> [MKMapItem] {
-        return map { $0.toMKMapItem() }
-    }
-    
     func toPlaceAnnotations() -> [PlaceAnnotation] {
         return map { $0.toPlaceAnnotation() }
     }
-    
 }
 
 extension MMapItem {

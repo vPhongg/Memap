@@ -18,6 +18,7 @@ public struct MainView: View {
     @State private var isPresentingPlacesListView: Bool = false
     @State private var isPlaceSaved: Bool = false
     @State private var removedPlace: PlacePresentationModel?
+    @State private var selectedPlace: PlacePresentationModel?
     
     public init(
         mapViewModel: AnyMapViewModel,
@@ -36,6 +37,7 @@ public struct MainView: View {
                 isPresentingPlaceDetailView: isPresentingPlaceDetailView,
                 isPlaceSaved: placeDetailViewModel.model.isSaved,
                 removedPlace: removedPlace,
+                selectedPlace: selectedPlace,
                 didSelectMapKitPOI: { item in
                     isPresentingPlaceDetailView = true
                     placeDetailViewModel.model = item
@@ -70,14 +72,19 @@ public struct MainView: View {
                     removedPlace = place
                 }
             )
-                .presentationDetents([.fraction(0.3), .large])
-                .presentationBackgroundInteraction(.enabled)
-                .presentationDragIndicator(.visible)
-                .presentationBackground(.ultraThinMaterial)
+            .presentationDetents([.fraction(0.3), .large])
+            .presentationBackgroundInteraction(.enabled)
+            .presentationDragIndicator(.visible)
+            .presentationBackground(.ultraThinMaterial)
         }
         .sheet(isPresented: $isPresentingPlacesListView, content: {
-            PlacesListView(viewModel: placesListViewModel)
-                .presentationDetents([.large])
+            PlacesListView(
+                viewModel: placesListViewModel,
+                didSelectPlace: { place in
+                    selectedPlace = place
+                    isPresentingPlacesListView = false
+                })
+            .presentationDetents([.large])
         })
     }
 }
