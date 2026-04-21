@@ -115,10 +115,10 @@ extension MapViewController: MKMapViewDelegate {
         
         let region = MKCoordinateRegion(
             center: place.coordinate,
-            latitudinalMeters: userLocationViewDistance,
-            longitudinalMeters: userLocationViewDistance
+            latitudinalMeters: 500,
+            longitudinalMeters: 500
         )
-        UIView.animate(withDuration: 0.39) { [weak self] in
+        UIView.animateDefault { [weak self] in
             self?.mapView.setRegion(region, animated: true)
         }
     }
@@ -153,7 +153,7 @@ extension MapViewController: MKMapViewDelegate {
         
         let edgePadding = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
         
-        UIView.animate(withDuration: 0.39) {
+        UIView.animateDefault {
             mapView.setVisibleMapRect(zoomRect, edgePadding: edgePadding, animated: true)
         }
     }
