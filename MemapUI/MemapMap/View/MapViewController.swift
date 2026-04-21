@@ -84,10 +84,20 @@ public class MapViewController: UIViewController {
 extension MapViewController: MKMapViewDelegate {
 
     public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let annotation = annotation as? PlaceAnnotation else { return nil }
         
-        let placeAnnotation = PlaceAnnotationView(annotation: annotation, reuseIdentifier: NSStringFromClass(PlaceAnnotation.self))
-        return placeAnnotation
+        if let annotation = annotation as? MKClusterAnnotation {
+            let view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "cluster")
+            view.markerTintColor = .systemBlue
+            return view
+        }
+        
+        if let annotation = annotation as? PlaceAnnotation {
+            let placeAnnotation = PlaceAnnotationView(annotation: annotation, reuseIdentifier: NSStringFromClass(PlaceAnnotation.self))
+            return placeAnnotation
+        }
+        
+        return nil
+        
     }
     
     public func mapView(_ mapView: MKMapView, didSelect annotation: any MKAnnotation) {
