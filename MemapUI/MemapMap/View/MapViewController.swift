@@ -110,16 +110,18 @@ extension MapViewController: MKMapViewDelegate {
     
     // MARK: - Helpers
     
-    func navigateTo(_ place: PlaceAnnotation?) {
-        guard let place else { return }
+    func selectPlace(id: String?) {
+        guard let annotation = mapView.annotations.first(where: { ($0 as? PlaceAnnotation)?.id == id }) else { return }
         
         let region = MKCoordinateRegion(
-            center: place.coordinate,
+            center: annotation.coordinate,
             latitudinalMeters: 500,
             longitudinalMeters: 500
         )
+        
         UIView.animateDefault { [weak self] in
             self?.mapView.setRegion(region, animated: true)
+//            self?.mapView.selectAnnotation(annotation, animated: true)
         }
     }
     

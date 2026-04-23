@@ -16,7 +16,7 @@ public struct MapView: View {
     private let isPresentingPlaceDetailView: Bool
     private let isPlaceSaved: Bool
     private var removedPlace: PlacePresentationModel?
-    private var selectedPlace: PlacePresentationModel?
+    private var selectedPlaceID: String?
     
     private let didSelectMapKitPOI: (PlacePresentationModel) -> Void
     private let didDeselectMapKitPOI: MapItemDeselectionHandler
@@ -26,7 +26,7 @@ public struct MapView: View {
         isPresentingPlaceDetailView: Bool,
         isPlaceSaved: Bool,
         removedPlace: PlacePresentationModel?,
-        selectedPlace: PlacePresentationModel?,
+        selectedPlaceID: String?,
         didSelectMapKitPOI: @escaping (PlacePresentationModel) -> Void,
         didDeselectMapKitPOI: @escaping MapItemDeselectionHandler
     ) {
@@ -34,7 +34,7 @@ public struct MapView: View {
         self.isPresentingPlaceDetailView = isPresentingPlaceDetailView
         self.isPlaceSaved = isPlaceSaved
         self.removedPlace = removedPlace
-        self.selectedPlace = selectedPlace
+        self.selectedPlaceID = selectedPlaceID
         self.didSelectMapKitPOI = didSelectMapKitPOI
         self.didDeselectMapKitPOI = didDeselectMapKitPOI
     }
@@ -42,7 +42,7 @@ public struct MapView: View {
     public var body: some View {
         MMapView(
             items: viewModel.places.toPresentationModels().toMMapItems(),
-            selectedPlace: selectedPlace.toMMapItem(),
+            selectedPlaceID: selectedPlaceID,
             isPresentingPlaceDetailView: isPresentingPlaceDetailView,
             didSelectMapKitPOI: { item in
                 didSelectMapKitPOI(item.toPresentationModel())

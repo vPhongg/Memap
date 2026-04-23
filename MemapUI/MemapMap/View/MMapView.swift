@@ -10,7 +10,7 @@ import SwiftUI
 public struct MMapView: UIViewControllerRepresentable {
     
     // Incoming data
-    private let selectedPlace: MMapItem?
+    private let selectedPlaceID: String?
     private let isPresentingPlaceDetailView: Bool
     private let items: [MMapItem]
     
@@ -20,13 +20,13 @@ public struct MMapView: UIViewControllerRepresentable {
     
     public init(
         items: [MMapItem],
-        selectedPlace: MMapItem?,
+        selectedPlaceID: String?,
         isPresentingPlaceDetailView: Bool,
         didSelectMapKitPOI: @escaping MapItemSelectionHandler,
         didDeselectMapKitPOI: @escaping MapItemDeselectionHandler
     ) {
         self.items = items
-        self.selectedPlace = selectedPlace
+        self.selectedPlaceID = selectedPlaceID
         self.isPresentingPlaceDetailView = isPresentingPlaceDetailView
         self.didSelectMapKitPOI = didSelectMapKitPOI
         self.didDeselectMapKitPOI = didDeselectMapKitPOI
@@ -42,7 +42,10 @@ public struct MMapView: UIViewControllerRepresentable {
     public func updateUIViewController(_ mapController: MapViewController, context: Context) {
         mapController.updateItems(items.toPlaceAnnotations())
         
-        mapController.navigateTo(selectedPlace.toPlaceAnnotation())
+        if let selectedPlaceID {
+            mapController.selectPlace(id: selectedPlaceID)
+        }
+        
         
         if !isPresentingPlaceDetailView {
             mapController.deselectSelectedPOI()

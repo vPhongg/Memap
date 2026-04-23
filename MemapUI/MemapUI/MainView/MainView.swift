@@ -18,7 +18,7 @@ public struct MainView: View {
     @State private var isPresentingPlacesListView: Bool = false
     @State private var isPlaceSaved: Bool = false
     @State private var removedPlace: PlacePresentationModel?
-    @State private var selectedPlace: PlacePresentationModel?
+    @State private var selectedPlaceID: String?
     
     public init(
         mapViewModel: AnyMapViewModel,
@@ -37,7 +37,7 @@ public struct MainView: View {
                 isPresentingPlaceDetailView: isPresentingPlaceDetailView,
                 isPlaceSaved: placeDetailViewModel.model.isSaved,
                 removedPlace: removedPlace,
-                selectedPlace: selectedPlace,
+                selectedPlaceID: selectedPlaceID,
                 didSelectMapKitPOI: { item in
                     isPresentingPlaceDetailView = true
                     placeDetailViewModel.model = item
@@ -49,7 +49,9 @@ public struct MainView: View {
                 }
             )
             SideButtonsView(
-                didTapSearchButton: {},
+                didTapSearchButton: {
+                    selectedPlaceID = mapViewModel.places.toPresentationModels().first?.id
+                },
                 didTapPlacesListButton: {
                     isPresentingPlacesListView = true
                 },
@@ -81,7 +83,7 @@ public struct MainView: View {
             PlacesListView(
                 viewModel: placesListViewModel,
                 didSelectPlace: { place in
-                    selectedPlace = place
+                    selectedPlaceID = place.id
                     isPresentingPlacesListView = false
                 })
             .presentationDetents([.large])
