@@ -6,6 +6,29 @@
   
 */
 
+// MARK: - General Localizations
+
 "ADD_PLACE" = "Add Place";
 "REMOVE_PLACE" = "Remove Place";
 "UNKNOWN_PLACE" = "Unknown Place";
+
+
+// MARK: - PlaceType Localizations
+
+// Default groups
+"workStudy" = "Work & Study";
+"tourism" = "Tourism";
+"food" = "Food";
+"drink" = "Drink";
+"entertainment" = "Entertainment";
+"bankATM" = "Bank & ATM";
+"store" = "Store";
+
+// Custom groups
+"favorite" = "Favorite Places";
+"others" = "Others";
+"unknown" = "Unknown";
+"explore" = "To Explore";
+"random" = "Random";
+"hidden" = "Hidden";
+"quickshot" = "Quickshot Places";

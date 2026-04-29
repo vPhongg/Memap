@@ -6,6 +6,29 @@
   
 */
 
+// MARK: - General Localizations
+
 "ADD_PLACE" = "Thêm địa điểm";
 "REMOVE_PLACE" = "Xoá địa điểm";
 "UNKNOWN_PLACE" = "Địa điểm không xác định";
+
+
+// MARK: - PlaceType Localizations
+
+// Default groups
+"workStudy" = "Học tập & Làm việc";
+"tourism" = "Du lịch";
+"food" = "Ăn uống";
+"drink" = "Cafe";
+"entertainment" = "Giải trí";
+"bankATM" = "Ngân hàng";
+"store" = "Cửa hàng";
+
+// Custom groups
+"favorite" = "Ưa thích";
+"others" = "Khác";
+"unknown" = "Chưa xác định";
+"explore" = "Định tham quan";
+"random" = "Ngẫu nhiên";
+"hidden" = "Ẩn";
+"quickshot" = "Điểm chụp nhanh";

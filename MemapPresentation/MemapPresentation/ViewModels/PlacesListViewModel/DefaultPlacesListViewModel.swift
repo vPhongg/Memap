@@ -29,9 +29,8 @@ public final class DefaultPlacesListViewModel: PlacesListViewModel {
         
         Task {
             do {
-                let places = try await loader.load()
+                let places = try await loader.load().toPresentationModels()
                 placeGroups.value = mapToPlaceGroups(from: places)
-                
             } catch {
                 self.error.value = error.localizedDescription
             }
@@ -39,20 +38,22 @@ public final class DefaultPlacesListViewModel: PlacesListViewModel {
         }
     }
     
-    private func mapToPlaceGroups(from places: [Place]) -> [PlaceGroup] {
-        return [
-            PlaceGroup(name: "Eating", places: [
-                PlacePresentationModel.defaultObject(),
-                PlacePresentationModel.defaultObject(),
-            ]),
-            PlaceGroup(name: "Store", places: [
-                PlacePresentationModel.defaultObject(),
-                PlacePresentationModel.defaultObject(),
-            ]),
-            PlaceGroup(name: "Tourism", places: [
-                PlacePresentationModel.defaultObject(),
-                PlacePresentationModel.defaultObject(),
-            ]),
-        ]
+    private func mapToPlaceGroups(from places: [PlacePresentationModel]) -> [PlaceGroup] {
+        var dict: [PlaceTypePresentationModel: [PlacePresentationModel]] = [:]
+        
+        for place in places {
+            dict[place.type, default: []].append(place)
+        }
+        
+        return PlaceTypePresentationModel
+            .allCases
+            .map { type in
+                PlaceGroup(
+                    title: type.title.localized,
+                    type: type,
+                    places: dict[type] ?? []
+                )
+            }
+            .filter { !$0.places.isEmpty }
     }
 }

@@ -17,7 +17,7 @@ struct PlacesListView: View {
     var body: some View {
         List {
             ForEach(viewModel.placeGroups) { group in
-                Section(header: Text(group.name)) {
+                Section(header: Text(group.title)) {
                     ForEach(group.places) { place in
                         PlaceRowView(place: place)
                             .onTapGesture {

@@ -16,7 +16,7 @@ public enum PlaceType: String {
     case store = "store"
     
     // Custom groups
-    case favorite
+    case favorite = "favorite"
     case others = "others"
     case unknown = "unknown"
     case explore = "explore"

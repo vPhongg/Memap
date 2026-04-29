@@ -9,11 +9,13 @@ import Foundation
 
 public struct PlaceGroup: Identifiable {
     public let id = UUID()
-    public let name: String
-    public let places: [PlacePresentationModel]
+    public let title: String
+    public let type: PlaceTypePresentationModel
+    public var places: [PlacePresentationModel]
     
-    public init(name: String, places: [PlacePresentationModel]) {
-        self.name = name
+    public init(title: String, type: PlaceTypePresentationModel, places: [PlacePresentationModel]) {
+        self.title = title
+        self.type = type
         self.places = places
     }
 }
