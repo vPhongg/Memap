@@ -13,13 +13,7 @@ final public class DefaultMapViewModel: MapViewModel {
     
     public var placeGroups: [PlaceGroup] = []
     public var isLoading: Bool = false
-    public var places: [Place] = [] {
-        didSet {
-            placeGroups = [
-                PlaceGroup(name: "Unknown", places: places.toPresentationModels() )
-            ]
-        }
-    }
+    public var places: [Place] = []
         
     private let memapLoader: PlaceLoader
     
@@ -52,7 +46,8 @@ extension Array where Element == Place {
                 videosPath: item.videosPath,
                 note: item.note,
                 isSaved: item.isSaved,
-                backgroundColor: item.backgroundColor
+                backgroundColor: item.backgroundColor,
+                type: item.type.toPlaceTypePresentationModel()
             )
         }
     }
@@ -70,7 +65,28 @@ extension PlacePresentationModel {
             videosPath: videosPath,
             note: note,
             isSaved: isSaved,
-            backgroundColor: backgroundColor
+            backgroundColor: backgroundColor,
+            type: type.toPlaceType()
         )
+    }
+}
+
+extension PlaceType {
+    func toPlaceTypePresentationModel() -> PlaceTypePresentationModel {
+        if let type = PlaceTypePresentationModel(rawValue: self.rawValue) {
+            return type
+        } else {
+            return .unknown
+        }
+    }
+}
+
+extension PlaceTypePresentationModel {
+    func toPlaceType() -> PlaceType {
+        if let type = PlaceType(rawValue: self.rawValue) {
+            return type
+        } else {
+            return .unknown
+        }
     }
 }

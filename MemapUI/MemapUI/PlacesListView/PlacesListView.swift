@@ -15,24 +15,19 @@ struct PlacesListView: View {
     let didSelectPlace: (PlacePresentationModel) -> Void
     
     var body: some View {
-//        List {
-//            ForEach(viewModel.places) { group in
-//                Section(header: Text(group.name)) {
-//                    ForEach(group.places) { place in
-//                        PlaceRowView(place: place)
-//                            .onTapGesture {
-//                                print(place.name)
-//                            }
-//                    }
-//                }
-//            }
-//         }
-        List(viewModel.places, id: \.id) { place in
-            PlaceRowView(place: place)
-                .onTapGesture {
-                    didSelectPlace(place)
+        List {
+            ForEach(viewModel.placeGroups) { group in
+                Section(header: Text(group.name)) {
+                    ForEach(group.places) { place in
+                        PlaceRowView(place: place)
+                            .onTapGesture {
+                                print(place.name)
+                                didSelectPlace(place)
+                            }
+                    }
                 }
-        }
+            }
+         }
         .task {
             self.viewModel.viewModel.load()
         }

@@ -19,6 +19,7 @@ public struct Place: Equatable {
     public let note: String?
     public let isSaved: Bool
     public let backgroundColor: String?
+    public let type: PlaceType
     
     public init(
         id: String,
@@ -30,7 +31,8 @@ public struct Place: Equatable {
         videosPath: String?,
         note: String?,
         isSaved: Bool,
-        backgroundColor: String?
+        backgroundColor: String?,
+        type: PlaceType
     ) {
         self.id = id
         self.name = name
@@ -42,6 +44,7 @@ public struct Place: Equatable {
         self.note = note
         self.isSaved = isSaved
         self.backgroundColor = backgroundColor
+        self.type = type
     }
 }
 
@@ -56,7 +59,8 @@ public extension Place {
             imagesPath: imagesPath,
             videosPath: videosPath,
             note: note,
-            backgroundColor: backgroundColor
+            backgroundColor: backgroundColor,
+            type: type
         )
     }
 }

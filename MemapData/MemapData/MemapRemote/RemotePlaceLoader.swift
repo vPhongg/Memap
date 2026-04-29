@@ -102,6 +102,7 @@ extension Array where Element == RemotePlaceResponse {
                 note: $0.note,
                 isSaved: true, // `Place` is confirmed saved since it is loaded from remote.
                 backgroundColor: $0.backgroundColor,
+                type: PlaceType(rawValue: $0.type)
             )
         }
     }

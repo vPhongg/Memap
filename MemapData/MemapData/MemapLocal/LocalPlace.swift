@@ -17,6 +17,7 @@ public struct LocalPlace: Equatable {
     public let videosPath: String?
     public let note: String?
     public let backgroundColor: String?
+    public let type: PlaceType
     
     public init(
         id: String,
@@ -27,7 +28,8 @@ public struct LocalPlace: Equatable {
         imagesPath: String?,
         videosPath: String?,
         note: String?,
-        backgroundColor: String?
+        backgroundColor: String?,
+        type: PlaceType
     ) {
         self.id = id
         self.name = name
@@ -38,6 +40,7 @@ public struct LocalPlace: Equatable {
         self.savedTimestamp = savedTimestamp
         self.note = note
         self.backgroundColor = backgroundColor
+        self.type = type
     }
 }
 
@@ -53,7 +56,8 @@ public extension LocalPlace {
             videosPath: videosPath,
             note: note,
             isSaved: true, // Fix true because `LocalPlace` represent items from `Persistence Storage`, which means it surely saved to `Persistence Storage` previously.
-            backgroundColor: backgroundColor
+            backgroundColor: backgroundColor,
+            type: type
         )
     }
 }

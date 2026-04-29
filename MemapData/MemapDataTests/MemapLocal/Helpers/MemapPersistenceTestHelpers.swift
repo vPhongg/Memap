@@ -20,7 +20,8 @@ func uniquePlace() -> Place {
         videosPath: nil,
         note: nil,
         isSaved: true,
-        backgroundColor: nil
+        backgroundColor: nil,
+        groupType: .unknown
     )
 }
 

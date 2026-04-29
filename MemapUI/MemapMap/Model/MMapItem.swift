@@ -9,6 +9,10 @@ import Foundation
 import MapKit
 import SwiftUI
 
+/// `MMapItem` is a boundary model thats clients communicate with items on map.
+/// Convert from `MMapItem` to `PlaceAnnotation` to display places on map.
+/// Any clients that use the map is needed to convert to `MMapItem` model
+/// Clients should depend on this model but not vice versa.
 public struct MMapItem: Hashable {
     public let id: String
     public let name: String?
@@ -20,6 +24,7 @@ public struct MMapItem: Hashable {
     public let note: String?
     public let isSaved: Bool
     public let backgroundColor: UIColor?
+    public let type: MapItemType
     
     public init(
         id: String,
@@ -32,6 +37,7 @@ public struct MMapItem: Hashable {
         note: String?,
         isSaved: Bool,
         backgroundColor: UIColor?,
+        type: MapItemType
     ) {
         self.id = id
         self.name = name
@@ -43,6 +49,7 @@ public struct MMapItem: Hashable {
         self.note = note
         self.isSaved = isSaved
         self.backgroundColor = backgroundColor
+        self.type = type
     }
     
 }
@@ -67,7 +74,8 @@ extension MMapItem {
             videosPath: self.videosPath,
             note: self.note,
             isSaved: self.isSaved,
-            backgroundColor: self.backgroundColor
+            backgroundColor: self.backgroundColor,
+            type: self.type
         )
     }
 }
@@ -92,6 +100,7 @@ extension MMapItem {
             note: nil,
             isSaved: false,
             backgroundColor: annotation.iconStyle?.backgroundColor,
+            type: annotation.pointOfInterestCategory.toMapItemType(),
         )
     }
     
@@ -106,7 +115,8 @@ extension MMapItem {
             videosPath: annotation.videosPath,
             note: annotation.note,
             isSaved: annotation.isSaved,
-            backgroundColor: annotation.backgroundColor
+            backgroundColor: annotation.backgroundColor,
+            type: annotation.type,
         )
     }
     

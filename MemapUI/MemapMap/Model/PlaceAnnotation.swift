@@ -7,6 +7,7 @@
 
 import MapKit
 
+/// A model that represents item data on map.
 public final class PlaceAnnotation: NSObject, MKAnnotation {
     public let id: String
     public let title: String?
@@ -17,6 +18,7 @@ public final class PlaceAnnotation: NSObject, MKAnnotation {
     public let note: String?
     public let isSaved: Bool
     public let backgroundColor: UIColor?
+    public let type: MapItemType
     
     public init(
         id: String,
@@ -28,7 +30,8 @@ public final class PlaceAnnotation: NSObject, MKAnnotation {
         videosPath: String?,
         note: String?,
         isSaved: Bool,
-        backgroundColor: UIColor?
+        backgroundColor: UIColor?,
+        type: MapItemType
     ) {
         self.id = id
         self.title = title
@@ -39,5 +42,6 @@ public final class PlaceAnnotation: NSObject, MKAnnotation {
         self.note = note
         self.isSaved = isSaved
         self.backgroundColor = backgroundColor
+        self.type = type
     }
 }

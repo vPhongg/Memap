@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MemapData
 
 /// A model that represents data for MapView
 public struct PlacePresentationModel: Identifiable, Equatable {
@@ -19,6 +20,7 @@ public struct PlacePresentationModel: Identifiable, Equatable {
     public let note: String?
     public var isSaved: Bool
     public var backgroundColor: String?
+    public var type: PlaceTypePresentationModel
     
     public init(
         id: String,
@@ -30,7 +32,8 @@ public struct PlacePresentationModel: Identifiable, Equatable {
         videosPath: String?,
         note: String?,
         isSaved: Bool,
-        backgroundColor: String?
+        backgroundColor: String?,
+        type: PlaceTypePresentationModel
     ) {
         self.id = id
         self.name = name
@@ -42,9 +45,10 @@ public struct PlacePresentationModel: Identifiable, Equatable {
         self.note = note
         self.isSaved = isSaved
         self.backgroundColor = backgroundColor
+        self.type = type
     }
     
     public static func defaultObject() -> PlacePresentationModel {
-        PlacePresentationModel(id: UUID().uuidString, name: "This is any place name", latitude: 0, longitude: 0, savedTimestamp: Date(), imagesPath: nil, videosPath: nil, note: nil, isSaved: false, backgroundColor: nil)
+        PlacePresentationModel(id: UUID().uuidString, name: "This is any place name", latitude: 0, longitude: 0, savedTimestamp: Date(), imagesPath: nil, videosPath: nil, note: nil, isSaved: false, backgroundColor: nil, type: .unknown)
     }
 }

@@ -94,7 +94,8 @@ extension MMapItem {
             videosPath: videosPath,
             note: note,
             isSaved: isSaved,
-            backgroundColor: backgroundColor?.toHexString() ?? ""
+            backgroundColor: backgroundColor?.toHexString() ?? "",
+            type: type.toPlaceTypePresentationModel()
         )
     }
 }
@@ -118,7 +119,8 @@ extension PlacePresentationModel {
             videosPath: self.videosPath,
             note: self.note,
             isSaved: self.isSaved,
-            backgroundColor: UIColor(hex: self.backgroundColor)
+            backgroundColor: UIColor(hex: backgroundColor),
+            type: self.type.toMapItemType()
         )
     }
 }
@@ -126,5 +128,25 @@ extension PlacePresentationModel {
 extension Array where Element == PlacePresentationModel {
     func toMMapItems() -> [MMapItem] {
         return map { $0.toMMapItem() }
+    }
+}
+
+extension MapItemType {
+    func toPlaceTypePresentationModel() -> PlaceTypePresentationModel {
+        if let type = PlaceTypePresentationModel(rawValue: self.rawValue) {
+            return type
+        } else {
+            return .unknown
+        }
+    }
+}
+
+extension PlaceTypePresentationModel {
+    func toMapItemType() -> MapItemType {
+        if let type = MapItemType(rawValue: self.rawValue) {
+            return type
+        } else {
+            return .unknown
+        }
     }
 }

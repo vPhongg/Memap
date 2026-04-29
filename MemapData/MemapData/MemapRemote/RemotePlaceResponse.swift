@@ -17,4 +17,5 @@ struct RemotePlaceResponse: Decodable, Equatable {
     let videosPath: String?
     let note: String?
     let backgroundColor: String?
+    let type: String?
 }
