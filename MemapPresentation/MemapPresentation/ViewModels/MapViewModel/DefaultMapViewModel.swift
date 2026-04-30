@@ -47,7 +47,8 @@ extension Array where Element == Place {
                 note: item.note,
                 isSaved: item.isSaved,
                 backgroundColor: item.backgroundColor,
-                type: item.type.toPlaceTypePresentationModel()
+                type: item.type.toPlaceTypePresentationModel(),
+                address: item.address ?? .empty
             )
         }
     }
@@ -66,7 +67,8 @@ extension PlacePresentationModel {
             note: note,
             isSaved: isSaved,
             backgroundColor: backgroundColor,
-            type: type.toPlaceType()
+            type: type.toPlaceType(),
+            address: address,
         )
     }
 }

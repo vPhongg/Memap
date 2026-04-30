@@ -25,6 +25,7 @@ public struct MMapItem: Hashable {
     public let isSaved: Bool
     public let backgroundColor: UIColor?
     public let type: MapItemType
+    public let address: String?
     
     public init(
         id: String,
@@ -37,7 +38,8 @@ public struct MMapItem: Hashable {
         note: String?,
         isSaved: Bool,
         backgroundColor: UIColor?,
-        type: MapItemType
+        type: MapItemType,
+        address: String?
     ) {
         self.id = id
         self.name = name
@@ -50,6 +52,7 @@ public struct MMapItem: Hashable {
         self.isSaved = isSaved
         self.backgroundColor = backgroundColor
         self.type = type
+        self.address = address
     }
     
 }
@@ -75,7 +78,8 @@ extension MMapItem {
             note: self.note,
             isSaved: self.isSaved,
             backgroundColor: self.backgroundColor,
-            type: self.type
+            type: self.type,
+            address: self.address
         )
     }
 }
@@ -88,7 +92,7 @@ extension Array where Element == MMapItem {
 
 extension MMapItem {
     
-    static func from(_ annotation: MKMapFeatureAnnotation) -> Self {
+    static func from(_ annotation: MKMapFeatureAnnotation, address: String?) -> Self {
         .init(
             id: generatePlaceID(lat: annotation.coordinate.latitude, long: annotation.coordinate.longitude),
             name: annotation.title,
@@ -101,6 +105,7 @@ extension MMapItem {
             isSaved: false,
             backgroundColor: annotation.iconStyle?.backgroundColor,
             type: annotation.pointOfInterestCategory.toMapItemType(),
+            address: address,
         )
     }
     
@@ -117,6 +122,7 @@ extension MMapItem {
             isSaved: annotation.isSaved,
             backgroundColor: annotation.backgroundColor,
             type: annotation.type,
+            address: annotation.address,
         )
     }
     

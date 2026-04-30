@@ -18,7 +18,7 @@ struct PlaceRowView: View {
                 .foregroundColor(.primary)
                 .font(.headline)
             HStack(spacing: 3) {
-                Text(place.name)
+                Text(place.address)
             }
             .foregroundColor(.secondary)
             .font(.subheadline)

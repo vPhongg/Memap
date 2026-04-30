@@ -134,7 +134,10 @@ extension MapViewController: MKMapViewDelegate {
             didSelectMapItem(MMapItem.from(placeAnnotation))
             
         case let poi as MKMapFeatureAnnotation:
-            didSelectMapItem(MMapItem.from(poi))
+            Task {
+                let fullAddress = try? await getFullAddress(of: poi)
+                didSelectMapItem(MMapItem.from(poi, address: fullAddress))
+            }
             
         default:
             break
@@ -160,17 +163,14 @@ extension MapViewController: MKMapViewDelegate {
         }
     }
     
-    private func getCountryCity(of poi: MKMapFeatureAnnotation, completion: @escaping (String, String) -> Void) {
+    private func getFullAddress(of poi: MKMapFeatureAnnotation) async throws -> String? {
         let request = MKMapItemRequest(mapFeatureAnnotation: poi)
+        let mapItem = try await request.mapItem
         
-        request.getMapItem { mapItem, error in
-            guard let mapItem = mapItem else { return }
-            
-            let placemark = mapItem.placemark
-            let country = placemark.country ?? ""
-            let city = placemark.locality ?? (placemark.administrativeArea ?? "")
-            
-            completion(country, city)
+        if #available(iOS 26.0, *) {
+            return mapItem.addressRepresentations?.fullAddress(includingRegion: true, singleLine: true)
+        } else {
+            return mapItem.placemark.title
         }
     }
     

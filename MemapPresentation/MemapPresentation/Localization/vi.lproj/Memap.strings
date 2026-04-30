@@ -11,6 +11,7 @@
 "ADD_PLACE" = "Thêm địa điểm";
 "REMOVE_PLACE" = "Xoá địa điểm";
 "UNKNOWN_PLACE" = "Địa điểm không xác định";
+"UNKNOWN_ADDRESS" = "Chưa xác định địa chỉ";
 
 
 // MARK: - PlaceType Localizations

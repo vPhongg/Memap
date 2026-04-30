@@ -13,6 +13,7 @@ struct Constant {
     static let addPlace = "ADD_PLACE"
     static let removePlace = "REMOVE_PLACE"
     static let unknownPlace = "UNKNOWN_PLACE"
+    static let unknownAddress = "UNKNOWN_ADDRESS"
     
     struct PlaceType {
         static let workStudy = "workStudy"

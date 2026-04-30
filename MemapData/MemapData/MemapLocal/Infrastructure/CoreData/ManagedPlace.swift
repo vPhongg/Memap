@@ -20,6 +20,7 @@ class ManagedPlace: NSManagedObject {
     @NSManaged var note: String?
     @NSManaged var backgroundColor: String?
     @NSManaged var type: String?
+    @NSManaged var address: String?
 }
 
 extension ManagedPlace {
@@ -40,7 +41,8 @@ extension ManagedPlace {
             videosPath: videosPath,
             note: note,
             backgroundColor: backgroundColor,
-            type: PlaceType(rawValue: type)
+            type: PlaceType(rawValue: type),
+            address: address
         )
     }
 }
@@ -73,6 +75,7 @@ extension ManagedPlace {
         managedPlace.note = place.note
         managedPlace.backgroundColor = place.backgroundColor
         managedPlace.type = place.type.rawValue
+        managedPlace.address = place.address
         
         do {
             try context.save()

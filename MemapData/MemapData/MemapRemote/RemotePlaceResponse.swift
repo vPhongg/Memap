@@ -18,4 +18,5 @@ struct RemotePlaceResponse: Decodable, Equatable {
     let note: String?
     let backgroundColor: String?
     let type: String?
+    let address: String?
 }

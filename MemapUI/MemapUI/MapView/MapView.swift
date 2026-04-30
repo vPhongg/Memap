@@ -95,7 +95,8 @@ extension MMapItem {
             note: note,
             isSaved: isSaved,
             backgroundColor: backgroundColor?.toHexString() ?? "",
-            type: type.toPlaceTypePresentationModel()
+            type: type.toPlaceTypePresentationModel(),
+            address: address ?? .empty
         )
     }
 }
@@ -120,7 +121,8 @@ extension PlacePresentationModel {
             note: self.note,
             isSaved: self.isSaved,
             backgroundColor: UIColor(hex: backgroundColor),
-            type: self.type.toMapItemType()
+            type: self.type.toMapItemType(),
+            address: self.address
         )
     }
 }

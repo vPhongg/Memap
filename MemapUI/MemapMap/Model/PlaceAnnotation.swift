@@ -19,6 +19,7 @@ public final class PlaceAnnotation: NSObject, MKAnnotation {
     public let isSaved: Bool
     public let backgroundColor: UIColor?
     public let type: MapItemType
+    public let address: String?
     
     public init(
         id: String,
@@ -31,7 +32,8 @@ public final class PlaceAnnotation: NSObject, MKAnnotation {
         note: String?,
         isSaved: Bool,
         backgroundColor: UIColor?,
-        type: MapItemType
+        type: MapItemType,
+        address: String?
     ) {
         self.id = id
         self.title = title
@@ -43,5 +45,6 @@ public final class PlaceAnnotation: NSObject, MKAnnotation {
         self.isSaved = isSaved
         self.backgroundColor = backgroundColor
         self.type = type
+        self.address = address
     }
 }

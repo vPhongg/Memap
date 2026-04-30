@@ -11,6 +11,7 @@
 "ADD_PLACE" = "Add Place";
 "REMOVE_PLACE" = "Remove Place";
 "UNKNOWN_PLACE" = "Unknown Place";
+"UNKNOWN_ADDRESS" = "Unknown Address";
 
 
 // MARK: - PlaceType Localizations
