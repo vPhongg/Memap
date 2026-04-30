@@ -21,13 +21,12 @@ struct PlacesListView: View {
                     ForEach(group.places) { place in
                         PlaceRowView(place: place)
                             .onTapGesture {
-                                print(place.name)
                                 didSelectPlace(place)
                             }
                     }
                 }
             }
-         }
+        }
         .task {
             self.viewModel.viewModel.load()
         }

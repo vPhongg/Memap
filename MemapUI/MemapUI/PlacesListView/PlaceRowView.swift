@@ -23,6 +23,8 @@ struct PlaceRowView: View {
             .foregroundColor(.secondary)
             .font(.subheadline)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .contentShape(Rectangle())
     }
     
 }
