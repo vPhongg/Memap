@@ -16,7 +16,6 @@ struct GroupHeaderView: View {
             Text(title)
                 .font(.subheadline)
                 .foregroundColor(color)
-            Image(systemName: "info.circle")
             Spacer()
         }
         .padding(EdgeInsets(top: 8, leading: 0, bottom: 2, trailing: 0))
