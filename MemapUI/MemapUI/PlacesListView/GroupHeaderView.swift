@@ -16,8 +16,9 @@ struct GroupHeaderView: View {
             Text(title)
                 .font(.subheadline)
                 .foregroundColor(color)
+            Image(systemName: "info.circle")
+                .scaledToFit()
             Spacer()
-            Image(systemName: "info.bubble")
         }
     }
     
