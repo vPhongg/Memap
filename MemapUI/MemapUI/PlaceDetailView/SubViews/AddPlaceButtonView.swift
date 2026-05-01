@@ -18,7 +18,6 @@ struct AddPlaceButtonView: View {
         } label: {
             HStack(spacing: 8) {
                 Image(systemName: "plus")
-//                Text(PlaceDetailViewModel.addPlaceText)
             }
             .font(.headline)
             .padding(.horizontal, 16)
