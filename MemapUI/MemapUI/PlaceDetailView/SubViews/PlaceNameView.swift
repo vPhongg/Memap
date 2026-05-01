@@ -14,6 +14,6 @@ struct PlaceNameView: View {
     
     var body: some View {
         Text(placeName)
-            .font(.title.weight(.semibold))
+            .font(.title3.weight(.semibold))
     }
 }

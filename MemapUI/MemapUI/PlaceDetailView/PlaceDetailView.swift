@@ -34,7 +34,10 @@ public struct PlaceDetailView: View {
                     AddPlaceButtonView(didTapAddPlaceButton: viewModel.didTapAddPlaceButton)
                 }
             }
-            CollectionView(images: [])
+            CollectionView(images: [
+                UIImage(named: "random", in: Bundle(identifier: "com.vphong.MemapMap"), with: nil)!,
+                UIImage(named: "swiftui", in: Bundle(identifier: "com.vphong.MemapMap"), with: nil)!,
+            ])
             Spacer()
         }
         .padding()

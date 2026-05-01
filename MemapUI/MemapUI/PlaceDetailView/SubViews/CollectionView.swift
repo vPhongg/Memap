@@ -13,27 +13,21 @@ struct CollectionView: View {
     let images: [UIImage]
     
     private static let size: CGFloat = 100.0
-    private static let spacing: CGFloat = 20.0
-    
-    let rows = [
-        GridItem(.fixed(size), spacing: spacing),
-        GridItem(.fixed(size))
-    ]
+    private static let spacing: CGFloat = 12.0
+    private static let cornerRadius: CGFloat = 12.0
     
     var body: some View {
-        ScrollView(.horizontal) {
-            HStack {
-//                LazyHGrid(rows: rows, spacing: CollectionView.spacing) {
-//                    ForEach(0...300, id: \.self) { each in
-//                        Color.red.frame(width: CollectionView.size)
-//                        Color.green.frame(width: CollectionView.size)
-//                    }
-//                    ForEach(model.images, id: \.self) { image in
-//                        CollectionItemView(image: image)
-//                    }
-//                }
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack() {
+                ForEach(images, id: \.self) { image in
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: CollectionView.size, height: CollectionView.size)
+                        .clipped()
+                        .cornerRadius(CollectionView.cornerRadius)
+                }
             }
         }
-        .frame(maxWidth: 500)
     }
 }
