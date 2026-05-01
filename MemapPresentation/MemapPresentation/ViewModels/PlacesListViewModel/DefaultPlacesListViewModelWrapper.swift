@@ -12,10 +12,12 @@ public final class DefaultPlacesListViewModelWrapper {
     public var viewModel: PlacesListViewModel
     public var places = [PlacePresentationModel]()
     public var placeGroups = [PlaceGroup]()
+    public var numberOfPlaces: String = .empty
     
     public init(viewModel: PlacesListViewModel) {
         self.viewModel = viewModel
         self.viewModel.places.observe(owner: self) { [weak self] places in self?.places = places }
         self.viewModel.placeGroups.observe(owner: self) { [weak self] placeGroups in self?.placeGroups = placeGroups }
+        self.viewModel.numberOfPlaces.observe(owner: self) { [weak self] numberOfPlaces in self?.numberOfPlaces = numberOfPlaces }
     }
 }

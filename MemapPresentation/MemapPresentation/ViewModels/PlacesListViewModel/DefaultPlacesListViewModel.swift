@@ -17,6 +17,7 @@ public final class DefaultPlacesListViewModel: PlacesListViewModel {
     public var places: Observable<[PlacePresentationModel]> = Observable([])
     public var placeGroups: Observable<[PlaceGroup]> = Observable([])
     public var error: Observable<String> = Observable(.empty)
+    public var numberOfPlaces: Observable<String> = Observable(.empty)
     
     public init(
         loader: PlaceLoader
@@ -30,6 +31,7 @@ public final class DefaultPlacesListViewModel: PlacesListViewModel {
         Task {
             do {
                 let places = try await loader.load().toPresentationModels()
+                numberOfPlaces.value = "\(places.count) places"
                 placeGroups.value = mapToPlaceGroups(from: places)
             } catch {
                 self.error.value = error.localizedDescription

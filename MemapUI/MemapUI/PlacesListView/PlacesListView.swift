@@ -15,17 +15,21 @@ struct PlacesListView: View {
     let didSelectPlace: (PlacePresentationModel) -> Void
     
     var body: some View {
-        List {
-            ForEach(viewModel.placeGroups) { group in
-                Section(header: GroupHeaderView(title: group.title, color: .gray)) {
-                    ForEach(group.places) { place in
-                        PlaceRowView(place: place)
-                            .onTapGesture {
-                                didSelectPlace(place)
-                            }
+        NavigationStack {
+            List {
+                ForEach(viewModel.placeGroups) { group in
+                    Section(header: GroupHeaderView(title: group.title, color: .gray)) {
+                        ForEach(group.places) { place in
+                            PlaceRowView(place: place)
+                                .onTapGesture {
+                                    didSelectPlace(place)
+                                }
+                        }
                     }
                 }
             }
+            .navigationTitle(viewModel.numberOfPlaces)
+            .navigationBarTitleDisplayMode(.inline)
         }
         .task {
             self.viewModel.viewModel.load()

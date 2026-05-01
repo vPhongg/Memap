@@ -15,6 +15,7 @@ public protocol PlacesListViewModelOutput {
     var isLoading: Observable<Bool> { get }
     var places: Observable<[PlacePresentationModel]> { get }
     var placeGroups: Observable<[PlaceGroup]> { get }
+    var numberOfPlaces: Observable<String> { get }
 }
 
 public typealias PlacesListViewModel = PlacesListViewModelInput & PlacesListViewModelOutput
