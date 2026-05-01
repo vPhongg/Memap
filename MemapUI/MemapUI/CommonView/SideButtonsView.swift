@@ -15,17 +15,17 @@ struct SideButtonsView: View {
     
     var body: some View {
         VStack {
-            ReusableButtonView(
-                symbolName: "magnifyingglass",
-                didTapButton: didTapSearchButton
-            )
+//            ReusableButtonView(
+//                symbolName: "magnifyingglass",
+//                didTapButton: didTapSearchButton
+//            )
             ReusableButtonView(
                 symbolName: "list.bullet",
                 didTapButton: didTapPlacesListButton
             )
-            ReusableButtonView(
-                symbolName: "person.crop.circle",
-                didTapButton: didTapProfileButton)
+//            ReusableButtonView(
+//                symbolName: "person.crop.circle",
+//                didTapButton: didTapProfileButton)
         }
         .padding()
     }
