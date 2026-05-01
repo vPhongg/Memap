@@ -168,9 +168,13 @@ extension MapViewController: MKMapViewDelegate {
         let mapItem = try await request.mapItem
         
         if #available(iOS 26.0, *) {
-            return mapItem.addressRepresentations?.fullAddress(includingRegion: true, singleLine: true)
+            return format(address: mapItem.addressRepresentations?.fullAddress(includingRegion: true, singleLine: true))
         } else {
-            return mapItem.placemark.title
+            return format(address: mapItem.placemark.title)
+        }
+        
+        func format(address: String?) -> String? {
+            address?.replacingOccurrences(of: "\n", with: ", ")
         }
     }
     
