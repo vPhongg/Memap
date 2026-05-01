@@ -28,11 +28,15 @@ public struct PlaceDetailView: View {
             HStack(alignment: .top) {
                 PlaceNameView(placeName: viewModel.model.name)
                 Spacer()
-                AddPlaceButtonView(
-                    didTapAddPlaceButton: viewModel.didTapAddPlaceButton,
-                    didTapRemovePlaceButton: viewModel.didTapRemovePlaceButton,
-                    isSaved: viewModel.model.isSaved
-                )
+                if viewModel.model.isSaved {
+                    MenuView(didTapDeleteButton: viewModel.didTapRemovePlaceButton)
+                } else {
+                    AddPlaceButtonView(
+                        didTapAddPlaceButton: viewModel.didTapAddPlaceButton,
+                        didTapRemovePlaceButton: viewModel.didTapRemovePlaceButton,
+                        isSaved: viewModel.model.isSaved
+                    )
+                }
             }
             CollectionView(images: [])
             Spacer()
