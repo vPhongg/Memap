@@ -31,11 +31,7 @@ public struct PlaceDetailView: View {
                 if viewModel.model.isSaved {
                     MenuView(didTapDeleteButton: viewModel.didTapRemovePlaceButton)
                 } else {
-                    AddPlaceButtonView(
-                        didTapAddPlaceButton: viewModel.didTapAddPlaceButton,
-                        didTapRemovePlaceButton: viewModel.didTapRemovePlaceButton,
-                        isSaved: viewModel.model.isSaved
-                    )
+                    AddPlaceButtonView(didTapAddPlaceButton: viewModel.didTapAddPlaceButton)
                 }
             }
             CollectionView(images: [])
