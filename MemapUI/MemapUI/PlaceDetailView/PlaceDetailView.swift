@@ -34,10 +34,12 @@ public struct PlaceDetailView: View {
                     AddPlaceButtonView(didTapAddPlaceButton: viewModel.didTapAddPlaceButton)
                 }
             }
-            CollectionView(images: [
-                UIImage(named: "random", in: Bundle(identifier: "com.vphong.MemapMap"), with: nil)!,
-                UIImage(named: "swiftui", in: Bundle(identifier: "com.vphong.MemapMap"), with: nil)!,
-            ])
+            if viewModel.model.isSaved {
+                CollectionView(images: [
+                    UIImage(named: "random", in: Bundle(identifier: "com.vphong.MemapMap"), with: nil)!,
+                    UIImage(named: "swiftui", in: Bundle(identifier: "com.vphong.MemapMap"), with: nil)!,
+                ])
+            }
             Spacer()
         }
         .padding()
