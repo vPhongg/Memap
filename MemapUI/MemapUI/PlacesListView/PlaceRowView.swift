@@ -17,11 +17,7 @@ struct PlaceRowView: View {
             Text(place.name)
                 .foregroundColor(.primary)
                 .font(.headline)
-            HStack(spacing: 3) {
-                Text(place.address)
-            }
-            .foregroundColor(.secondary)
-            .font(.subheadline)
+            PlaceAddressView(placeAddress: place.address)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .contentShape(Rectangle())

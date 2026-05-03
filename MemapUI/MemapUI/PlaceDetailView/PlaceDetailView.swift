@@ -24,7 +24,7 @@ public struct PlaceDetailView: View {
     }
     
     public var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 8) {
             HStack(alignment: .top) {
                 PlaceNameView(placeName: viewModel.model.name)
                 Spacer()
@@ -38,6 +38,7 @@ public struct PlaceDetailView: View {
                     AddPlaceButtonView(didTapAddPlaceButton: viewModel.didTapAddPlaceButton)
                 }
             }
+            PlaceAddressView(placeAddress: viewModel.model.address)
             if viewModel.model.isSaved {
                 CollectionView(images: [
                     UIImage(named: "random", in: Bundle(identifier: "com.vphong.MemapMap"), with: nil)!,

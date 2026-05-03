@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct PlaceNameView: View {
-    
     var placeName: String
     
     var body: some View {
@@ -17,3 +16,4 @@ struct PlaceNameView: View {
             .font(.title3.weight(.semibold))
     }
 }
+
