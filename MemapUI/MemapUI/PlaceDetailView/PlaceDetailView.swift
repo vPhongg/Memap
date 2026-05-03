@@ -29,6 +29,10 @@ public struct PlaceDetailView: View {
                 PlaceNameView(placeName: viewModel.model.name)
                 Spacer()
                 if viewModel.model.isSaved {
+                    Button("", systemImage: "photo.badge.plus.fill", action: {
+                        print("Add Photos")
+                    })
+                    
                     MenuView(didTapDeleteButton: viewModel.didTapRemovePlaceButton)
                 } else {
                     AddPlaceButtonView(didTapAddPlaceButton: viewModel.didTapAddPlaceButton)
