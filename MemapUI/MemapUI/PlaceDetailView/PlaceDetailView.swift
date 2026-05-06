@@ -24,21 +24,21 @@ public struct PlaceDetailView: View {
     }
     
     public var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack(alignment: .top) {
+        VStack(alignment: .leading) {
+            HStack(alignment: .center) {
                 PlaceNameView(placeName: viewModel.model.name)
                 Spacer()
                 if viewModel.model.isSaved {
-                    Button("", systemImage: "photo.badge.plus.fill", action: {
-                        print("Add Photos")
-                    })
-                    
+                    MediaPicker()
                     MenuView(didTapDeleteButton: viewModel.didTapRemovePlaceButton)
                 } else {
                     AddPlaceButtonView(didTapAddPlaceButton: viewModel.didTapAddPlaceButton)
                 }
             }
+            .padding(.top, 2)
+            .padding(.bottom, 0.5)
             PlaceAddressView(placeAddress: viewModel.model.address)
+                .padding(.bottom, 6)
             if viewModel.model.isSaved {
                 CollectionView(images: [
                     UIImage(named: "random", in: Bundle(identifier: "com.vphong.MemapMap"), with: nil)!,

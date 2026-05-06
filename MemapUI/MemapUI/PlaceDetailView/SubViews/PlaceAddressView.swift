@@ -11,7 +11,7 @@ struct PlaceAddressView: View {
     var placeAddress: String
     
     var body: some View {
-        HStack(spacing: 3) {
+        HStack(alignment: .center) {
             Text(placeAddress)
         }
         .foregroundColor(.secondary)
