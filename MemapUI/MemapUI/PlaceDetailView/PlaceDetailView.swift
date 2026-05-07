@@ -14,8 +14,8 @@ struct PlaceImagesView: View {
     
     var body: some View {
         switch loadingState {
-        case .success(let image):
-            CollectionView(images: [image])
+        case .success(let images):
+            CollectionView(images: images)
         case .loading:
             ProgressView()
         case .empty:

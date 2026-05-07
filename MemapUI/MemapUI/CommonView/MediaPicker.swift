@@ -9,12 +9,13 @@ import SwiftUI
 import PhotosUI
 import Combine
 
+@MainActor
 class MediaPickerModel: ObservableObject {
     
     enum LoadingState {
         case empty
-        case loading(Progress)
-        case success(UIImage)
+        case loading
+        case success([UIImage])
         case failure(Error)
     }
     
@@ -49,36 +50,48 @@ class MediaPickerModel: ObservableObject {
     
     @Published var selectedItems: [PhotosPickerItem] = [] {
         didSet {
-            guard !selectedItems.isEmpty, let firstItem = selectedItems.first else {
+            guard !selectedItems.isEmpty else {
                 return loadingState = .empty
             }
             
-            let progress = loadTransferable(from: firstItem)
-            loadingState = .loading(progress)
+            loadingState = .loading
+            loadTransferable(for: selectedItems)
         }
     }
     
     // MARK: - Private Methods
     
-    private func loadTransferable(from firstSelectedImage: PhotosPickerItem) -> Progress {
-        return firstSelectedImage.loadTransferable(type: PlaceImage.self) { result in
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
-                
-                guard let first = self.selectedItems.first, first == firstSelectedImage else {
-                    return print("Failed to get the selected item.")
-                }
-                
-                switch result {
-                case .success(let profileImage):
-                    if let profileImage {
-                        self.loadingState = .success(profileImage.image)
-                    } else {
-                        self.loadingState = .empty
+    private func loadTransferable(for items: [PhotosPickerItem]) {
+        typealias Result = (index: Int, image: PlaceImage?)
+        
+        Task {
+            do {
+                let images = try await withThrowingTaskGroup(
+                    of: Result.self
+                ) { group in
+                    for (index, item) in items.enumerated() {
+                        group.addTask {
+                            let image = try await item.loadTransferable(type: PlaceImage.self)
+                            return (index, image)
+                        }
                     }
-                case .failure(let error):
-                    self.loadingState = .failure(error)
+                    
+                    var result: [Int: PlaceImage] = [:]
+                    for try await (index, image) in group {
+                        if let image {
+                            result[index] = image
+                        }
+                    }
+                    return items.indices.compactMap { result[$0] }
                 }
+                
+                if images.isEmpty {
+                    self.loadingState = .empty
+                } else {
+                    self.loadingState = .success(images.map(\.image))
+                }
+            } catch {
+                self.loadingState = .failure(error)
             }
         }
     }
