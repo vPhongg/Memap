@@ -17,6 +17,7 @@ struct MenuView: View {
                 didTapDeleteButton()
             }
             .foregroundStyle(.red)
+            .font(.system(size: 19))
         },label: {
             Image(systemName: "ellipsis.circle").foregroundStyle(.gray)
         })

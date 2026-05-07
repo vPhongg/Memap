@@ -50,8 +50,10 @@ public struct PlaceDetailView: View {
                 PlaceNameView(placeName: viewModel.model.name)
                 Spacer()
                 if viewModel.model.isSaved {
-                    MediaPicker(viewModel: mediaPickerViewModel)
-                    MenuView(didTapDeleteButton: viewModel.didTapRemovePlaceButton)
+                    HStack(spacing: 16) {
+                        MediaPicker(viewModel: mediaPickerViewModel)
+                        MenuView(didTapDeleteButton: viewModel.didTapRemovePlaceButton)
+                    }
                 } else {
                     AddPlaceButtonView(didTapAddPlaceButton: viewModel.didTapAddPlaceButton)
                 }
