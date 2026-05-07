@@ -9,9 +9,30 @@
 import SwiftUI
 import MemapPresentation
 
+struct PlaceImagesView: View {
+    let loadingState: MediaPickerModel.LoadingState
+    
+    var body: some View {
+        switch loadingState {
+        case .success(let image):
+            CollectionView(images: [image])
+        case .loading:
+            ProgressView()
+        case .empty:
+            EmptyView()
+        case .failure:
+            Image(systemName: "exclamationmark.triangle.fill")
+                .font(.system(size: 40))
+                .foregroundColor(.white)
+        }
+    }
+}
+
 public struct PlaceDetailView: View {
     
     @Bindable var viewModel: PlaceDetailViewModel
+    
+    @StateObject var mediaPickerViewModel: MediaPickerModel = MediaPickerModel()
     
     var onSuccessRemoved: (PlacePresentationModel) -> Void
     
@@ -29,7 +50,7 @@ public struct PlaceDetailView: View {
                 PlaceNameView(placeName: viewModel.model.name)
                 Spacer()
                 if viewModel.model.isSaved {
-                    MediaPicker()
+                    MediaPicker(viewModel: mediaPickerViewModel)
                     MenuView(didTapDeleteButton: viewModel.didTapRemovePlaceButton)
                 } else {
                     AddPlaceButtonView(didTapAddPlaceButton: viewModel.didTapAddPlaceButton)
@@ -40,10 +61,7 @@ public struct PlaceDetailView: View {
             PlaceAddressView(placeAddress: viewModel.model.address)
                 .padding(.bottom, 6)
             if viewModel.model.isSaved {
-                CollectionView(images: [
-                    UIImage(named: "random", in: Bundle(identifier: "com.vphong.MemapMap"), with: nil)!,
-                    UIImage(named: "swiftui", in: Bundle(identifier: "com.vphong.MemapMap"), with: nil)!,
-                ])
+                PlaceImagesView(loadingState: mediaPickerViewModel.loadingState)
             }
             Spacer()
         }
