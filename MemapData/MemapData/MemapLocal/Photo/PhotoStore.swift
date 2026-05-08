@@ -29,7 +29,7 @@ public protocol PhotoStore {
     ///   - photos: The photos to add
     ///   - url: The place id directory url
     ///   - completion: Result
-    func insert(_ photos: [Photo], toDirectory url: URL, completion: @escaping InsertionCompletion)
+    func insert(_ photos: [LocalPhoto], toDirectory url: URL, completion: @escaping InsertionCompletion)
     
     /// The photos urls to delete
     /// - Parameters:

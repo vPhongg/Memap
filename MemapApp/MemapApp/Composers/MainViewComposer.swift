@@ -18,7 +18,7 @@ final class MainViewComposer {
         let mapViewModel = DefaultMapViewModel(memapLoader: loader)
         let anyMapViewModel = AnyMapViewModel(mapViewModel)
         
-        let placeDetailViewModel = PlaceDetailViewModel(saver: cache, deletor: deletor)
+        let placeDetailViewModel = PlaceDetailViewModel(saver: cache, deletor: deletor, photoSaver: makePhotoPersistentManager())
         let placesListViewModel = DefaultPlacesListViewModel(loader: loader)
         let placesListViewModelWrapper = DefaultPlacesListViewModelWrapper(viewModel: placesListViewModel)
         
@@ -28,5 +28,10 @@ final class MainViewComposer {
             placesListViewModel: placesListViewModelWrapper
         )
         return UIHostingController(rootView: mainView)
+    }
+    
+    private static func makePhotoPersistentManager() -> PhotoPersistentLoader {
+        let photoStore = FileSystemPhotoStore()
+        return PhotoPersistentLoader(store: photoStore)
     }
 }

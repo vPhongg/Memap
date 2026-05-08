@@ -26,3 +26,9 @@ public class PhotoPersistentLoader: PhotoLoadable {
         }
     }
 }
+
+extension PhotoPersistentLoader: PhotoSavable {
+    public func save(_ photos: [LocalPhoto], toDirectory url: URL) async throws {
+        //
+    }
+}

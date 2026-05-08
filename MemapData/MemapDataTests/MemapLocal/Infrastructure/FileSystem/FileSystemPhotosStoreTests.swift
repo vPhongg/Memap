@@ -400,17 +400,17 @@ final class FileSystemPhotosStoreTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func insert(_ photos: [Photo], to sut: FileSystemPhotoStore, at directoryURL: URL) {
+    private func insert(_ photos: [LocalPhoto], to sut: FileSystemPhotoStore, at directoryURL: URL) {
         let insertExpectation = expectation(description: "Waiting for completion to be invoked")
         sut.insert(photos, toDirectory: directoryURL) { _ in insertExpectation.fulfill() }
         wait(for: [insertExpectation], timeout: 1.0)
     }
     
-    private func anyPhoto() -> Photo {
+    private func anyPhoto() -> LocalPhoto {
         let photoName = UUID().uuidString + ".jpg"
         let fakeJpegData = Data([1, 2, 4])
         
-        return Photo(name: photoName, jpegData: fakeJpegData)
+        return LocalPhoto(name: photoName, jpegData: fakeJpegData)
     }
     
     private func makeSUT(

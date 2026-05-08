@@ -14,8 +14,9 @@ public class PlaceDetailViewModel {
     let saver: PlaceSavable
     let deletor: PlaceDeletable
     
-    public var model: PlacePresentationModel = PlacePresentationModel.defaultObject()
+    let photoSaver: PhotoSavable
     
+    public var model: PlacePresentationModel = PlacePresentationModel.defaultObject()
     public var removedPlace: PlacePresentationModel?
     
     public static var addPlaceText: String {
@@ -26,9 +27,14 @@ public class PlaceDetailViewModel {
         return Constant.removePlace.localized
     }
     
-    public init(saver: PlaceSavable, deletor: PlaceDeletable) {
+    public init(
+        saver: PlaceSavable,
+        deletor: PlaceDeletable,
+        photoSaver: PhotoSavable
+    ) {
         self.saver = saver
         self.deletor = deletor
+        self.photoSaver = photoSaver
     }
     
     public func didTapAddPlaceButton() {

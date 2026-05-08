@@ -66,7 +66,7 @@ extension FileSystemPhotoStore {
     public typealias InsertionResult = Swift.Result<Void, Error>
     public typealias InsertionCompletion = (InsertionResult) -> Void
     
-    public func insert(_ photos: [Photo], toDirectory url: URL, completion: @escaping InsertionCompletion) {
+    public func insert(_ photos: [LocalPhoto], toDirectory url: URL, completion: @escaping InsertionCompletion) {
         do {
             try self.createDirectory(for: url)
             for photo in photos {
