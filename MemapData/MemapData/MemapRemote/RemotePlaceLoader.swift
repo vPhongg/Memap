@@ -36,7 +36,7 @@ public final class RemotePlaceLoader {
     
 }
 
-extension RemotePlaceLoader: PlaceLoader {
+extension RemotePlaceLoader: PlaceLoadable {
     public func load() async throws -> [Place] {
         
         switch mode {

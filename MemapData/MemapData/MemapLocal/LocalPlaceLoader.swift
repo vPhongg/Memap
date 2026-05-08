@@ -16,7 +16,7 @@ public final class LocalPlaceLoader {
     }
 }
 
-extension LocalPlaceLoader: PlaceLoader {
+extension LocalPlaceLoader: PlaceLoadable {
     public func load() async throws -> [Place] {
         return try await store.retrieve().toModels()
     }

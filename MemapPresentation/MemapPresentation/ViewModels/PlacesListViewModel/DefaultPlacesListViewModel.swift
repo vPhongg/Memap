@@ -10,7 +10,7 @@ import MemapData
 
 public final class DefaultPlacesListViewModel: PlacesListViewModel {
     
-    private let loader: PlaceLoader
+    private let loader: PlaceLoadable
     
     // MARK: - OUTPUT
     public let isLoading: Observable<Bool> = Observable(false)
@@ -19,7 +19,7 @@ public final class DefaultPlacesListViewModel: PlacesListViewModel {
     public var numberOfPlaces: Observable<String> = Observable(.empty)
     
     public init(
-        loader: PlaceLoader
+        loader: PlaceLoadable
     ) {
         self.loader = loader
     }
