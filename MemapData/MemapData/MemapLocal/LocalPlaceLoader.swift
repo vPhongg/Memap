@@ -22,7 +22,7 @@ extension LocalPlaceLoader: PlaceLoadable {
     }
 }
 
-extension LocalPlaceLoader: PlaceSaver {
+extension LocalPlaceLoader: PlaceSavable {
     public func save(_ place: Place) async throws {
         try await store.insert(place.toLocal())
     }

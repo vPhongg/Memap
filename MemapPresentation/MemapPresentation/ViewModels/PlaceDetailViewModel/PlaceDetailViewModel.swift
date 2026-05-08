@@ -11,7 +11,7 @@ import MemapData
 @Observable
 public class PlaceDetailViewModel {
     
-    let saver: PlaceSaver
+    let saver: PlaceSavable
     let deletor: PlaceDeletable
     
     public var model: PlacePresentationModel = PlacePresentationModel.defaultObject()
@@ -26,7 +26,7 @@ public class PlaceDetailViewModel {
         return Constant.removePlace.localized
     }
     
-    public init(saver: PlaceSaver, deletor: PlaceDeletable) {
+    public init(saver: PlaceSavable, deletor: PlaceDeletable) {
         self.saver = saver
         self.deletor = deletor
     }
