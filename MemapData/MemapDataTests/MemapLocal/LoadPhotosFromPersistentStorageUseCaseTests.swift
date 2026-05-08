@@ -54,7 +54,7 @@ final class LoadPhotosFromPersistentStorageUseCaseTests: XCTestCase {
     
     private func expect(
         _ sut: PhotoPersistentLoader,
-        toCompleteWith expectedResult: PhotoLoader.RetrievalResult,
+        toCompleteWith expectedResult: PhotoLoadable.RetrievalResult,
         when action: () -> Void,
         file: StaticString = #file,
         line: UInt = #line

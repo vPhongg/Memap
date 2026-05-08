@@ -58,7 +58,7 @@ class MediaPickerViewModel: ObservableObject {
             loadTransferable(for: selectedItems)
         }
     }
-    
+        
     // MARK: - Private Methods
     
     private func loadTransferable(for items: [PhotosPickerItem]) {
