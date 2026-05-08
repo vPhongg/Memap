@@ -28,7 +28,7 @@ extension LocalPlaceLoader: PlaceSaver {
     }
 }
 
-extension LocalPlaceLoader: PlaceDeletor {
+extension LocalPlaceLoader: PlaceDeletable {
     public func delete(_ place: Place) async throws {
         try await store.delete(place.toLocal())
     }

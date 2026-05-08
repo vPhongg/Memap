@@ -12,7 +12,7 @@ import MemapData
 public class PlaceDetailViewModel {
     
     let saver: PlaceSaver
-    let deletor: PlaceDeletor
+    let deletor: PlaceDeletable
     
     public var model: PlacePresentationModel = PlacePresentationModel.defaultObject()
     
@@ -26,7 +26,7 @@ public class PlaceDetailViewModel {
         return Constant.removePlace.localized
     }
     
-    public init(saver: PlaceSaver, deletor: PlaceDeletor) {
+    public init(saver: PlaceSaver, deletor: PlaceDeletable) {
         self.saver = saver
         self.deletor = deletor
     }
