@@ -10,7 +10,7 @@ import SwiftUI
 import MemapPresentation
 
 struct PlaceImagesView: View {
-    let loadingState: MediaPickerModel.LoadingState
+    let loadingState: MediaPickerViewModel.LoadingState
     
     var body: some View {
         switch loadingState {
@@ -32,7 +32,7 @@ public struct PlaceDetailView: View {
     
     @Bindable var viewModel: PlaceDetailViewModel
     
-    @StateObject var mediaPickerViewModel: MediaPickerModel = MediaPickerModel()
+    @StateObject var mediaPickerViewModel: MediaPickerViewModel = MediaPickerViewModel()
     
     var onSuccessRemoved: (PlacePresentationModel) -> Void
     

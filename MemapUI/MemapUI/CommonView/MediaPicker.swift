@@ -10,7 +10,7 @@ import PhotosUI
 import Combine
 
 @MainActor
-class MediaPickerModel: ObservableObject {
+class MediaPickerViewModel: ObservableObject {
     
     enum LoadingState {
         case empty
@@ -99,7 +99,7 @@ class MediaPickerModel: ObservableObject {
 }
 
 struct MediaPicker: View {
-    @ObservedObject var viewModel: MediaPickerModel
+    @ObservedObject var viewModel: MediaPickerViewModel
     
     var body: some View {
         PhotosPicker(
