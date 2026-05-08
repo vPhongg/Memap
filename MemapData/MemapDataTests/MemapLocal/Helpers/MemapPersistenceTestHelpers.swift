@@ -21,7 +21,8 @@ func uniquePlace() -> Place {
         note: nil,
         isSaved: true,
         backgroundColor: nil,
-        groupType: .unknown
+        type: .unknown,
+        address: nil
     )
 }
 
