@@ -9,25 +9,6 @@
 import SwiftUI
 import MemapPresentation
 
-struct PlaceImagesView: View {
-    let loadingState: MediaPickerViewModel.LoadingState
-    
-    var body: some View {
-        switch loadingState {
-        case .success(let images):
-            CollectionView(images: images)
-        case .loading:
-            ProgressView()
-        case .empty:
-            EmptyView()
-        case .failure:
-            Image(systemName: "exclamationmark.triangle.fill")
-                .font(.system(size: 40))
-                .foregroundColor(.white)
-        }
-    }
-}
-
 public struct PlaceDetailView: View {
     
     @Bindable var viewModel: PlaceDetailViewModel
