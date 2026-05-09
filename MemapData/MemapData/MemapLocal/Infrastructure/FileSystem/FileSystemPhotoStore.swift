@@ -70,7 +70,7 @@ extension FileSystemPhotoStore {
         do {
             try self.createDirectory(for: url)
             for photo in photos {
-                let fileURL = url.appendingPathComponent(photo.name)
+                let fileURL = url.appendingPathComponent(photo.id)
                 try photo.jpegData.write(to: fileURL)
             }
             completion(.success(()))
