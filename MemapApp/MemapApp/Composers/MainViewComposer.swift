@@ -30,8 +30,8 @@ final class MainViewComposer {
         return UIHostingController(rootView: mainView)
     }
     
-    private static func makePhotoPersistentManager() -> PhotoPersistentLoader {
+    private static func makePhotoPersistentManager() -> PhotoPersistentManager {
         let photoStore = FileSystemPhotoStore()
-        return PhotoPersistentLoader(store: photoStore)
+        return PhotoPersistentManager(store: photoStore)
     }
 }

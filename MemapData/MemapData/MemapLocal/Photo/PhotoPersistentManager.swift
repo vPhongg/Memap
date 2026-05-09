@@ -1,5 +1,5 @@
 //
-//  PhotoPersistentLoader.swift
+//  PhotoPersistentManager.swift
 //  MemapData
 //
 //  Created by Vu Dinh Phong on 02/04/2026.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class PhotoPersistentLoader: PhotoLoadable {
+public class PhotoPersistentManager: PhotoLoadable {
     let store: PhotoStore
     
     public init(store: PhotoStore) {
@@ -27,7 +27,7 @@ public class PhotoPersistentLoader: PhotoLoadable {
     }
 }
 
-extension PhotoPersistentLoader: PhotoSavable {
+extension PhotoPersistentManager: PhotoSavable {
     public func save(_ photos: [LocalPhoto], toDirectory url: URL) async throws {
         //
     }

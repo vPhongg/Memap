@@ -53,7 +53,7 @@ final class LoadPhotosFromPersistentStorageUseCaseTests: XCTestCase {
     // MARK: - Helpers
     
     private func expect(
-        _ sut: PhotoPersistentLoader,
+        _ sut: PhotoPersistentManager,
         toCompleteWith expectedResult: PhotoLoadable.RetrievalResult,
         when action: () -> Void,
         file: StaticString = #file,
@@ -93,9 +93,9 @@ final class LoadPhotosFromPersistentStorageUseCaseTests: XCTestCase {
     private func makeSUT(
         file: StaticString = #filePath,
         line: UInt = #line
-    ) -> (sut: PhotoPersistentLoader, store: PhotosStoreSpy) {
+    ) -> (sut: PhotoPersistentManager, store: PhotosStoreSpy) {
         let store = PhotosStoreSpy()
-        let sut = PhotoPersistentLoader(store: store)
+        let sut = PhotoPersistentManager(store: store)
         trackForMemoryLeaks(sut, file: file, line: line)
         trackForMemoryLeaks(store, file: file, line: line)
         return (sut, store)
