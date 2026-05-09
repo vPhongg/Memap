@@ -11,8 +11,8 @@ import MemapData
 @Observable
 public class PlaceDetailViewModel {
     
-    let saver: PlaceSavable
-    let deletor: PlaceDeletable
+    let placeSaver: PlaceSavable
+    let placeDeletor: PlaceDeletable
     
     let photoSaver: PhotoSavable
     
@@ -32,8 +32,8 @@ public class PlaceDetailViewModel {
         deletor: PlaceDeletable,
         photoSaver: PhotoSavable
     ) {
-        self.saver = saver
-        self.deletor = deletor
+        self.placeSaver = saver
+        self.placeDeletor = deletor
         self.photoSaver = photoSaver
     }
     
@@ -46,13 +46,13 @@ public class PlaceDetailViewModel {
     
     public func didTapRemovePlaceButton() {
         Task {
-            try await deletor.delete(model.toPresentationModel())
+            try await placeDeletor.delete(model.toPresentationModel())
             removedPlace = model
         }
     }
     
     private func save(_ place: Place) async throws -> Void {
-        try await saver.save(place)
+        try await placeSaver.save(place)
     }
     
 }
