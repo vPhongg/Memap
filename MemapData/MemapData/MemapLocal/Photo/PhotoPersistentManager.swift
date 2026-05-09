@@ -28,7 +28,25 @@ public class PhotoPersistentManager: PhotoLoadable {
 }
 
 extension PhotoPersistentManager: PhotoSavable {
-    public func save(_ photos: [LocalPhoto], toDirectory url: URL) async throws {
-        //
+    public func save(_ photos: [Photo], toDirectory url: URL) async throws {
+        typealias LoadContinuation = CheckedContinuation<Void, Swift.Error>
+        try await withCheckedThrowingContinuation { (continuation: LoadContinuation) in
+            store.insert(photos.toLocalPhotos(), toDirectory: url) { result in
+                switch result {
+                case .success():
+                    continuation.resume()
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+}
+
+extension Array where Element == Photo {
+    func toLocalPhotos() ->  [LocalPhoto] {
+        self.map { item in
+            LocalPhoto(name: item.id, jpegData: item.jpegData)
+        }
     }
 }
