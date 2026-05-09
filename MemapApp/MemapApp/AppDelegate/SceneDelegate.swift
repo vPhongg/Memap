@@ -33,10 +33,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
     }
     
-    private func makeLocalPlaceLoader() -> LocalPlaceLoader {
+    private func makeLocalPlaceLoader() -> LocalPlaceManager {
         let localStoreURL = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("memap-store.sqlite")
         let store = try! CoreDataMemapStore(storeURL: localStoreURL)
-        return LocalPlaceLoader(store: store)
+        return LocalPlaceManager(store: store)
     }
     
     private func makeRemotePlaceLoader() -> RemotePlaceLoader {

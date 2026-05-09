@@ -1,5 +1,5 @@
 //
-//  LocalPlaceLoader.swift
+//  LocalPlaceManager.swift
 //  LocalMemapLoader
 //
 //  Created by Vu Dinh Phong on 25/02/2026.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class LocalPlaceLoader {
+public final class LocalPlaceManager {
     private let store: PlaceStore
     
     public init(store: PlaceStore) {
@@ -16,19 +16,19 @@ public final class LocalPlaceLoader {
     }
 }
 
-extension LocalPlaceLoader: PlaceLoadable {
+extension LocalPlaceManager: PlaceLoadable {
     public func load() async throws -> [Place] {
         return try await store.retrieve().toModels()
     }
 }
 
-extension LocalPlaceLoader: PlaceSavable {
+extension LocalPlaceManager: PlaceSavable {
     public func save(_ place: Place) async throws {
         try await store.insert(place.toLocal())
     }
 }
 
-extension LocalPlaceLoader: PlaceDeletable {
+extension LocalPlaceManager: PlaceDeletable {
     public func delete(_ place: Place) async throws {
         try await store.delete(place.toLocal())
     }

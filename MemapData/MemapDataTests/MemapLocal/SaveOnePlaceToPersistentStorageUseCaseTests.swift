@@ -40,9 +40,9 @@ final class SaveOnePlaceToPersistentStorageUseCaseTests: XCTestCase {
     
     // MARK: Helpers
     
-    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalPlaceLoader, store: MemapStoreSpy) {
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalPlaceManager, store: MemapStoreSpy) {
         let store = MemapStoreSpy()
-        let sut = LocalPlaceLoader(store: store)
+        let sut = LocalPlaceManager(store: store)
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, store)
