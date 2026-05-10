@@ -107,7 +107,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         let directoryURL = testSpecificPlaceResourcesDirectoryURL()
         
         let insertExpectation = expectation(description: "Waiting for completion to be invoked")
-        sut.insert([anyPhoto()], toDirectory: directoryURL) { result in
+        sut.insert([anyPhoto()], placeID: anyPlaceID()) { result in
             switch result {
             case .success():
                 break
@@ -125,7 +125,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         let photos = [anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto(), anyPhoto()]
         
         let insertExpectation = expectation(description: "Waiting for completion to be invoked")
-        sut.insert(photos, toDirectory: directoryURL) { result in
+        sut.insert(photos, placeID: anyPlaceID()) { result in
             switch result {
             case .success():
                 break
@@ -147,7 +147,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         
         insert([photo], to: sut, at: directoryURL)
         
-        let filePathToDetele = directoryURL.appendingPathComponent(photo.id)
+        let filePathToDetele = directoryURL.appendingPathComponent(photo.name)
         
         let expectation = expectation(description: "Waiting for completion to be invoked")
         sut.delete([filePathToDetele]) { result in
@@ -169,7 +169,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         
         insert([photo], to: sut, at: directoryURL)
         
-        let filePathToDetele = directoryURL.appendingPathComponent(photo.id)
+        let filePathToDetele = directoryURL.appendingPathComponent(photo.name)
         
         let expectation = expectation(description: "Waiting for completion to be invoked")
         sut.delete([filePathToDetele]) { result in
@@ -247,7 +247,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
     func test_move_deliverNoErrorMoveFileToAnyDestination() {
         let sut = makeSUT()
         let photo = anyPhoto()
-        let photoURL = testSpecificPlaceResourcesDirectoryURL().appendingPathComponent(photo.id)
+        let photoURL = testSpecificPlaceResourcesDirectoryURL().appendingPathComponent(photo.name)
         let photos = [anyPhoto(), anyPhoto(), photo, anyPhoto(), anyPhoto()]
         let url = testSpecificPlaceResourcesDirectoryURL()
         let dstDirectory = testAnyDestDirectoryURL()
@@ -269,7 +269,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         let retrieveExpectation = expectation(description: "Waiting for completion to be invoked")
         sut.retrieve(from: dstDirectory) { result in
             if case .success(let receivedURLs) = result {
-                let expectedDestURL = dstDirectory.appendingPathComponent(photo.id)
+                let expectedDestURL = dstDirectory.appendingPathComponent(photo.name)
                 XCTAssertTrue(receivedURLs.contains(expectedDestURL))
             }
             retrieveExpectation.fulfill()
@@ -280,7 +280,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
     func test_move_deliverErrorOnMoveItemError() {
         let sut = makeSUT(fileManager: MockFileManager())
         let photo = anyPhoto()
-        let photoURL = testSpecificPlaceResourcesDirectoryURL().appendingPathComponent(photo.id)
+        let photoURL = testSpecificPlaceResourcesDirectoryURL().appendingPathComponent(photo.name)
         let photos = [anyPhoto(), anyPhoto(), photo, anyPhoto(), anyPhoto()]
         let url = testSpecificPlaceResourcesDirectoryURL()
         let dstDirectory = testAnyDestDirectoryURL()
@@ -303,7 +303,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
     func test_moveToTrash_deliverNoErrorMoveOneFile() {
         let sut = makeSUT()
         let photo = anyPhoto()
-        let photoURL = testSpecificPlaceResourcesDirectoryURL().appendingPathComponent(photo.id)
+        let photoURL = testSpecificPlaceResourcesDirectoryURL().appendingPathComponent(photo.name)
         let photos = [anyPhoto(), anyPhoto(), anyPhoto(), photo, anyPhoto()]
         let url = testSpecificPlaceResourcesDirectoryURL()
         
@@ -326,8 +326,8 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         let sut = makeSUT()
         let photo1 = anyPhoto()
         let photo2 = anyPhoto()
-        let photo1URL = testSpecificPlaceResourcesDirectoryURL().appendingPathComponent(photo1.id)
-        let photo2URL = testSpecificPlaceResourcesDirectoryURL().appendingPathComponent(photo2.id)
+        let photo1URL = testSpecificPlaceResourcesDirectoryURL().appendingPathComponent(photo1.name)
+        let photo2URL = testSpecificPlaceResourcesDirectoryURL().appendingPathComponent(photo2.name)
         let photos = [photo2, anyPhoto(), anyPhoto(), photo1, anyPhoto()]
         let url = testSpecificPlaceResourcesDirectoryURL()
         
@@ -402,7 +402,7 @@ final class FileSystemPhotosStoreTests: XCTestCase {
     
     private func insert(_ photos: [LocalPhoto], to sut: FileSystemPhotoStore, at directoryURL: URL) {
         let insertExpectation = expectation(description: "Waiting for completion to be invoked")
-        sut.insert(photos, toDirectory: directoryURL) { _ in insertExpectation.fulfill() }
+        sut.insert(photos, placeID: anyPlaceID()) { _ in insertExpectation.fulfill() }
         wait(for: [insertExpectation], timeout: 1.0)
     }
     
@@ -427,7 +427,11 @@ final class FileSystemPhotosStoreTests: XCTestCase {
         return documentDirectory()
             .appendingPathComponent("Memap")
             .appendingPathComponent("resources")
-            .appendingPathComponent("a_place_id")
+            .appendingPathComponent(anyPlaceID())
+    }
+    
+    private func anyPlaceID() -> String {
+        "a_place_id"
     }
     
     private func testAnyDestDirectoryURL() -> URL {

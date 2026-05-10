@@ -13,7 +13,7 @@ struct PlaceImagesView: View {
     var body: some View {
         switch loadingState {
         case .success(let images):
-            CollectionView(images: images)
+            CollectionView(images: images.compactMap { UIImage(data: $0.imageData) })
         case .loading:
             ProgressView()
         case .empty:

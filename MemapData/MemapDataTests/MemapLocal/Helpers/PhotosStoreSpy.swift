@@ -31,7 +31,7 @@ class PhotosStoreSpy: PhotoStore {
         retrievalCompletions[index](.success(urls))
     }
     
-    func insert(_ photos: [MemapData.LocalPhoto], toDirectory url: URL, completion: @escaping InsertionCompletion) {
+    func insert(_ photos: [MemapData.LocalPhoto], placeID: String, completion: @escaping InsertionCompletion) {
         //
     }
     

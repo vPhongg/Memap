@@ -8,11 +8,11 @@
 import Foundation
 
 public struct LocalPhoto {
-    public let id: String
+    public let name: String
     public let jpegData: Data
     
     public init(name: String, jpegData: Data) {
-        self.id = name
+        self.name = name
         self.jpegData = jpegData
     }
 }

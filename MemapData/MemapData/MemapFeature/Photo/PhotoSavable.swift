@@ -8,5 +8,5 @@
 import Foundation
 
 public protocol PhotoSavable {
-    func save(_ photos: [Photo], toDirectory url: URL) async throws
+    func save(_ photos: [Photo], placeID: String) async throws
 }

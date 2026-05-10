@@ -23,6 +23,7 @@ public class FileSystemPhotoStore: PhotoStore {
         case documentDirectoryNotFound
         case failedToRemoveItem
         case failedToMoveItem
+        case invalidPhotoID
     }
     
     let fileManager: FileManagerProtocol
@@ -41,6 +42,12 @@ public class FileSystemPhotoStore: PhotoStore {
         } else {
             throw PhotoStoreError.documentDirectoryNotFound
         }
+    }
+    
+    private func placeResourcesDirectoryURL() throws -> URL {
+        return try documentDirectory()
+            .appendingPathComponent("Memap")
+            .appendingPathComponent("resources")
     }
 }
 
@@ -66,11 +73,16 @@ extension FileSystemPhotoStore {
     public typealias InsertionResult = Swift.Result<Void, Error>
     public typealias InsertionCompletion = (InsertionResult) -> Void
     
-    public func insert(_ photos: [LocalPhoto], toDirectory url: URL, completion: @escaping InsertionCompletion) {
+    public func insert(_ photos: [LocalPhoto], placeID: String, completion: @escaping InsertionCompletion) {
         do {
+            let url = try placeResourcesDirectoryURL().appendingPathComponent(placeID)
+            
             try self.createDirectory(for: url)
             for photo in photos {
-                let fileURL = url.appendingPathComponent(photo.id)
+                guard !photo.name.contains("/") else {
+                    return completion(.failure(PhotoStoreError.invalidPhotoID))
+                }
+                let fileURL = url.appendingPathComponent(photo.name)
                 try photo.jpegData.write(to: fileURL)
             }
             completion(.success(()))

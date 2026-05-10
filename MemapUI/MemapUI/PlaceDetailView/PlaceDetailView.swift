@@ -71,5 +71,20 @@ public struct PlaceDetailView: View {
                 viewModel.removedPlace = nil
             }
         }
+        .onChange(of: mediaPickerViewModel.loadingState) { _, newState in
+            if case .success(let images) = newState {
+                viewModel.save(images.toPresentationModels(), placeID: viewModel.model.id)
+            }
+        }
+    }
+}
+
+extension Array where Element == PickerImage {
+    func toPresentationModels() -> [ImagePresentationModel] {
+        self.map { ImagePresentationModel(name: mapImageName(id: $0.id), jpegData: $0.imageData) }
+    }
+    
+    private func mapImageName(id: String) -> String {
+        id + ".jpg"
     }
 }

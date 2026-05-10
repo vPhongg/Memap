@@ -9,36 +9,40 @@ import SwiftUI
 import PhotosUI
 import Combine
 
+public struct PickerImage: Equatable {
+    public let id: String
+    public let imageData: Data
+    
+    public init(id: String, imageData: Data) {
+        self.id = id
+        self.imageData = imageData
+    }
+}
+
 @MainActor
 class MediaPickerViewModel: ObservableObject {
     
-    enum LoadingState {
+    enum LoadingState: Equatable {
         case empty
         case loading
-        case success([UIImage])
-        case failure(Error)
+        case success([PickerImage])
+        case failure(TransferError)
     }
     
-    enum TransferError: Error {
+    enum TransferError: Error, Equatable {
         case importFailed
+        case failedTaskGroup
     }
     
-    struct PlaceImage: Transferable {
-        let image: UIImage
+    private struct LocalImage: Transferable {
+        let imageData: Data
         
         static var transferRepresentation: some TransferRepresentation {
             DataRepresentation(importedContentType: .image) { data in
 #if canImport(AppKit)
-                guard let nsImage = NSImage(data: data) else {
-                    throw TransferError.importFailed
-                }
-                let image = Image(nsImage: nsImage)
-                return ProfileImage(image: image)
+                return PlaceImage(imageData: data)
 #elseif canImport(UIKit)
-                guard let uiImage = UIImage(data: data) else {
-                    throw TransferError.importFailed
-                }
-                return PlaceImage(image: uiImage)
+                return LocalImage(imageData: data)
 #else
                 throw TransferError.importFailed
 #endif
@@ -62,7 +66,7 @@ class MediaPickerViewModel: ObservableObject {
     // MARK: - Private Methods
     
     private func loadTransferable(for items: [PhotosPickerItem]) {
-        typealias Result = (index: Int, image: PlaceImage?)
+        typealias Result = (index: Int, image: PickerImage?)
         
         Task {
             do {
@@ -71,16 +75,18 @@ class MediaPickerViewModel: ObservableObject {
                 ) { group in
                     for (index, item) in items.enumerated() {
                         group.addTask {
-                            let image = try await item.loadTransferable(type: PlaceImage.self)
-                            return (index, image)
+                            let image = try await item.loadTransferable(type: LocalImage.self)
+                            if let image, let imageID = item.itemIdentifier {
+                                let pickerImage = PickerImage(id: createImageID(id: imageID), imageData: image.imageData)
+                                return (index, pickerImage)
+                            }
+                            return (index, nil)
                         }
                     }
                     
-                    var result: [Int: PlaceImage] = [:]
+                    var result: [Int: PickerImage] = [:]
                     for try await (index, image) in group {
-                        if let image {
-                            result[index] = image
-                        }
+                        result[index] = image
                     }
                     return items.indices.compactMap { result[$0] }
                 }
@@ -88,11 +94,15 @@ class MediaPickerViewModel: ObservableObject {
                 if images.isEmpty {
                     self.loadingState = .empty
                 } else {
-                    self.loadingState = .success(images.map(\.image))
+                    self.loadingState = .success(images)
                 }
             } catch {
-                self.loadingState = .failure(error)
+                self.loadingState = .failure(.failedTaskGroup)
             }
+        }
+        
+        nonisolated func createImageID(id: String) -> String {
+            return id.replacingOccurrences(of: "/", with: "-")
         }
     }
     
