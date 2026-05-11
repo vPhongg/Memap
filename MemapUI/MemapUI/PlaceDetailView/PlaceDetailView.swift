@@ -9,21 +9,6 @@
 import SwiftUI
 import MemapPresentation
 
-struct TextEditingView: View {
-    @State private var fullText: String = ""
-    
-    
-    var body: some View {
-        TextEditor(text: $fullText)
-            .scrollContentBackground(.hidden)
-            .scrollIndicators(.hidden)
-            .background(Color.clear)
-            .foregroundColor(Color.gray)
-            .font(.custom("HelveticaNeue", size: 16))
-            .lineSpacing(5)
-    }
-}
-
 public struct PlaceDetailView: View {
     
     @Bindable var viewModel: PlaceDetailViewModel
@@ -61,7 +46,7 @@ public struct PlaceDetailView: View {
             if viewModel.model.isSaved {
                 PlaceImagesView(loadingState: mediaPickerViewModel.loadingState)
             }
-            TextEditingView()
+            PlaceNoteView()
             Spacer()
         }
         .padding()
