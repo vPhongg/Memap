@@ -1,5 +1,5 @@
 //
-//  TextEditingView.swift
+//  PlaceNoteView.swift
 //  MemapUI
 //
 //  Created by Vu Dinh Phong on 11/05/2026.

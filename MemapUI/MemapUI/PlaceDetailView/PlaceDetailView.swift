@@ -63,13 +63,3 @@ public struct PlaceDetailView: View {
         }
     }
 }
-
-extension Array where Element == PickerImage {
-    func toPresentationModels() -> [ImagePresentationModel] {
-        self.map { ImagePresentationModel(name: mapImageName(id: $0.id), jpegData: $0.imageData) }
-    }
-    
-    private func mapImageName(id: String) -> String {
-        id + ".jpg"
-    }
-}
