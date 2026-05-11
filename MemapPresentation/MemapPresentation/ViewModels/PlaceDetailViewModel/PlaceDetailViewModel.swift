@@ -8,16 +8,6 @@
 import Foundation
 import MemapData
 
-public struct ImagePresentationModel {
-    public let name: String
-    public let jpegData: Data
-    
-    public init(name: String, jpegData: Data) {
-        self.name = name
-        self.jpegData = jpegData
-    }
-}
-
 @Observable
 public class PlaceDetailViewModel {
     
@@ -72,10 +62,4 @@ public class PlaceDetailViewModel {
         try await placeSaver.save(place)
     }
     
-}
-
-extension Array where Element == ImagePresentationModel {
-    func toPhotos() -> [Photo] {
-        self.map { Photo(name: $0.name, jpegData: $0.jpegData) }
-    }
 }
