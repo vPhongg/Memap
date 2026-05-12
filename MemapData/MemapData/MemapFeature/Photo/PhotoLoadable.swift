@@ -11,5 +11,5 @@ public protocol PhotoLoadable {
     typealias RetrievalResult = (Result<[URL], Error>)
     typealias RetrievalCompletion = (RetrievalResult) -> Void
     
-    func load(from path: URL, completion: @escaping RetrievalCompletion)
+    func loadImages(for placeID: String, completion: @escaping RetrievalCompletion)
 }

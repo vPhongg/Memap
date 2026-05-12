@@ -6,14 +6,15 @@
 //
 
 import SwiftUI
+import MemapPresentation
 
 struct PlaceImagesView: View {
-    let loadingState: MediaPickerViewModel.LoadingState
+    let imageState: ImageState
     
     var body: some View {
-        switch loadingState {
+        switch imageState {
         case .success(let images):
-            CollectionView(images: images.compactMap { UIImage(data: $0.imageData) })
+            CollectionView(images: images)
         case .loading:
             ProgressView()
         case .empty:

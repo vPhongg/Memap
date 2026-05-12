@@ -18,7 +18,13 @@ final class MainViewComposer {
         let mapViewModel = DefaultMapViewModel(memapLoader: loader)
         let anyMapViewModel = AnyMapViewModel(mapViewModel)
         
-        let placeDetailViewModel = PlaceDetailViewModel(saver: cache, deletor: deletor, photoSaver: makePhotoPersistentManager())
+        let photoManager = makePhotoPersistentManager()
+        
+        let placeDetailViewModel = PlaceDetailViewModel(
+            saver: cache, deletor: deletor,
+            photoSaver: photoManager,
+            photoLoader: photoManager
+        )
         let placesListViewModel = DefaultPlacesListViewModel(loader: loader)
         let placesListViewModelWrapper = DefaultPlacesListViewModelWrapper(viewModel: placesListViewModel)
         

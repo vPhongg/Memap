@@ -14,6 +14,9 @@ struct PlaceAddressView: View {
         HStack(alignment: .center) {
             Text(placeAddress)
         }
+        .lineLimit(nil)
+        .multilineTextAlignment(.leading)
+        .fixedSize(horizontal: false, vertical: true)
         .foregroundColor(.secondary)
         .font(.subheadline)
     }

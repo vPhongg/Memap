@@ -44,7 +44,7 @@ public struct PlaceDetailView: View {
             PlaceAddressView(placeAddress: viewModel.model.address)
                 .padding(.bottom, 6)
             if viewModel.model.isSaved {
-                PlaceImagesView(loadingState: mediaPickerViewModel.loadingState)
+                PlaceImagesView(imageState: viewModel.imageState)
             }
             PlaceNoteView()
             Spacer()
@@ -58,8 +58,13 @@ public struct PlaceDetailView: View {
         }
         .onChange(of: mediaPickerViewModel.loadingState) { _, newState in
             if case .success(let images) = newState {
-                viewModel.save(images.toPresentationModels(), placeID: viewModel.model.id)
+                let images = images.toPresentationModels()
+                viewModel.updateImageState(with: images)
+                viewModel.save(images, placeID: viewModel.model.id)
             }
+        }
+        .task {
+            viewModel.loadImages()
         }
     }
 }

@@ -19,7 +19,7 @@ final class LoadPhotosFromPersistentStorageUseCaseTests: XCTestCase {
     func test_load_requestsPhotosRetrieval() {
         let (sut, store) = makeSUT()
         
-        sut.load(from: anyPhotosURL()) { _ in }
+        sut.loadImages(for: anyPlaceID()) { _ in }
         
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
@@ -61,7 +61,7 @@ final class LoadPhotosFromPersistentStorageUseCaseTests: XCTestCase {
     ) {
         let expectation = expectation(description: "Waiting for completion to be invoke")
         
-        sut.load(from: anyPhotosURL()) { receivedResult in
+        sut.loadImages(for: anyPlaceID()) { receivedResult in
             
             switch (receivedResult, expectedResult) {
             case(.success(let receivedURLs), .success(let expectedURLs)):
@@ -80,6 +80,10 @@ final class LoadPhotosFromPersistentStorageUseCaseTests: XCTestCase {
         action()
         
         wait(for: [expectation], timeout: 1.0)
+    }
+    
+    private func anyPlaceID() -> String {
+        "a_place_id"
     }
     
     private func anyPhotosURL() -> URL {
