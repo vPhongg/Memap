@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// A model that represents data for MapView
+/// A model that represents data for MapView (View layer)
 public struct PlacePresentationModel: Identifiable, Equatable {
     public let id: String
     public var name: String
