@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import MemapData
 
 /// A model that represents data for MapView
 public struct PlacePresentationModel: Identifiable, Equatable {

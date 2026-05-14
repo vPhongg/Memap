@@ -5,8 +5,6 @@
 //  Created by Vu Dinh Phong on 19/04/2026.
 //
 
-import MemapData
-
 public enum PlaceTypePresentationModel: String, CaseIterable {
     // Default groups
     case workStudy = "workStudy"
