@@ -97,7 +97,6 @@ extension Array where Element == RemotePlaceResponse {
                 latitude: $0.latitude,
                 longitude: $0.longitude,
                 savedTimestamp: $0.savedTimestamp.toDate() ?? Date(),
-                imagesPath: $0.imagesPath,
                 videosPath: $0.videosPath,
                 note: $0.note,
                 isSaved: true, // `Place` is confirmed saved since it is loaded from remote.

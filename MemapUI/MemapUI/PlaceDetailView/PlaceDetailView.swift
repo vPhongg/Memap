@@ -44,7 +44,7 @@ public struct PlaceDetailView: View {
             PlaceAddressView(placeAddress: viewModel.model.address)
                 .padding(.bottom, 6)
             if viewModel.model.isSaved {
-                PlaceImagesView(imageState: viewModel.imageState)
+                PlaceImagesView(imageState: viewModel.model.imageState)
             }
             PlaceNoteView()
             Spacer()
@@ -62,6 +62,9 @@ public struct PlaceDetailView: View {
                 viewModel.updateImageState(with: images)
                 viewModel.save(images, placeID: viewModel.model.id)
             }
+        }
+        .onChange(of: viewModel.model) { _, selectedPlace in            
+            viewModel.loadImages()
         }
         .task {
             viewModel.loadImages()

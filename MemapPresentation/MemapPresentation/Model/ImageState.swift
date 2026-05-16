@@ -7,10 +7,14 @@
 
 import UIKit
 
+public enum ImageStateError: Error {
+    case loadImagesFailed
+}
+
 @frozen
-public enum ImageState {
+public enum ImageState: Equatable {
     case empty
     case loading
     case success([UIImage])
-    case failure(Error)
+    case failure(ImageStateError)
 }

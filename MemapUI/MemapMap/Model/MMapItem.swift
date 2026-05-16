@@ -19,7 +19,6 @@ public struct MMapItem: Hashable {
     public let latitude: Double
     public let longitude: Double
     public let createdTimestamp: Date?
-    public let imagesPath: String?
     public let videosPath: String?
     public let note: String?
     public let isSaved: Bool
@@ -33,7 +32,6 @@ public struct MMapItem: Hashable {
         latitude: Double,
         longitude: Double,
         createdTimestamp: Date?,
-        imagesPath: String?,
         videosPath: String?,
         note: String?,
         isSaved: Bool,
@@ -46,7 +44,6 @@ public struct MMapItem: Hashable {
         self.latitude = latitude
         self.longitude = longitude
         self.createdTimestamp = createdTimestamp
-        self.imagesPath = imagesPath
         self.videosPath = videosPath
         self.note = note
         self.isSaved = isSaved
@@ -73,7 +70,6 @@ extension MMapItem {
             latitude: self.latitude,
             longitude: self.longitude,
             createdTimestamp: self.createdTimestamp,
-            imagesPath: self.imagesPath,
             videosPath: self.videosPath,
             note: self.note,
             isSaved: self.isSaved,
@@ -99,7 +95,6 @@ extension MMapItem {
             latitude: annotation.coordinate.latitude,
             longitude: annotation.coordinate.longitude,
             createdTimestamp: nil,
-            imagesPath: nil,
             videosPath: nil,
             note: nil,
             isSaved: false,
@@ -116,7 +111,6 @@ extension MMapItem {
             latitude: annotation.coordinate.latitude,
             longitude: annotation.coordinate.longitude,
             createdTimestamp: annotation.createdTimestamp,
-            imagesPath: annotation.imagesPath,
             videosPath: annotation.videosPath,
             note: annotation.note,
             isSaved: annotation.isSaved,

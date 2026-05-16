@@ -13,7 +13,6 @@ public struct LocalPlace: Equatable {
     public let latitude: Double
     public let longitude: Double
     public let savedTimestamp: Date
-    public let imagesPath: String?
     public let videosPath: String?
     public let note: String?
     public let backgroundColor: String?
@@ -26,7 +25,6 @@ public struct LocalPlace: Equatable {
         latitude: Double,
         longitude: Double,
         savedTimestamp: Date,
-        imagesPath: String?,
         videosPath: String?,
         note: String?,
         backgroundColor: String?,
@@ -37,7 +35,6 @@ public struct LocalPlace: Equatable {
         self.name = name
         self.latitude = latitude
         self.longitude = longitude
-        self.imagesPath = imagesPath
         self.videosPath = videosPath
         self.savedTimestamp = savedTimestamp
         self.note = note
@@ -55,7 +52,6 @@ public extension LocalPlace {
             latitude: latitude,
             longitude: longitude,
             savedTimestamp: savedTimestamp,
-            imagesPath: imagesPath,
             videosPath: videosPath,
             note: note,
             isSaved: true, // Fix true because `LocalPlace` represent items from `Persistence Storage`, which means it surely saved to `Persistence Storage` previously.

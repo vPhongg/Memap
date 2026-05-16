@@ -15,7 +15,6 @@ class ManagedPlace: NSManagedObject {
     @NSManaged var latitude: NSNumber
     @NSManaged var longitude: NSNumber
     @NSManaged var savedTimestamp: Date
-    @NSManaged var imagesPath: String?
     @NSManaged var videosPath: String?
     @NSManaged var note: String?
     @NSManaged var backgroundColor: String?
@@ -37,7 +36,6 @@ extension ManagedPlace {
             latitude: latitude.doubleValue,
             longitude: longitude.doubleValue,
             savedTimestamp: savedTimestamp,
-            imagesPath: imagesPath,
             videosPath: videosPath,
             note: note,
             backgroundColor: backgroundColor,
@@ -70,7 +68,6 @@ extension ManagedPlace {
         managedPlace.latitude = place.latitude.toNSNumber
         managedPlace.longitude = place.longitude.toNSNumber
         managedPlace.savedTimestamp = place.savedTimestamp
-        managedPlace.imagesPath = place.imagesPath
         managedPlace.videosPath = place.videosPath
         managedPlace.note = place.note
         managedPlace.backgroundColor = place.backgroundColor

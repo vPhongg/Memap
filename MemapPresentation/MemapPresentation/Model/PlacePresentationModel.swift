@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// A model that represents data for MapView (View layer)
 public struct PlacePresentationModel: Identifiable, Equatable {
@@ -14,7 +15,7 @@ public struct PlacePresentationModel: Identifiable, Equatable {
     public let latitude: Double
     public let longitude: Double
     public let savedTimestamp: Date?
-    public let imagesPath: String?
+    public var imageState: ImageState
     public let videosPath: String?
     public let note: String?
     public var isSaved: Bool
@@ -28,7 +29,7 @@ public struct PlacePresentationModel: Identifiable, Equatable {
         latitude: Double,
         longitude: Double,
         savedTimestamp: Date?,
-        imagesPath: String?,
+        imageState: ImageState,
         videosPath: String?,
         note: String?,
         isSaved: Bool,
@@ -41,7 +42,7 @@ public struct PlacePresentationModel: Identifiable, Equatable {
         self.latitude = latitude
         self.longitude = longitude
         self.savedTimestamp = savedTimestamp
-        self.imagesPath = imagesPath
+        self.imageState = imageState
         self.videosPath = videosPath
         self.note = note
         self.isSaved = isSaved
@@ -51,6 +52,6 @@ public struct PlacePresentationModel: Identifiable, Equatable {
     }
     
     public static func defaultObject() -> PlacePresentationModel {
-        PlacePresentationModel(id: UUID().uuidString, name: "This is any place name", latitude: 0, longitude: 0, savedTimestamp: Date(), imagesPath: nil, videosPath: nil, note: nil, isSaved: false, backgroundColor: nil, type: .unknown, address: Constant.unknownAddress.localized)
+        PlacePresentationModel(id: UUID().uuidString, name: "This is any place name", latitude: 0, longitude: 0, savedTimestamp: Date(), imageState: .empty, videosPath: nil, note: nil, isSaved: false, backgroundColor: nil, type: .unknown, address: Constant.unknownAddress.localized)
     }
 }

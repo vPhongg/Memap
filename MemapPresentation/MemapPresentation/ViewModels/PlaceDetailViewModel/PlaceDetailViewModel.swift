@@ -21,9 +21,6 @@ public class PlaceDetailViewModel {
     public var model: PlacePresentationModel = PlacePresentationModel.defaultObject()
     public var removedPlace: PlacePresentationModel?
     
-    // MARK: - States for Photos
-    public var imageState: ImageState = .empty
-    
     public static var addPlaceText: String {
         return Constant.addPlace.localized
     }
@@ -70,7 +67,7 @@ public class PlaceDetailViewModel {
     }
     
     public func loadImages() {
-        self.imageState = .loading
+        self.model.imageState = .loading
         DispatchQueue.global().asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let self else { return }
             
@@ -79,10 +76,11 @@ public class PlaceDetailViewModel {
                 
                 switch result {
                 case .success(let urls):
-                    self.imageState = .success(urls.compactMap { UIImage(contentsOfFile: $0.path()) })
+                    let images = urls.compactMap { UIImage(contentsOfFile: $0.path()) }
+                    self.model.imageState = .success(images)
                     
-                case .failure(let error):
-                    self.imageState = .failure(error)
+                case .failure:
+                    self.model.imageState = .failure(.loadImagesFailed)
                 }
             }
         }
@@ -91,7 +89,7 @@ public class PlaceDetailViewModel {
     public func updateImageState(with images: [ImagePresentationModel]) {
         DispatchQueue.global().async {
             let images = images.compactMap { UIImage(data: $0.jpegData) }
-            self.imageState = .success(images)
+            self.model.imageState = .success(images)
         }
     }
     

@@ -14,7 +14,6 @@ public struct Place: Equatable {
     public let latitude: Double
     public let longitude: Double
     public let savedTimestamp: Date
-    public let imagesPath: String?
     public let videosPath: String?
     public let note: String?
     public let isSaved: Bool
@@ -28,7 +27,6 @@ public struct Place: Equatable {
         latitude: Double,
         longitude: Double,
         savedTimestamp: Date,
-        imagesPath: String?,
         videosPath: String?,
         note: String?,
         isSaved: Bool,
@@ -41,7 +39,6 @@ public struct Place: Equatable {
         self.latitude = latitude
         self.longitude = longitude
         self.savedTimestamp = savedTimestamp
-        self.imagesPath = imagesPath
         self.videosPath = videosPath
         self.note = note
         self.isSaved = isSaved
@@ -59,7 +56,6 @@ public extension Place {
             latitude: latitude,
             longitude: longitude,
             savedTimestamp: savedTimestamp,
-            imagesPath: imagesPath,
             videosPath: videosPath,
             note: note,
             backgroundColor: backgroundColor,
